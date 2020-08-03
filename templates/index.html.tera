@@ -1,5 +1,9 @@
 {% extends "layout" %}
 
 {% block content %}
-<h2>index</h2>
+<form action="/question" method="post">
+    <p><input type="text" name="email"></p>
+    <p><textarea rows="10" cols="45" name="question"></textarea></p>
+    <p><input type="submit" value="ask"></p>
+</form>
 {% endblock content %}

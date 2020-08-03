@@ -6,9 +6,19 @@ extern crate rocket;
 #[macro_use]
 extern crate serde_derive;
 
+mod lib;
+
+use lib::ask;
+use rocket::request::Form;
 use rocket::response::Redirect;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
+
+#[derive(FromForm)]
+struct Question {
+    email: String,
+    question: String,
+}
 
 #[derive(Serialize)]
 pub struct NoContext {}
@@ -18,10 +28,15 @@ fn index() -> Template {
     Template::render("index", NoContext {})
 }
 
-#[post("/question")]
-fn question() -> Redirect {
-    let id = 42;
-    Redirect::to(format!("/answer/{}", id))
+#[post("/question", data = "<question>")]
+fn question(question: Option<Form<Question>>) -> Redirect {
+    match question {
+        Some(q) => {
+            let answer_id = ask(q.email.to_owned(), q.question.to_owned());
+            Redirect::to(format!("/answer/{}", answer_id))
+        }
+        None => Redirect::to("/"),
+    }
 }
 
 #[get("/answer/<id>")]
