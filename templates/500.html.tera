@@ -1,0 +1,5 @@
+{% extends "layout" %}
+
+{% block content %}
+500 internal server error!
+{% endblock content %}

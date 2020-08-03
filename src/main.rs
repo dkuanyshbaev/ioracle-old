@@ -1,25 +1,50 @@
-use std::error::Error;
-use std::thread;
-use std::time::Duration;
+#![feature(proc_macro_hygiene, decl_macro)]
 
-use rppal::gpio::Gpio;
-use rppal::system::DeviceInfo;
+#[macro_use]
+extern crate rocket;
 
-// Gpio uses BCM pin numbering. BCM GPIO 23 is tied to physical pin 16.
-const GPIO_LED: u8 = 23;
+#[macro_use]
+extern crate serde_derive;
 
-fn main() -> Result<(), Box<dyn Error>> {
-    println!("Blinking an LED on a {}.", DeviceInfo::new()?.model());
-    let mut pin = Gpio::new()?.get(GPIO_LED)?.into_output();
+use rocket::response::Redirect;
+use rocket_contrib::serve::StaticFiles;
+use rocket_contrib::templates::Template;
 
-    for _ in 1..17 {
-        println!("on");
-        pin.set_high();
-        thread::sleep(Duration::from_secs(1));
-        println!("off");
-        pin.set_low();
-        thread::sleep(Duration::from_secs(1));
-    }
+#[derive(Serialize)]
+pub struct NoContext {}
 
-    Ok(())
+#[get("/")]
+fn index() -> Template {
+    Template::render("index", NoContext {})
+}
+
+#[post("/question")]
+fn question() -> Redirect {
+    let id = 42;
+    Redirect::to(format!("/answer/{}", id))
+}
+
+#[get("/answer/<id>")]
+fn answer(id: i32) -> Template {
+    println!("{}", id);
+    Template::render("answer", NoContext {})
+}
+
+#[catch(404)]
+pub fn not_found() -> Template {
+    Template::render("404", NoContext {})
+}
+
+#[catch(500)]
+pub fn internal_error() -> Template {
+    Template::render("500", NoContext {})
+}
+
+fn main() {
+    rocket::ignite()
+        .attach(Template::fairing())
+        .mount("/static", StaticFiles::from("static/"))
+        .mount("/", routes![index, question, answer])
+        .register(catchers![not_found, internal_error])
+        .launch();
 }
