@@ -9,17 +9,13 @@ extern crate serde_derive;
 #[macro_use]
 extern crate rocket_contrib;
 
-mod errors;
 mod lib;
 
-use errors::IOracleError;
 use lib::{ask, get_answer};
 use rocket::request::Form;
 use rocket::response::Redirect;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
-
-type IOracleResult<T> = Result<T, errors::IOracleError>;
 
 #[database("ioracle")]
 pub struct Db(rusqlite::Connection);
@@ -28,6 +24,11 @@ pub struct Db(rusqlite::Connection);
 struct Question {
     email: String,
     question: String,
+}
+
+#[derive(Serialize)]
+struct Answer {
+    answer: String,
 }
 
 #[derive(Serialize)]
@@ -50,10 +51,13 @@ fn question(connection: Db, question: Option<Form<Question>>) -> Redirect {
 }
 
 #[get("/answer/<uuid>")]
-fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
-    // Template::render("answer", get_answer(&connection, uuid))
-    // Template::render("answer", NoContext {})
-    Ok(Template::render("answer", get_answer(&connection, uuid)?))
+fn answer(connection: Db, uuid: String) -> Option<Template> {
+    Some(Template::render(
+        "answer",
+        Answer {
+            answer: get_answer(&connection, uuid)?,
+        },
+    ))
 }
 
 #[catch(404)]
