@@ -32,16 +32,16 @@ fn index() -> Template {
 fn question(question: Option<Form<Question>>) -> Redirect {
     match question {
         Some(q) => {
-            let answer_id = ask(q.email.to_owned(), q.question.to_owned());
-            Redirect::to(format!("/answer/{}", answer_id))
+            let answer_uuid = ask(q.email.to_owned(), q.question.to_owned());
+            Redirect::to(format!("/answer/{}", answer_uuid))
         }
         None => Redirect::to("/"),
     }
 }
 
-#[get("/answer/<id>")]
-fn answer(id: i32) -> Template {
-    println!("{}", id);
+#[get("/answer/<uuid>")]
+fn answer(uuid: String) -> Template {
+    println!("{}", uuid);
     Template::render("answer", NoContext {})
 }
 
