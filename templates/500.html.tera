@@ -1,5 +1,5 @@
 {% extends "layout" %}
 
 {% block content %}
-500 internal server error!
+<h5>500 internal server error!</h4>
 {% endblock content %}

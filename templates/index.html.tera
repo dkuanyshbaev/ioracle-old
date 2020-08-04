@@ -1,9 +1,10 @@
 {% extends "layout" %}
 
 {% block content %}
-<form action="/question" method="post">
-    <p><input type="text" name="email"></p>
-    <p><textarea rows="10" cols="45" name="question"></textarea></p>
-    <p><input type="submit" value="ask"></p>
+<form action="/question" method="post" accept-charset="utf-8" class="question-form">
+    <input type="hidden" name="_method" value="post" />
+    <input type="text" class="form-control" name="email" placeholder="email" required>
+    <textarea class="form-control" rows="10" cols="45" name="question" placeholder="question" required></textarea>
+    <button class="btn btn-lg btn-info btn-block" type="submit">Ask</button>
 </form>
 {% endblock content %}

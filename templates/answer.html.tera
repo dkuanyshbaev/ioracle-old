@@ -1,6 +1,6 @@
 {% extends "layout" %}
 
 {% block content %}
-<h2>answer</h2>
+<h2>answer text...</h2>
 <a href="/">back</a>
 {% endblock content %}
