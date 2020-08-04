@@ -6,13 +6,23 @@ extern crate rocket;
 #[macro_use]
 extern crate serde_derive;
 
+#[macro_use]
+extern crate rocket_contrib;
+
+mod errors;
 mod lib;
 
-use lib::ask;
+use errors::IOracleError;
+use lib::{ask, get_answer};
 use rocket::request::Form;
 use rocket::response::Redirect;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
+
+type IOracleResult<T> = Result<T, errors::IOracleError>;
+
+#[database("ioracle")]
+pub struct Db(rusqlite::Connection);
 
 #[derive(FromForm)]
 struct Question {
@@ -21,7 +31,7 @@ struct Question {
 }
 
 #[derive(Serialize)]
-pub struct NoContext {}
+struct NoContext {}
 
 #[get("/")]
 fn index() -> Template {
@@ -29,10 +39,10 @@ fn index() -> Template {
 }
 
 #[post("/question", data = "<question>")]
-fn question(question: Option<Form<Question>>) -> Redirect {
+fn question(connection: Db, question: Option<Form<Question>>) -> Redirect {
     match question {
         Some(q) => {
-            let answer_uuid = ask(q.email.to_owned(), q.question.to_owned());
+            let answer_uuid = ask(&connection, q.email.to_owned(), q.question.to_owned());
             Redirect::to(format!("/answer/{}", answer_uuid))
         }
         None => Redirect::to("/"),
@@ -40,9 +50,10 @@ fn question(question: Option<Form<Question>>) -> Redirect {
 }
 
 #[get("/answer/<uuid>")]
-fn answer(uuid: String) -> Template {
-    println!("{}", uuid);
-    Template::render("answer", NoContext {})
+fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
+    // Template::render("answer", get_answer(&connection, uuid))
+    // Template::render("answer", NoContext {})
+    Ok(Template::render("answer", get_answer(&connection, uuid)?))
 }
 
 #[catch(404)]
@@ -58,6 +69,7 @@ pub fn internal_error() -> Template {
 fn main() {
     rocket::ignite()
         .attach(Template::fairing())
+        .attach(Db::fairing())
         .mount("/static", StaticFiles::from("static/"))
         .mount("/", routes![index, question, answer])
         .register(catchers![not_found, internal_error])
