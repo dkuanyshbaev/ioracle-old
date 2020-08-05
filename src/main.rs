@@ -11,7 +11,7 @@ mod errors;
 mod oracle;
 
 use crate::errors::IOracleResult;
-use oracle::{get, ioracle, save, send};
+use oracle::{ask, get};
 use rocket::request::Form;
 use rocket::response::Redirect;
 use rocket_contrib::databases::rusqlite;
@@ -43,13 +43,10 @@ fn index() -> Template {
 #[post("/question", data = "<question>")]
 fn question(connection: Db, question: Option<Form<Question>>) -> IOracleResult<Redirect> {
     match question {
-        Some(q) => {
-            let answer = ioracle(&q.question)?;
-            let answer_uuid = save(&connection, &q.email, &q.question, &answer)?;
-            send(&q.email, &q.question, &answer)?;
-            Ok(Redirect::to(format!("/answer/{}", answer_uuid)))
-        }
-        // None => Err(IOracleError::BadRequest)????
+        Some(q) => Ok(Redirect::to(format!(
+            "/answer/{}",
+            ask(&connection, q.email.to_owned(), q.question.to_owned())?
+        ))),
         None => Ok(Redirect::to("/")),
     }
 }

@@ -2,6 +2,13 @@ use crate::errors::IOracleResult;
 use rocket_contrib::databases::rusqlite::{params, Connection};
 use uuid::Uuid;
 
+pub fn ask(connection: &Connection, email: String, question: String) -> IOracleResult<String> {
+    let answer = ioracle(&question)?;
+    let answer_uuid = save(connection, &email, &question, &answer)?;
+    send(&email, &question, &answer)?;
+    Ok(answer_uuid)
+}
+
 pub fn ioracle(_question: &String) -> IOracleResult<String> {
     Ok("the answer".to_string())
 }
@@ -70,6 +77,5 @@ pub fn get(_connection: &Connection, _uuid: String) -> IOracleResult<String> {
 }
 
 pub fn send(_email: &String, _question: &String, _answer: &String) -> IOracleResult<()> {
-    println!("sending email...");
     Ok(())
 }
