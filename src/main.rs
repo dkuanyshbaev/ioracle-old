@@ -27,7 +27,7 @@ struct Question {
     question: String,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Debug)]
 struct Answer {
     answer: String,
 }
