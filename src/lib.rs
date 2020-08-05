@@ -1,21 +1,27 @@
-use chrono::Utc;
-use rusqlite::Connection;
+use rocket_contrib::databases::rusqlite::params;
+use rocket_contrib::databases::rusqlite::Connection;
 use uuid::Uuid;
 
+// #[derive(Serialize, Debug)]
+// pub struct Answer {
+//     answer: String,
+// }
+
 pub fn ask(connection: &Connection, email: String, question: String) -> String {
-    let answer = ioracle(&question);
-    match save(connection, email, question, answer) {
-        Some(answer_uuid) => {
-            send_mail();
-            answer_uuid
-        }
-        None => "".to_string(),
-    }
+    // let answer = ioracle(&question);
+    // match save(connection, email, question, answer) {
+    //     Some(answer_uuid) => {
+    //         send_mail();
+    //         answer_uuid
+    //     }
+    //     None => "".to_string(),
+    // }
+    "".to_string()
 }
 
-pub fn ioracle(_question: &String) -> String {
-    "the answer".to_string()
-}
+// pub fn ioracle(_question: &String) -> String {
+//     "the answer".to_string()
+// }
 
 pub fn save(
     connection: &Connection,
@@ -25,8 +31,9 @@ pub fn save(
 ) -> Option<String> {
     let uuid = Uuid::new_v4();
     let answer_uuid = uuid.to_string();
-    let time_now = Utc::now();
-    let time_now = time_now.to_string();
+    // let time_now = Utc::now();
+    // let time_now = time_now.to_string();
+    let time_now = "now".to_string();
 
     match connection.execute(
         "create table if not exists answers (
@@ -36,8 +43,9 @@ pub fn save(
                 question text not null,
                 answer text not null,
                 created_at text not null
+                 Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
                 )",
-        &[],
+        params![],
     ) {
         Ok(_) => println!("ok"),
         Err(_) => return None,
@@ -56,25 +64,24 @@ pub fn save(
 }
 
 pub fn get_answer(connection: &Connection, uuid: String) -> Option<String> {
-    let mut stmt = connection
-        .prepare("select answer from answers where uuid = ?1")
-        .unwrap();
-
-    #[derive(Debug)]
-    struct Answer {
-        answer: String,
-    }
-
-    let answers_iter = stmt
-        .query_map(&[&uuid], |row| Answer { answer: row.get(0) })
-        .unwrap();
-
-    for an in answers_iter {
-        println!("Found answer {:?}", an.unwrap());
-    }
-    Some("the answer".to_string())
+    // pub fn get_answer(connection: &Connection, uuid: String) -> Option<Answer> {
+    // let mut stmt = connection
+    //     .prepare("select answer from answers where uuid = ?1")
+    //     .unwrap();
+    //
+    // let answers_iter = stmt
+    //     .query_map(&[&uuid], |row| Answer { answer: row.get(0) })
+    //     .unwrap();
+    //
+    // for an in answers_iter {
+    //     println!("Found answer {:?}", an.unwrap());
+    // }
+    // Some(Answer {
+    //     answer: "the answer".to_string(),
+    // })
+    None
 }
 
-pub fn send_mail() {
-    println!("sending email...");
-}
+// pub fn send_mail() {
+//     println!("sending email...");
+// }

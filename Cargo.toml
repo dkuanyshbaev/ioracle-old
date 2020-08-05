@@ -5,15 +5,14 @@ authors = ["Denis K <orca84@protonmail.com>"]
 edition = "2018"
 
 [dependencies]
-rocket = "0.4.5"
+rocket = { version = "0.5.0-dev", path = "../Rocket/core/lib" }
 rppal = "0.11.3"
 serde = "1.0.114"
 serde_derive = "1.0.114"
 uuid = { version = "0.8.1", features = ["v4"]  }
-rusqlite = "0.14.0"
-chrono = "0.4.13"
 
 [dependencies.rocket_contrib]
-version = "0.4.5"
+version = "0.5.0-dev"
+path = "../Rocket/contrib/lib"
 default-features = false
 features = ["sqlite_pool","tera_templates", "serve"]
