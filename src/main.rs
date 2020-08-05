@@ -9,14 +9,16 @@ extern crate rocket_contrib;
 
 mod errors;
 mod oracle;
+mod utils;
+mod wires;
 
 use crate::errors::IOracleResult;
-use oracle::{ask, get};
 use rocket::request::Form;
 use rocket::response::Redirect;
 use rocket_contrib::databases::rusqlite;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
+use utils::{ask, get};
 
 #[database("ioracle")]
 pub struct Db(rusqlite::Connection);
