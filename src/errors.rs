@@ -1,9 +1,9 @@
+use rocket::http::Status;
+use rocket::request::Request;
+use rocket::response::Responder;
 use rocket_contrib::databases::rusqlite::Error as RusqliteError;
-// use rocket::http::Status;
-// use rocket::request::Request;
-// use rocket::response::Responder;
 use std::convert::From;
-// use std::{error, fmt};
+use std::{error, fmt};
 
 #[derive(Debug)]
 pub enum IOracleError {
@@ -11,7 +11,7 @@ pub enum IOracleError {
     InternalServerError,
 }
 
-// pub type IOracleResult<T> = Result<T, IOracleError>;
+pub type IOracleResult<T> = Result<T, IOracleError>;
 
 impl From<RusqliteError> for IOracleError {
     fn from(error: RusqliteError) -> Self {
@@ -22,35 +22,29 @@ impl From<RusqliteError> for IOracleError {
     }
 }
 
-// impl fmt::Display for KinderError {
-//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//         match *self {
-//             KinderError::NotFound => write!(f, "NotFound"),
-//             KinderError::InternalServerError => write!(f, "InternalServerError"),
-//             KinderError::BadRequest => write!(f, "BadRequest"),
-//             KinderError::Unauthorized => write!(f, "Unauthorized"),
-//         }
-//     }
-// }
-//
-// impl error::Error for KinderError {
-//     fn description(&self) -> &str {
-//         match *self {
-//             KinderError::NotFound => "Record not found",
-//             KinderError::InternalServerError => "Internal server error",
-//             KinderError::BadRequest => "Bad Request",
-//             KinderError::Unauthorized => "Unauthorized",
-//         }
-//     }
-// }
+impl fmt::Display for IOracleError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            IOracleError::NotFound => write!(f, "NotFound"),
+            IOracleError::InternalServerError => write!(f, "InternalServerError"),
+        }
+    }
+}
 
-// impl<'r> Responder<'r> for KinderError {
-//     fn respond_to(self, _: &Request) -> rocket::response::Result<'r> {
-//         match self {
-//             KinderError::NotFound => Err(Status::NotFound),
-//             KinderError::BadRequest => Err(Status::BadRequest),
-//             KinderError::Unauthorized => Err(Status::Unauthorized),
-//             _ => Err(Status::InternalServerError),
-//         }
-//     }
-// }
+impl error::Error for IOracleError {
+    fn description(&self) -> &str {
+        match *self {
+            IOracleError::NotFound => "Record not found",
+            IOracleError::InternalServerError => "Internal server error",
+        }
+    }
+}
+
+impl<'r> Responder<'r, 'static> for IOracleError {
+    fn respond_to(self, _: &'r Request<'_>) -> rocket::response::Result<'static> {
+        match self {
+            IOracleError::NotFound => Err(Status::NotFound),
+            _ => Err(Status::InternalServerError),
+        }
+    }
+}
