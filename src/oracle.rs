@@ -1,5 +1,4 @@
 use crate::errors::IOracleResult;
-use crate::Answer;
 use rocket_contrib::databases::rusqlite::{params, Connection};
 use uuid::Uuid;
 
@@ -7,11 +6,12 @@ pub fn ask(connection: &Connection, email: String, question: String) -> IOracleR
     let answer = ioracle(&question)?;
     let answer_uuid = save(connection, &email, &question, &answer)?;
     send(&email, &question, &answer)?;
+
     Ok(answer_uuid)
 }
 
 pub fn ioracle(_question: &String) -> IOracleResult<String> {
-    Ok("the answer".to_string())
+    Ok("the answer!".to_string())
 }
 
 pub fn save(
@@ -45,19 +45,16 @@ pub fn save(
 
 pub fn get(connection: &Connection, uuid: String) -> IOracleResult<String> {
     let mut stmt = connection.prepare("select answer from answers where uuid = ?1")?;
+    let answers_iter = stmt.query_map(params![uuid], |row| Ok(row.get(0)?))?;
 
-    let answers_iter = stmt.query_map(params![uuid], |row| {
-        Ok(Answer {
-            answer: row.get(0)?,
-        })
-    })?;
-
-    for a in answers_iter {
-        println!("Found answer {:?}", a.unwrap());
+    let mut answer = "".to_string();
+    for ai in answers_iter {
+        if let Ok(a) = ai {
+            answer = a;
+        }
     }
 
-    // Err(IOracleError::NotFound)
-    Ok("the answer".to_string())
+    Ok(answer)
 }
 
 pub fn send(_email: &String, _question: &String, _answer: &String) -> IOracleResult<()> {
