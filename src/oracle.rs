@@ -2,19 +2,8 @@ use crate::errors::IOracleResult;
 use rocket_contrib::databases::rusqlite::{params, Connection};
 use uuid::Uuid;
 
-pub fn ask(connection: &Connection, email: String, question: String) -> IOracleResult<String> {
-    let answer = ioracle(&question);
-
-    let answer_uuid = save(connection, &email, &question, &answer)?;
-
-    send(&email, &question, &answer);
-
-    Ok(answer_uuid)
-    // Err(IOracleError::InternalServerError)
-}
-
-pub fn ioracle(_question: &String) -> String {
-    "the answer".to_string()
+pub fn ioracle(_question: &String) -> IOracleResult<String> {
+    Ok("the answer".to_string())
 }
 
 pub fn save(
@@ -46,7 +35,7 @@ pub fn save(
     Ok(uuid)
 }
 
-pub fn get_answer(_connection: &Connection, _uuid: String) -> IOracleResult<String> {
+pub fn get(_connection: &Connection, _uuid: String) -> IOracleResult<String> {
     // pub fn get_answer(connection: &Connection, uuid: String) -> Option<Answer> {
     // let mut stmt = connection
     //     .prepare("select answer from answers where uuid = ?1")
@@ -80,6 +69,7 @@ pub fn get_answer(_connection: &Connection, _uuid: String) -> IOracleResult<Stri
     Ok("the answer".to_string())
 }
 
-pub fn send(_email: &String, _question: &String, _answer: &String) {
+pub fn send(_email: &String, _question: &String, _answer: &String) -> IOracleResult<()> {
     println!("sending email...");
+    Ok(())
 }
