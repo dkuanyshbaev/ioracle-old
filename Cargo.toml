@@ -10,6 +10,7 @@ rppal = "0.11.3"
 serde = "1.0.114"
 serde_derive = "1.0.114"
 uuid = { version = "0.8.1", features = ["v4"]  }
+lettre = "0.10.0-alpha.1"
 
 [dependencies.rocket_contrib]
 version = "0.5.0-dev"

@@ -7,15 +7,18 @@ extern crate serde_derive;
 #[macro_use]
 extern crate rocket_contrib;
 
+mod config;
 mod errors;
 mod iching;
 mod oracle;
 mod wires;
 
 use crate::errors::IOracleResult;
+use config::Config;
 use oracle::{ask, get};
 use rocket::request::Form;
 use rocket::response::Redirect;
+use rocket::State;
 use rocket_contrib::databases::rusqlite;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
@@ -43,11 +46,20 @@ fn index() -> Template {
 }
 
 #[post("/question", data = "<question>")]
-fn question(connection: Db, question: Option<Form<Question>>) -> IOracleResult<Redirect> {
+fn question(
+    config: State<Config>,
+    connection: Db,
+    question: Option<Form<Question>>,
+) -> IOracleResult<Redirect> {
     match question {
         Some(q) => Ok(Redirect::to(format!(
             "/answer/{}",
-            ask(&connection, q.email.to_owned(), q.question.to_owned())?
+            ask(
+                config,
+                &connection,
+                q.email.to_owned(),
+                q.question.to_owned()
+            )?
         ))),
         None => Ok(Redirect::to("/")),
     }
@@ -75,7 +87,13 @@ pub fn internal_error() -> Template {
 
 #[launch]
 fn rocket() -> rocket::Rocket {
+    let config = Config::new().unwrap_or_else(|err| {
+        println!("Problem parsing config: {}", err);
+        std::process::exit(1);
+    });
+
     rocket::ignite()
+        .manage(config)
         .attach(Db::fairing())
         .attach(Template::fairing())
         .mount("/static", StaticFiles::from("static/"))
