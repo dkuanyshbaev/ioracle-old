@@ -1,5 +1,9 @@
 {% extends "layout" %}
 
+{% block head %}
+<link rel="stylesheet" href="/static/custom.css">
+{% endblock head %}
+
 {% block content %}
 <form action="/question" method="post" accept-charset="utf-8" class="question-form">
     <input type="hidden" name="_method" value="post" />

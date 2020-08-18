@@ -1,5 +1,10 @@
-pub fn wires() {
+use crate::errors::IOracleResult;
+use crate::iching::Hexagram;
+
+pub fn ask_wires() -> IOracleResult<Hexagram> {
     println!("wires");
+
+    Ok(Hexagram::new())
 }
 
 // use std::error::Error;

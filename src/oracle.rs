@@ -1,6 +1,6 @@
 use crate::errors::IOracleResult;
-use crate::iching::iching;
-use crate::wires::wires;
+use crate::iching::ask_iching;
+use crate::wires::ask_wires;
 use crate::Config;
 use lettre::transport::smtp::authentication::Credentials;
 use lettre::{Message, SmtpTransport, Transport};
@@ -9,7 +9,7 @@ use rocket_contrib::databases::rusqlite::{params, Connection};
 use uuid::Uuid;
 
 pub fn ask(
-    config: State<Config>,
+    _config: State<Config>,
     connection: &Connection,
     email: String,
     question: String,
@@ -21,11 +21,11 @@ pub fn ask(
     Ok(answer_uuid)
 }
 
-pub fn ioracle(_question: &String) -> IOracleResult<String> {
-    iching();
-    wires();
+pub fn ioracle(question: &String) -> IOracleResult<String> {
+    let hexagram = ask_wires()?;
+    let answer = ask_iching(hexagram, question)?;
 
-    Ok("the answer!".to_string())
+    Ok(answer)
 }
 
 pub fn save(

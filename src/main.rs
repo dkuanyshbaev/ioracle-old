@@ -75,6 +75,11 @@ fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
     ))
 }
 
+#[get("/operator")]
+fn operator() -> Template {
+    Template::render("operator", NoContext {})
+}
+
 #[catch(404)]
 pub fn not_found() -> Template {
     Template::render("404", NoContext {})
@@ -97,6 +102,6 @@ fn rocket() -> rocket::Rocket {
         .attach(Db::fairing())
         .attach(Template::fairing())
         .mount("/static", StaticFiles::from("static/"))
-        .mount("/", routes![index, question, answer])
+        .mount("/", routes![index, question, answer, operator])
         .register(catchers![not_found, internal_error])
 }
