@@ -134,21 +134,23 @@
                     {% endfor %}
                 </tbody>
             </table>
-
-            <hr>
-
-            <div class="form-group">
-                <label for="multiply">Multiply</label>
-                <input type="number" step="0.1" class="form-control" id="multiply" value=0.0>
+            <br>
+            <div class="form-row">
+                <div class="col">
+                    <label for="multiply">Multiply</label>
+                    <input type="number" step="0.01" class="form-control" id="multiply" value=0.0>
+                </div>
+                <div class="col">
+                    <label for="bias">Bias</label>
+                    <input type="number" step="0.01" class="form-control" id="bias" value=0.0>
+                </div>
+                <div class="col">
+                    <label for="threshold">Threshold</label>
+                    <input type="number" step="0.01" class="form-control" id="threshold" value=0.0>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="bias">Bias</label>
-                <input type="number" step="0.1" class="form-control" id="bias" value=0.0>
-            </div>
-            <div class="form-group">
-                <label for="threshold">Threshold</label>
-                <input type="number" step="0.1" class="form-control" id="threshold" value=0.0>
-            </div>
+            <br>
+            <br>
         </main>
     </div>
 </div>
