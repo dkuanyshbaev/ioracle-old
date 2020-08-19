@@ -76,8 +76,28 @@ fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
 }
 
 #[get("/operator")]
-fn operator() -> Template {
-    Template::render("operator", NoContext {})
+fn operator() -> Redirect {
+    Redirect::to("/settings")
+}
+
+#[get("/hexagrams")]
+fn hexagrams() -> Template {
+    Template::render("hexagrams", NoContext {})
+}
+
+#[get("/trigrams")]
+fn trigrams() -> Template {
+    Template::render("trigrams", NoContext {})
+}
+
+#[get("/settings")]
+fn settings() -> Template {
+    Template::render("settings", NoContext {})
+}
+
+#[get("/run")]
+fn run() -> Template {
+    Template::render("run", NoContext {})
 }
 
 #[catch(404)]
@@ -102,6 +122,9 @@ fn rocket() -> rocket::Rocket {
         .attach(Db::fairing())
         .attach(Template::fairing())
         .mount("/static", StaticFiles::from("static/"))
-        .mount("/", routes![index, question, answer, operator])
+        .mount(
+            "/",
+            routes![index, question, answer, operator, hexagrams, trigrams, settings, run],
+        )
         .register(catchers![not_found, internal_error])
 }

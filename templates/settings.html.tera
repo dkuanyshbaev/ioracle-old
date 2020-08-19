@@ -40,25 +40,25 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/hexagrams">
                             <img src="/static/feather/database.svg">
                             Hexagrams
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/trigrams">
                             <img src="/static/feather/database.svg">
                             Trigrams
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link active" href="/settings">
                             <img src="/static/feather/tool.svg">
-                            Settings <span class="sr-only">(current)</span>
+                            Settings
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/run">
                             <img src="/static/feather/activity.svg">
                             Run
                         </a>
@@ -96,18 +96,27 @@
                         <th scope="col">Trigram</th>
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
-                        <th scope="col">PinOut</th>
                         <th scope="col">Colour</th>
+                        <th scope="col">PinOut</th>
+                        <th scope="col">Sound</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for e in [1,2,3,4,5,6,7,8] %}
                         <tr>
                             <td class="align-middle">
-                                <img src="/static/trigrams/{{e}}.png" width="100px;">
+                                <img src="/static/trigrams/{{e}}.png" width="80px;">
                             </td>
                             <td class="align-middle">Heaven (Quian)</td>
                             <td class="align-middle">On/Off static LED strip</td>
+                            <td class="align-middle" style="width:170px;">
+                                <div id="c{{e}}" class="input-group">
+                                    <input type="text" class="form-control input-lg" value="#10B3BF"/>
+                                    <span class="input-group-append">
+                                    <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                    </span>
+                                </div>
+                            </td>
                             <td class="align-middle">
                                 <select class="custom-select">
                                     <option value="1" selected>1</option>
@@ -116,11 +125,9 @@
                                 </select>
                             </td>
                             <td class="align-middle" style="width:200px;">
-                                <div id="c{{e}}" class="input-group">
-                                    <input type="text" class="form-control input-lg" value="#10B3BF"/>
-                                    <span class="input-group-append">
-                                    <span class="input-group-text colorpicker-input-addon"><i></i></span>
-                                    </span>
+                                <div class="custom-file">
+                                    <input type="file" accept=".wav,.mp3" class="custom-file-input" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Sound</label>
                                 </div>
                             </td>
                         </tr>
@@ -134,7 +141,11 @@
 <script src="/static/js/jquery-3.5.1.slim.min.js"></script>
 <script src="/static/js/bootstrap.bundle.min.js"></script>
 <script src="/static/js/bootstrap-colorpicker.min.js"></script>
+<script src="/static/js/bs-custom-file-input.min.js"></script>
 <script>
+    $(document).ready(function () {
+        bsCustomFileInput.init()
+    });
     $(function () {
         $('#c1, #c2, #c3, #c4, #c5, #c6, #c7, #c8').colorpicker({
             useAlpha: false
