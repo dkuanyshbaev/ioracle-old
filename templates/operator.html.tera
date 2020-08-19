@@ -17,7 +17,7 @@
     }
 }
 </style>
-<link rel="stylesheet" href="/static/dashboard.css">
+<link rel="stylesheet" href="/static/css/dashboard.css">
 {% endblock head %}
 
 {% block content %}
@@ -39,21 +39,27 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            <span data-feather="menu"></span>
-                            Elements <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <span data-feather="database"></span>
+                            <img src="/static/feather/database.svg">
                             Hexagrams
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <span data-feather="database"></span>
+                            <img src="/static/feather/database.svg">
                             Trigrams
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">
+                            <img src="/static/feather/tool.svg">
+                            Settings <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <img src="/static/feather/activity.svg">
+                            Run
                         </a>
                     </li>
                 </ul>
@@ -64,13 +70,13 @@
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <span data-feather="save"></span>
+                            <img src="/static/feather/download.svg">
                             Save
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
-                            <span data-feather="save"></span>
+                            <img src="/static/feather/upload.svg">
                             Load
                         </a>
                     </li>
@@ -80,37 +86,38 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Elements</h1>
+                <h1 class="h2">Settings</h1>
             </div>
 
-            <div class="card" style="width: 18rem;">
-                <img src="/static/trigram-1.png" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Heaven (Quian)</h5>
-                    <p class="card-text">On/Off static LED strip</p>
-                    <p class="card-text">PinOut: 7</p>
-                    <a href="#" class="btn btn-info">Edit</a>
-                </div>
-            </div>
-
-            <br>
-
-            <div class="card" style="width: 18rem;">
-                <img src="/static/trigram-2.png" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">Heaven (Quian)</h5>
-                    <p class="card-text">On/Off static LED strip</p>
-                    <p class="card-text">PinOut: 7</p>
-                    <a href="#" class="btn btn-info">Edit</a>
-                </div>
-            </div>
-
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th scope="col">Trigram</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Function</th>
+                        <th scope="col">Colour</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in [1,2,3,4,5,6,7,8] %}
+                        <tr>
+                            <td class="align-middle">
+                                <img src="/static/trigrams/{{e}}.png" width="100px;">
+                            </td>
+                            <td class="align-middle">Heaven (Quian)</td>
+                            <td class="align-middle">PinOut: 7</td>
+                            <td class="align-middle">Colour: ----</td>
+                            <td class="align-middle">On/Off static LED strip</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </main>
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
-<script src="/static/dashboard.js"></script>
+<script src="/static/js/jquery-3.5.1.slim.min.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/feather.min.js"></script>
 {% endblock content %}

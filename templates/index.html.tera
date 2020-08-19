@@ -1,7 +1,7 @@
 {% extends "layout" %}
 
 {% block head %}
-<link rel="stylesheet" href="/static/custom.css">
+<link rel="stylesheet" href="/static/css/custom.css">
 {% endblock head %}
 
 {% block content %}
