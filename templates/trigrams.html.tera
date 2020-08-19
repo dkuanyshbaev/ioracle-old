@@ -88,7 +88,30 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Trigrams</h1>
             </div>
-
+            <table class="table table-borderless table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Trigram</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in [1,2,3,4,5,6,7,8] %}
+                        <tr>
+                            <th class="align-middle" scope="row">{{e}}</th>
+                            <td class="align-middle">
+                                <img src="/static/trigrams/{{e}}.png" width="80px;">
+                            </td>
+                            <td class="align-middle">Heaven (Quian)</td>
+                            <td class="align-middle">
+                                <a href="/admin/events/id" class="btn btn-outline-info">Edit</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </main>
     </div>
 </div>
