@@ -95,9 +95,9 @@
                     <tr>
                         <th scope="col">Trigram</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Function</th>
-                        <th scope="col">Colour</th>
                         <th scope="col">Description</th>
+                        <th scope="col">PinOut</th>
+                        <th scope="col">Colour</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -107,16 +107,22 @@
                                 <img src="/static/trigrams/{{e}}.png" width="100px;">
                             </td>
                             <td class="align-middle">Heaven (Quian)</td>
-                            <td class="align-middle">PinOut: 7</td>
-                            <td class="align-middle" style="width:170px;">
+                            <td class="align-middle">On/Off static LED strip</td>
+                            <td class="align-middle">
+                                <select class="custom-select">
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </td>
+                            <td class="align-middle" style="width:200px;">
                                 <div id="c{{e}}" class="input-group">
-                                    <input type="text" class="form-control input-lg"/>
+                                    <input type="text" class="form-control input-lg" value="#10B3BF"/>
                                     <span class="input-group-append">
                                     <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                     </span>
                                 </div>
                             </td>
-                            <td class="align-middle">On/Off static LED strip</td>
                         </tr>
                     {% endfor %}
                 </tbody>
