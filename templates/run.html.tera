@@ -39,15 +39,15 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="/operator">
-                            <img src="/static/feather/tool.svg">
-                            Settings
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link active" href="/run">
                             <img src="/static/feather/activity.svg">
                             Run
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/operator">
+                            <img src="/static/feather/tool.svg">
+                            Settings
                         </a>
                     </li>
                     <li class="nav-item">
@@ -68,6 +68,12 @@
                     <span>Configuration</span>
                 </h6>
                 <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/init">
+                            <img src="/static/feather/menu.svg">
+                            Init DB
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">
                             <img src="/static/feather/download.svg">

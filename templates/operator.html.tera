@@ -70,6 +70,12 @@
                 </h6>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
+                        <a class="nav-link" href="/init">
+                            <img src="/static/feather/menu.svg">
+                            Init DB
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#">
                             <img src="/static/feather/download.svg">
                             Save
@@ -149,9 +155,6 @@
                     <input type="number" step="0.01" class="form-control" id="threshold" value=0.0>
                 </div>
             </div>
-            <br>
-            <br>
-            <a class="btn btn-info" href="/init">Init DB</a>
             <br>
             <br>
         </main>
