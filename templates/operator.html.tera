@@ -40,9 +40,15 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="/hexagrams">
-                            <img src="/static/feather/database.svg">
-                            Hexagrams
+                        <a class="nav-link active" href="/operator">
+                            <img src="/static/feather/tool.svg">
+                            Settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/run">
+                            <img src="/static/feather/activity.svg">
+                            Run
                         </a>
                     </li>
                     <li class="nav-item">
@@ -52,15 +58,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="/settings">
-                            <img src="/static/feather/tool.svg">
-                            Settings
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/run">
-                            <img src="/static/feather/activity.svg">
-                            Run
+                        <a class="nav-link" href="/hexagrams">
+                            <img src="/static/feather/database.svg">
+                            Hexagrams
                         </a>
                     </li>
                 </ul>
@@ -149,6 +149,9 @@
                     <input type="number" step="0.01" class="form-control" id="threshold" value=0.0>
                 </div>
             </div>
+            <br>
+            <br>
+            <a class="btn btn-info" href="/init">Init DB</a>
             <br>
             <br>
         </main>

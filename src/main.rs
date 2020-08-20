@@ -15,7 +15,7 @@ mod wires;
 
 use crate::errors::IOracleResult;
 use config::Config;
-use oracle::{ask, get};
+use oracle::{ask, get, init_db};
 use rocket::request::Form;
 use rocket::response::Redirect;
 use rocket::State;
@@ -76,13 +76,19 @@ fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
 }
 
 #[get("/operator")]
-fn operator() -> Redirect {
-    Redirect::to("/settings")
+fn operator() -> Template {
+    Template::render("operator", NoContext {})
 }
 
-#[get("/hexagrams")]
-fn hexagrams() -> Template {
-    Template::render("hexagrams", NoContext {})
+#[get("/init")]
+fn init(connection: Db) -> IOracleResult<Redirect> {
+    init_db(&connection)?;
+    Ok(Redirect::to("/operator"))
+}
+
+#[get("/run")]
+fn run() -> Template {
+    Template::render("run", NoContext {})
 }
 
 #[get("/trigrams")]
@@ -90,14 +96,9 @@ fn trigrams() -> Template {
     Template::render("trigrams", NoContext {})
 }
 
-#[get("/settings")]
-fn settings() -> Template {
-    Template::render("settings", NoContext {})
-}
-
-#[get("/run")]
-fn run() -> Template {
-    Template::render("run", NoContext {})
+#[get("/hexagrams")]
+fn hexagrams() -> Template {
+    Template::render("hexagrams", NoContext {})
 }
 
 #[catch(404)]
@@ -124,7 +125,7 @@ fn rocket() -> rocket::Rocket {
         .mount("/static", StaticFiles::from("static/"))
         .mount(
             "/",
-            routes![index, question, answer, operator, hexagrams, trigrams, settings, run],
+            routes![index, question, answer, operator, hexagrams, trigrams, init, run],
         )
         .register(catchers![not_found, internal_error])
 }

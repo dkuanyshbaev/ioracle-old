@@ -39,9 +39,15 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="/hexagrams">
-                            <img src="/static/feather/database.svg">
-                            Hexagrams
+                        <a class="nav-link" href="/operator">
+                            <img src="/static/feather/tool.svg">
+                            Settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/run">
+                            <img src="/static/feather/activity.svg">
+                            Run
                         </a>
                     </li>
                     <li class="nav-item">
@@ -51,15 +57,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/settings">
-                            <img src="/static/feather/tool.svg">
-                            Settings
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/run">
-                            <img src="/static/feather/activity.svg">
-                            Run
+                        <a class="nav-link" href="/hexagrams">
+                            <img src="/static/feather/database.svg">
+                            Hexagrams
                         </a>
                     </li>
                 </ul>

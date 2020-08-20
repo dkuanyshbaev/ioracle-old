@@ -28,7 +28,7 @@ impl Trigram {
         Trigram {
             top: Line::Yin,
             middle: Line::Yin,
-            bottom: Line::Yin,
+            bottom: Line::Yang,
         }
     }
 }
@@ -48,7 +48,7 @@ impl Hexagram {
     }
 }
 
-pub fn ask_iching(hexagram: Hexagram, question: &String) -> IOracleResult<String> {
+pub fn ask_iching(_hexagram: Hexagram, _question: &String) -> IOracleResult<String> {
     println!("iching");
 
     Ok("".to_string())

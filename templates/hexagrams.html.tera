@@ -39,9 +39,15 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/hexagrams">
-                            <img src="/static/feather/database.svg">
-                            Hexagrams
+                        <a class="nav-link" href="/operator">
+                            <img src="/static/feather/tool.svg">
+                            Settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/run">
+                            <img src="/static/feather/activity.svg">
+                            Run
                         </a>
                     </li>
                     <li class="nav-item">
@@ -51,15 +57,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/settings">
-                            <img src="/static/feather/tool.svg">
-                            Settings
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/run">
-                            <img src="/static/feather/activity.svg">
-                            Run
+                        <a class="nav-link active" href="/hexagrams">
+                            <img src="/static/feather/database.svg">
+                            Hexagrams
                         </a>
                     </li>
                 </ul>
@@ -89,6 +89,30 @@
                 <h1 class="h2">Hexagrams</h1>
             </div>
 
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Hexagram</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in [1,2,3,4,5,6,7,8] %}
+                        <tr>
+                            <th class="align-middle" scope="row">{{e}}</th>
+                            <td class="align-middle">
+                                <img src="/static/hexagrams/0{{e}}.png" width="80px;">
+                            </td>
+                            <td class="align-middle">Heaven (Quian)</td>
+                            <td class="align-middle">
+                                <a href="/admin/events/id" class="btn btn-outline-info">Edit</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </main>
     </div>
 </div>
