@@ -8,17 +8,16 @@ extern crate serde_derive;
 extern crate rocket_contrib;
 
 mod config;
+mod db;
 mod errors;
 mod iching;
 mod oracle;
+mod pages;
 mod wires;
 
 use crate::errors::IOracleResult;
 use config::Config;
-use oracle::{
-    ask, get, get_hexagrams, get_trigram, get_trigrams, init_db, update_tri, TrigramEdit,
-    TrigramRow,
-};
+use oracle::{ask, get, get_hexagrams, get_trigram, get_trigrams, update_tri, TrigramEdit};
 use rocket::request::Form;
 use rocket::response::Redirect;
 use rocket::State;
@@ -53,10 +52,10 @@ struct ItemContext<T> {
     item: T,
 }
 
-#[get("/")]
-fn index() -> Template {
-    Template::render("index", NoContext {})
-}
+// #[get("/")]
+// fn index() -> Template {
+//     Template::render("index", NoContext {})
+// }
 
 #[post("/question", data = "<question>")]
 fn question(
@@ -91,13 +90,6 @@ fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
 #[get("/operator")]
 fn operator() -> Template {
     Template::render("operator", NoContext {})
-}
-
-#[get("/init")]
-fn init(connection: Db) -> IOracleResult<Redirect> {
-    init_db(&connection)?;
-
-    Ok(Redirect::to("/operator"))
 }
 
 #[get("/run")]
@@ -164,6 +156,9 @@ fn rocket() -> rocket::Rocket {
         std::process::exit(1);
     });
 
+    let conn = rusqlite::Connection::open("./db/ioracle.db").expect("db!");
+    db::init(&conn);
+
     rocket::ignite()
         .manage(config)
         .attach(Db::fairing())
@@ -172,13 +167,12 @@ fn rocket() -> rocket::Rocket {
         .mount(
             "/",
             routes![
-                index,
+                pages::index,
                 question,
                 answer,
                 operator,
                 hexagrams,
                 trigrams,
-                init,
                 run,
                 update_trigram,
                 edit_trigram
