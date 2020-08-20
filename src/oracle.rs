@@ -1,4 +1,4 @@
-use crate::errors::IOracleResult;
+use crate::errors::{IOracleError, IOracleResult};
 use crate::iching::ask_iching;
 use crate::wires::ask_wires;
 use crate::Config;
@@ -78,6 +78,12 @@ pub struct TrigramRow {
     description: String,
 }
 
+#[derive(FromForm)]
+pub struct TrigramEdit {
+    name: String,
+    description: String,
+}
+
 pub fn get_trigrams(connection: &Connection) -> IOracleResult<Vec<TrigramRow>> {
     let mut stmt = connection.prepare("select id, name, image, description from trigrams")?;
     let trigram_iter = stmt.query_map(params![], |row| {
@@ -97,6 +103,43 @@ pub fn get_trigrams(connection: &Connection) -> IOracleResult<Vec<TrigramRow>> {
     }
 
     Ok(ts)
+}
+
+pub fn get_trigram(connection: &Connection, id: i32) -> IOracleResult<TrigramRow> {
+    let mut stmt =
+        connection.prepare("select id, name, image, description from trigrams where id = ?1")?;
+    let trigram_iter = stmt.query_map(params![id], |row| {
+        Ok(TrigramRow {
+            id: row.get(0)?,
+            name: row.get(1)?,
+            image: row.get(2)?,
+            description: row.get(3)?,
+        })
+    })?;
+
+    let mut ts: Vec<TrigramRow> = Vec::new();
+    for trigram in trigram_iter {
+        if let Ok(t) = trigram {
+            ts.push(t);
+        }
+    }
+
+    match ts.pop() {
+        Some(t) => Ok(t),
+        None => Err(IOracleError::NotFound),
+    }
+}
+
+pub fn update_tri(connection: &Connection, id: i32, trigram: TrigramEdit) -> IOracleResult<()> {
+    println!("-----------{}", trigram.name);
+    println!("-----------{}", trigram.description);
+
+    connection.execute(
+        "update trigrams set name = ?1, description = ?2 where id = ?3",
+        params![trigram.name, trigram.description, id],
+    )?;
+
+    Ok(())
 }
 
 #[derive(Serialize, Debug)]

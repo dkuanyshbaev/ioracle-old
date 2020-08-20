@@ -15,7 +15,10 @@ mod wires;
 
 use crate::errors::IOracleResult;
 use config::Config;
-use oracle::{ask, get, get_hexagrams, get_trigrams, init_db};
+use oracle::{
+    ask, get, get_hexagrams, get_trigram, get_trigrams, init_db, update_tri, TrigramEdit,
+    TrigramRow,
+};
 use rocket::request::Form;
 use rocket::response::Redirect;
 use rocket::State;
@@ -43,6 +46,11 @@ struct NoContext {}
 #[derive(Serialize)]
 struct ListContext<T> {
     items: Vec<T>,
+}
+
+#[derive(Serialize)]
+struct ItemContext<T> {
+    item: T,
 }
 
 #[get("/")]
@@ -107,6 +115,28 @@ fn trigrams(connection: Db) -> IOracleResult<Template> {
     ))
 }
 
+#[get("/edit/trigram/<id>")]
+fn edit_trigram(connection: Db, id: i32) -> IOracleResult<Template> {
+    Ok(Template::render(
+        "edit_trigram",
+        ItemContext {
+            item: get_trigram(&connection, id)?,
+        },
+    ))
+}
+
+#[post("/edit/trigram/<id>", data = "<trigram>")]
+fn update_trigram(connection: Db, id: i32, trigram: Form<TrigramEdit>) -> IOracleResult<Redirect> {
+    let t = trigram.into_inner();
+    update_tri(&connection, id, t)?;
+
+    Ok(Redirect::to("/trigrams"))
+    // match trigram {
+    //     Some(t) => Ok(update_tri(&connection, id, t)?),
+    //     None => Ok(Redirect::to("/trigrams")),
+    // }
+}
+
 #[get("/hexagrams")]
 fn hexagrams(connection: Db) -> IOracleResult<Template> {
     Ok(Template::render(
@@ -141,7 +171,18 @@ fn rocket() -> rocket::Rocket {
         .mount("/static", StaticFiles::from("static/"))
         .mount(
             "/",
-            routes![index, question, answer, operator, hexagrams, trigrams, init, run],
+            routes![
+                index,
+                question,
+                answer,
+                operator,
+                hexagrams,
+                trigrams,
+                init,
+                run,
+                update_trigram,
+                edit_trigram
+            ],
         )
         .register(catchers![not_found, internal_error])
 }
