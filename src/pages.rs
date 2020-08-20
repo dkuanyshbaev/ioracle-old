@@ -13,7 +13,7 @@ pub struct Question {
     question: String,
 }
 
-#[derive(Serialize, Debug)]
+#[derive(Serialize)]
 struct Answer {
     answer: String,
 }
@@ -22,13 +22,13 @@ struct Answer {
 struct NoContext {}
 
 #[derive(Serialize)]
-struct ListContext<T> {
-    items: Vec<T>,
+struct ItemContext<T> {
+    item: T,
 }
 
 #[derive(Serialize)]
-struct ItemContext<T> {
-    item: T,
+struct ListContext<T> {
+    items: Vec<T>,
 }
 
 #[get("/")]
@@ -40,20 +40,17 @@ pub fn index() -> Template {
 pub fn question(
     config: State<Config>,
     connection: Db,
-    question: Option<Form<Question>>,
+    question: Form<Question>,
 ) -> IOracleResult<Redirect> {
-    match question {
-        Some(q) => Ok(Redirect::to(format!(
-            "/answer/{}",
-            ask(
-                config,
-                &connection,
-                q.email.to_owned(),
-                q.question.to_owned()
-            )?
-        ))),
-        None => Ok(Redirect::to("/")),
-    }
+    Ok(Redirect::to(format!(
+        "/answer/{}",
+        ask(
+            config,
+            &connection,
+            question.email.to_owned(),
+            question.question.to_owned()
+        )?
+    )))
 }
 
 #[get("/answer/<uuid>")]

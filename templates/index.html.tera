@@ -7,8 +7,15 @@
 {% block content %}
 <form action="/question" method="post" accept-charset="utf-8" class="question-form">
     <input type="hidden" name="_method" value="post" />
-    <input type="text" class="form-control" name="email" placeholder="email" required>
-    <textarea class="form-control" rows="10" cols="45" name="question" placeholder="question" required></textarea>
+
+    <input type="text" class="form-control" name="email" placeholder="email" required
+    oninvalid="this.setCustomValidity('Please enter email')"
+    oninput="setCustomValidity('')"></input>
+
+    <textarea class="form-control" rows="10" cols="45" name="question" placeholder="question" required
+    oninvalid="this.setCustomValidity('Please enter question')"
+    oninput="setCustomValidity('')"></textarea>
+
     <button class="btn btn-lg btn-info btn-block" type="submit">Ask</button>
 </form>
 {% endblock content %}
