@@ -99,13 +99,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for e in [1,2,3,4,5,6,7,8] %}
+                    {% for i in items %}
                         <tr>
-                            <th class="align-middle" scope="row">{{e}}</th>
+                            <th class="align-middle" scope="row">{{i.id}}</th>
                             <td class="align-middle">
-                                <img src="/static/trigrams/{{e}}.png" width="80px;">
+                                <img src="/static/trigrams/{{i.image}}" width="80px;">
                             </td>
-                            <td class="align-middle">Heaven (Quian)</td>
+                            <td class="align-middle">{{i.name}}</td>
                             <td class="align-middle">
                                 <a href="/admin/events/id" class="btn btn-outline-info">Edit</a>
                             </td>

@@ -70,6 +70,64 @@ pub fn init_db(connection: &Connection) -> IOracleResult<()> {
     Ok(())
 }
 
+#[derive(Serialize, Debug)]
+pub struct TrigramRow {
+    id: i32,
+    name: String,
+    image: String,
+    description: String,
+}
+
+pub fn get_trigrams(connection: &Connection) -> IOracleResult<Vec<TrigramRow>> {
+    let mut stmt = connection.prepare("select id, name, image, description from trigrams")?;
+    let trigram_iter = stmt.query_map(params![], |row| {
+        Ok(TrigramRow {
+            id: row.get(0)?,
+            name: row.get(1)?,
+            image: row.get(2)?,
+            description: row.get(3)?,
+        })
+    })?;
+
+    let mut ts: Vec<TrigramRow> = Vec::new();
+    for trigram in trigram_iter {
+        if let Ok(t) = trigram {
+            ts.push(t);
+        }
+    }
+
+    Ok(ts)
+}
+
+#[derive(Serialize, Debug)]
+pub struct HexagramRow {
+    id: i32,
+    name: String,
+    image: String,
+    description: String,
+}
+
+pub fn get_hexagrams(connection: &Connection) -> IOracleResult<Vec<HexagramRow>> {
+    let mut stmt = connection.prepare("select id, name, image, description from hexagrams")?;
+    let hexagram_iter = stmt.query_map(params![], |row| {
+        Ok(HexagramRow {
+            id: row.get(0)?,
+            name: row.get(1)?,
+            image: row.get(2)?,
+            description: row.get(3)?,
+        })
+    })?;
+
+    let mut hs: Vec<HexagramRow> = Vec::new();
+    for hexagram in hexagram_iter {
+        if let Ok(h) = hexagram {
+            hs.push(h);
+        }
+    }
+
+    Ok(hs)
+}
+
 pub fn ask(
     _config: State<Config>,
     connection: &Connection,

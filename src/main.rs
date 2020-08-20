@@ -15,7 +15,7 @@ mod wires;
 
 use crate::errors::IOracleResult;
 use config::Config;
-use oracle::{ask, get, init_db};
+use oracle::{ask, get, get_hexagrams, get_trigrams, init_db};
 use rocket::request::Form;
 use rocket::response::Redirect;
 use rocket::State;
@@ -39,6 +39,11 @@ struct Answer {
 
 #[derive(Serialize)]
 struct NoContext {}
+
+#[derive(Serialize)]
+struct ListContext<T> {
+    items: Vec<T>,
+}
 
 #[get("/")]
 fn index() -> Template {
@@ -83,6 +88,7 @@ fn operator() -> Template {
 #[get("/init")]
 fn init(connection: Db) -> IOracleResult<Redirect> {
     init_db(&connection)?;
+
     Ok(Redirect::to("/operator"))
 }
 
@@ -92,13 +98,23 @@ fn run() -> Template {
 }
 
 #[get("/trigrams")]
-fn trigrams() -> Template {
-    Template::render("trigrams", NoContext {})
+fn trigrams(connection: Db) -> IOracleResult<Template> {
+    Ok(Template::render(
+        "trigrams",
+        ListContext {
+            items: get_trigrams(&connection)?,
+        },
+    ))
 }
 
 #[get("/hexagrams")]
-fn hexagrams() -> Template {
-    Template::render("hexagrams", NoContext {})
+fn hexagrams(connection: Db) -> IOracleResult<Template> {
+    Ok(Template::render(
+        "hexagrams",
+        ListContext {
+            items: get_hexagrams(&connection)?,
+        },
+    ))
 }
 
 #[catch(404)]
