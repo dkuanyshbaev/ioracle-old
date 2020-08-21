@@ -65,11 +65,11 @@ impl Hexagram {
     pub fn update(
         connection: &Connection,
         id: i32,
-        new_hexagram: UpdatedHexagram,
+        hexagram: UpdatedHexagram,
     ) -> IOracleResult<()> {
         connection.execute(
             "update hexagrams set name = ?1, description = ?2 where id = ?3",
-            params![new_hexagram.name, new_hexagram.description, id],
+            params![hexagram.name, hexagram.description, id],
         )?;
 
         Ok(())
