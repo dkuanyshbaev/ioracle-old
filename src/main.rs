@@ -22,7 +22,7 @@ use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
 use std::process::exit;
 use views::operator::{hexagrams, trigrams};
-use views::{catchers, pages};
+use views::{catchers, pages, settings};
 
 const DB_LOCATION: &str = "./db/ioracle.db";
 
@@ -57,7 +57,6 @@ fn rocket() -> rocket::Rocket {
                 pages::run,
             ],
         )
-        // .mount("/settings", routes![settings::save, settings::load])
         .mount(
             "/trigrams",
             routes![trigrams::all, trigrams::edit, trigrams::update,],
@@ -66,5 +65,6 @@ fn rocket() -> rocket::Rocket {
             "/hexagrams",
             routes![hexagrams::all, hexagrams::edit, hexagrams::update,],
         )
+        .mount("/settings", routes![settings::save, settings::load])
         .register(catchers![catchers::not_found, catchers::internal_error])
 }
