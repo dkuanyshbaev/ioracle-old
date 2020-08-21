@@ -90,7 +90,7 @@
             </div>
             <img src="/static/trigrams/{{ item.image }}" class="img-thumbnail" width="200px"><br><br>
 
-            <form action="/edit/trigram/{{ item.id }}" method="post" style="width:420px;">
+            <form action="/trigrams/{{ item.id }}" method="post" style="width:420px;">
                 <input type="hidden" name="_method" value="post" />
 
                  <div class="form-group">
@@ -103,7 +103,7 @@
                     <textarea class="form-control" id="description" name="description" rows="10">{{ item.description }}</textarea>
                  </div>
 
-                 <button type="submit" class="btn btn-info">Save</button>
+                 <button type="submit" class="btn btn-info">Update</button>
             </form>
             <br>
             <br>

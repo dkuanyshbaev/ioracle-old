@@ -12,14 +12,18 @@ mod db;
 mod errors;
 mod iching;
 mod oracle;
-mod pages;
 mod wires;
+
+mod models;
+mod views;
 
 use config::Config;
 use rocket_contrib::databases::rusqlite::Connection;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
 use std::process::exit;
+use views::operator::{hexagrams, trigrams};
+use views::{catchers, pages};
 
 #[database("ioracle")]
 pub struct Db(Connection);
@@ -49,12 +53,18 @@ fn rocket() -> rocket::Rocket {
                 pages::question,
                 pages::answer,
                 pages::operator,
-                pages::hexagrams,
-                pages::trigrams,
                 pages::run,
-                pages::update_trigram,
-                pages::edit_trigram
+                // pages::save_settings,
+                // pages::load_settings,
             ],
         )
-        .register(catchers![pages::not_found, pages::internal_error])
+        .mount(
+            "/trigrams",
+            routes![trigrams::all, trigrams::edit, trigrams::update,],
+        )
+        .mount(
+            "/hexagrams",
+            routes![hexagrams::all, hexagrams::edit, hexagrams::update,],
+        )
+        .register(catchers![catchers::not_found, catchers::internal_error])
 }
