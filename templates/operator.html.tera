@@ -95,43 +95,194 @@
                     <tr>
                         <th scope="col">Trigram</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Description</th>
+                        <th scope="col">Function</th>
                         <th scope="col">Colour</th>
-                        <th scope="col">PinOut</th>
-                        <th scope="col">Sound</th>
+                        <th scope="col">PinOut / Sound</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for e in [1,2,3,4,5,6,7,8] %}
-                        <tr>
-                            <td class="align-middle">
-                                <img src="/static/trigrams/{{e}}.png" width="80px;">
-                            </td>
-                            <td class="align-middle">Heaven (Quian)</td>
-                            <td class="align-middle">On/Off static LED strip</td>
-                            <td class="align-middle" style="width:170px;">
-                                <div id="c{{e}}" class="input-group">
-                                    <input type="text" class="form-control input-lg" value="#10B3BF"/>
-                                    <span class="input-group-append">
-                                    <span class="input-group-text colorpicker-input-addon"><i></i></span>
-                                    </span>
-                                </div>
-                            </td>
-                            <td class="align-middle">
-                                <select class="custom-select">
-                                    <option value="1" selected>1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                </select>
-                            </td>
-                            <td class="align-middle" style="width:200px;">
-                                <div class="custom-file">
-                                    <input type="file" accept=".wav,.mp3" class="custom-file-input" id="customFile">
-                                    <label class="custom-file-label" for="customFile">Sound</label>
-                                </div>
-                            </td>
-                        </tr>
-                    {% endfor %}
+                    <tr>
+                        <td class="align-middle">
+                            <img src="/static/trigrams/1.png" width="80px;">
+                        </td>
+                        <td class="align-middle">Heaven (Qian)</td>
+                        <td class="align-middle">On/Off static LED strip</td>
+                        <td class="align-middle" style="width:200px;">
+                            <div id="c1" class="input-group">
+                                <input type="text" class="form-control input-lg" value="#10B3BF"/>
+                                <span class="input-group-append">
+                                <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            <select class="custom-select">
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="align-middle">
+                            <img src="/static/trigrams/2.png" width="80px;">
+                        </td>
+                        <td class="align-middle">Cloud (Dui)</td>
+                        <td class="align-middle">On/Off mister</td>
+                        <td class="align-middle" style="width:200px;">
+                            <div id="c2" class="input-group">
+                                <input type="text" class="form-control input-lg" value="#10B3BF"/>
+                                <span class="input-group-append">
+                                <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            <select class="custom-select">
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="align-middle">
+                            <img src="/static/trigrams/3.png" width="80px;">
+                        </td>
+                        <td class="align-middle">Sun (Li)</td>
+                        <td class="align-middle">On/Off programmable LED strip</td>
+                        <td class="align-middle" style="width:200px;">
+                            <div id="c3" class="input-group">
+                                <input type="text" class="form-control input-lg" value="#10B3BF"/>
+                                <span class="input-group-append">
+                                <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            <select class="custom-select">
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="align-middle">
+                            <img src="/static/trigrams/4.png" width="80px;">
+                        </td>
+                        <td class="align-middle">Wind (Zhen)</td>
+                        <td class="align-middle">On/Off fan</td>
+                        <td class="align-middle" style="width:200px;">
+                            <div id="c4" class="input-group">
+                                <input type="text" class="form-control input-lg" value="#10B3BF"/>
+                                <span class="input-group-append">
+                                <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            <select class="custom-select">
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="align-middle">
+                            <img src="/static/trigrams/5.png" width="80px;">
+                        </td>
+                        <td class="align-middle">Thunder (Quian)</td>
+                        <td class="align-middle">Play audio</td>
+                        <td class="align-middle" style="width:200px;">
+                            <div id="c5" class="input-group">
+                                <input type="text" class="form-control input-lg" value="#10B3BF"/>
+                                <span class="input-group-append">
+                                <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="align-middle" style="width:200px;">
+                            <div class="custom-file">
+                                <input type="file" accept=".wav,.mp3" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Sound</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="align-middle">
+                            <img src="/static/trigrams/6.png" width="80px;">
+                        </td>
+                        <td class="align-middle">Water (Kan)</td>
+                        <td class="align-middle">On/Off Spray</td>
+                        <td class="align-middle" style="width:200px;">
+                            <div id="c6" class="input-group">
+                                <input type="text" class="form-control input-lg" value="#10B3BF"/>
+                                <span class="input-group-append">
+                                <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            <select class="custom-select">
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="align-middle">
+                            <img src="/static/trigrams/7.png" width="80px;">
+                        </td>
+                        <td class="align-middle">Mountain (Gen)</td>
+                        <td class="align-middle">Play audio</td>
+                        <td class="align-middle" style="width:200px;">
+                            <div id="c7" class="input-group">
+                                <input type="text" class="form-control input-lg" value="#10B3BF"/>
+                                <span class="input-group-append">
+                                <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="align-middle" style="width:200px;">
+                            <div class="custom-file">
+                                <input type="file" accept=".wav,.mp3" class="custom-file-input" id="customFile">
+                                <label class="custom-file-label" for="customFile">Sound</label>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="align-middle">
+                            <img src="/static/trigrams/8.png" width="80px;">
+                        </td>
+                        <td class="align-middle">Earth (Kun)</td>
+                        <td class="align-middle">On/Off agitator</td>
+                        <td class="align-middle" style="width:200px;">
+                            <div id="c8" class="input-group">
+                                <input type="text" class="form-control input-lg" value="#10B3BF"/>
+                                <span class="input-group-append">
+                                <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            <select class="custom-select">
+                                <option value="1" selected>1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </td>
+                    </tr>
+
                 </tbody>
             </table>
             <br>
