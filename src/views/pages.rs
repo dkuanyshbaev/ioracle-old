@@ -1,7 +1,7 @@
 use crate::config::Config;
 use crate::errors::IOracleResult;
 use crate::oracle::{ask_question, get_answer};
-use crate::views::context::NoContext;
+use crate::views::context::{ItemContext, NoContext};
 use crate::Db;
 use rocket::request::Form;
 use rocket::response::Redirect;
@@ -12,11 +12,6 @@ use rocket_contrib::templates::Template;
 pub struct Question {
     email: String,
     question: String,
-}
-
-#[derive(Serialize)]
-struct Answer {
-    answer: String,
 }
 
 #[get("/")]
@@ -45,8 +40,8 @@ pub fn question(
 pub fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
     Ok(Template::render(
         "answer",
-        Answer {
-            answer: get_answer(&connection, uuid)?,
+        ItemContext {
+            item: get_answer(&connection, uuid)?,
         },
     ))
 }

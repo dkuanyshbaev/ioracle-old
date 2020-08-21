@@ -11,11 +11,10 @@ mod config;
 mod db;
 mod errors;
 mod iching;
-mod oracle;
-mod wires;
-
 mod models;
+mod oracle;
 mod views;
+mod wires;
 
 use config::Config;
 use rocket_contrib::databases::rusqlite::Connection;
@@ -24,6 +23,8 @@ use rocket_contrib::templates::Template;
 use std::process::exit;
 use views::operator::{hexagrams, trigrams};
 use views::{catchers, pages};
+
+const DB_LOCATION: &str = "./db/ioracle.db";
 
 #[database("ioracle")]
 pub struct Db(Connection);
@@ -35,7 +36,7 @@ fn rocket() -> rocket::Rocket {
         exit(1);
     });
 
-    let connection = Connection::open("./db/ioracle.db").expect("open db");
+    let connection = Connection::open(DB_LOCATION).expect("open db");
     db::init(&connection).unwrap_or_else(|err| {
         println!("Can't init db: {}", err);
         exit(1);
@@ -54,10 +55,9 @@ fn rocket() -> rocket::Rocket {
                 pages::answer,
                 pages::operator,
                 pages::run,
-                // pages::save_settings,
-                // pages::load_settings,
             ],
         )
+        // .mount("/settings", routes![settings::save, settings::load])
         .mount(
             "/trigrams",
             routes![trigrams::all, trigrams::edit, trigrams::update,],
