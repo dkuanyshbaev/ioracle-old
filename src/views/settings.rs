@@ -1,5 +1,5 @@
 use crate::errors::IOracleResult;
-use crate::oracle::settings::Settings;
+use crate::models::settings::Settings;
 use rocket::response::Redirect;
 use rocket_contrib::json::Json;
 
