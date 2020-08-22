@@ -1,7 +1,7 @@
 use rocket::http::Status;
 use rocket::request::Request;
 use rocket::response::Responder;
-use rocket_contrib::databases::rusqlite::Error as RusqliteError;
+use rocket_contrib::databases::diesel::result::Error as DieselError;
 use std::convert::From;
 use std::{error, fmt};
 
@@ -13,10 +13,10 @@ pub enum IOracleError {
 
 pub type IOracleResult<T> = Result<T, IOracleError>;
 
-impl From<RusqliteError> for IOracleError {
-    fn from(error: RusqliteError) -> Self {
+impl From<DieselError> for IOracleError {
+    fn from(error: DieselError) -> Self {
         match error {
-            RusqliteError::QueryReturnedNoRows => IOracleError::NotFound,
+            DieselError::NotFound => IOracleError::NotFound,
             _ => IOracleError::InternalServerError,
         }
     }

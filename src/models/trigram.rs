@@ -1,7 +1,8 @@
-use crate::errors::{IOracleError, IOracleResult};
-use rocket_contrib::databases::rusqlite::{params, Connection};
+use super::schema::trigrams;
+use rocket_contrib::databases::diesel::prelude::*;
+use rocket_contrib::databases::diesel::SqliteConnection;
 
-#[derive(Serialize)]
+#[derive(Serialize, Queryable, Identifiable, Debug)]
 pub struct Trigram {
     id: i32,
     name: String,
@@ -9,65 +10,30 @@ pub struct Trigram {
     description: String,
 }
 
-#[derive(FromForm)]
+#[derive(Serialize, Insertable, FromForm, AsChangeset)]
+#[table_name = "trigrams"]
 pub struct UpdatedTrigram {
     pub name: String,
     pub description: String,
 }
 
 impl Trigram {
-    pub fn all(connection: &Connection) -> IOracleResult<Vec<Trigram>> {
-        let mut stmt = connection.prepare("select id, name, image, description from trigrams")?;
-        let trigram_iter = stmt.query_map(params![], |row| {
-            Ok(Trigram {
-                id: row.get(0)?,
-                name: row.get(1)?,
-                image: row.get(2)?,
-                description: row.get(3)?,
-            })
-        })?;
-
-        let mut ts: Vec<Trigram> = Vec::new();
-        for trigram in trigram_iter {
-            if let Ok(t) = trigram {
-                ts.push(t);
-            }
-        }
-
-        Ok(ts)
+    pub fn all(connection: &SqliteConnection) -> QueryResult<Vec<Trigram>> {
+        trigrams::table.order(trigrams::id.asc()).load(connection)
     }
 
-    pub fn get(connection: &Connection, id: i32) -> IOracleResult<Trigram> {
-        let mut stmt = connection
-            .prepare("select id, name, image, description from trigrams where id = ?1")?;
-        let trigram_iter = stmt.query_map(params![id], |row| {
-            Ok(Trigram {
-                id: row.get(0)?,
-                name: row.get(1)?,
-                image: row.get(2)?,
-                description: row.get(3)?,
-            })
-        })?;
-
-        let mut ts: Vec<Trigram> = Vec::new();
-        for trigram in trigram_iter {
-            if let Ok(t) = trigram {
-                ts.push(t);
-            }
-        }
-
-        match ts.pop() {
-            Some(t) => Ok(t),
-            None => Err(IOracleError::NotFound),
-        }
+    pub fn get(connection: &SqliteConnection, id: i32) -> QueryResult<Trigram> {
+        trigrams::table.find(id).get_result(connection)
     }
 
-    pub fn update(connection: &Connection, id: i32, trigram: UpdatedTrigram) -> IOracleResult<()> {
-        connection.execute(
-            "update trigrams set name = ?1, description = ?2 where id = ?3",
-            params![trigram.name, trigram.description, id],
-        )?;
-
-        Ok(())
+    pub fn update(
+        connection: &SqliteConnection,
+        id: i32,
+        new_trigram: UpdatedTrigram,
+    ) -> QueryResult<usize> {
+        let old_trigram = Self::get(connection, id)?;
+        diesel::update(&old_trigram)
+            .set(new_trigram)
+            .execute(connection)
     }
 }

@@ -2,47 +2,59 @@
 extern crate rocket;
 
 #[macro_use]
+extern crate rocket_contrib;
+
+#[macro_use]
 extern crate serde_derive;
 
 #[macro_use]
-extern crate rocket_contrib;
+extern crate diesel;
+
+#[macro_use]
+extern crate diesel_migrations;
 
 mod config;
-mod db;
 mod errors;
 mod models;
 mod oracle;
 mod views;
 
 use config::Config;
-use rocket_contrib::databases::rusqlite::Connection;
+use rocket::fairing::AdHoc;
+use rocket::Rocket;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
 use std::process::exit;
 use views::operator::{hexagrams, trigrams};
 use views::{catchers, pages, settings};
 
-const DB_LOCATION: &str = "./db/ioracle.db";
+embed_migrations!();
 
 #[database("ioracle")]
-pub struct Db(Connection);
+pub struct Db(diesel::SqliteConnection);
+
+async fn run_migrations(mut rocket: Rocket) -> Result<Rocket, Rocket> {
+    let conn = Db::get_one(rocket.inspect().await).expect("database connection");
+    match embedded_migrations::run(&*conn) {
+        Ok(()) => Ok(rocket),
+        Err(e) => {
+            println!("Failed to run database migrations: {:?}", e);
+            Err(rocket)
+        }
+    }
+}
 
 #[launch]
-fn rocket() -> rocket::Rocket {
+fn rocket() -> Rocket {
     let config = Config::new().unwrap_or_else(|err| {
         println!("Can't parsing config: {}", err);
-        exit(1);
-    });
-
-    let connection = Connection::open(DB_LOCATION).expect("open db");
-    db::init(&connection).unwrap_or_else(|err| {
-        println!("Can't init db: {}", err);
         exit(1);
     });
 
     rocket::ignite()
         .manage(config)
         .attach(Db::fairing())
+        .attach(AdHoc::on_attach("run migrations", run_migrations))
         .attach(Template::fairing())
         .mount("/static", StaticFiles::from("static/"))
         .mount(

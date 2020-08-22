@@ -1,7 +1,8 @@
-use crate::errors::{IOracleError, IOracleResult};
-use rocket_contrib::databases::rusqlite::{params, Connection};
+use super::schema::hexagrams;
+use rocket_contrib::databases::diesel::prelude::*;
+use rocket_contrib::databases::diesel::SqliteConnection;
 
-#[derive(Serialize)]
+#[derive(Serialize, Queryable, Identifiable, Debug)]
 pub struct Hexagram {
     id: i32,
     name: String,
@@ -9,69 +10,30 @@ pub struct Hexagram {
     description: String,
 }
 
-#[derive(FromForm)]
+#[derive(Serialize, Insertable, FromForm, AsChangeset)]
+#[table_name = "hexagrams"]
 pub struct UpdatedHexagram {
     pub name: String,
     pub description: String,
 }
 
 impl Hexagram {
-    pub fn all(connection: &Connection) -> IOracleResult<Vec<Hexagram>> {
-        let mut stmt = connection.prepare("select id, name, image, description from hexagrams")?;
-        let hexagram_iter = stmt.query_map(params![], |row| {
-            Ok(Hexagram {
-                id: row.get(0)?,
-                name: row.get(1)?,
-                image: row.get(2)?,
-                description: row.get(3)?,
-            })
-        })?;
-
-        let mut hs: Vec<Hexagram> = Vec::new();
-        for hexagram in hexagram_iter {
-            if let Ok(h) = hexagram {
-                hs.push(h);
-            }
-        }
-
-        Ok(hs)
+    pub fn all(connection: &SqliteConnection) -> QueryResult<Vec<Hexagram>> {
+        hexagrams::table.order(hexagrams::id.asc()).load(connection)
     }
 
-    pub fn get(connection: &Connection, id: i32) -> IOracleResult<Hexagram> {
-        let mut stmt = connection
-            .prepare("select id, name, image, description from hexagrams where id = ?1")?;
-        let hexagram_iter = stmt.query_map(params![id], |row| {
-            Ok(Hexagram {
-                id: row.get(0)?,
-                name: row.get(1)?,
-                image: row.get(2)?,
-                description: row.get(3)?,
-            })
-        })?;
-
-        let mut hs: Vec<Hexagram> = Vec::new();
-        for hexagram in hexagram_iter {
-            if let Ok(h) = hexagram {
-                hs.push(h);
-            }
-        }
-
-        match hs.pop() {
-            Some(h) => Ok(h),
-            None => Err(IOracleError::NotFound),
-        }
+    pub fn get(connection: &SqliteConnection, id: i32) -> QueryResult<Hexagram> {
+        hexagrams::table.find(id).get_result(connection)
     }
 
     pub fn update(
-        connection: &Connection,
+        connection: &SqliteConnection,
         id: i32,
-        hexagram: UpdatedHexagram,
-    ) -> IOracleResult<()> {
-        connection.execute(
-            "update hexagrams set name = ?1, description = ?2 where id = ?3",
-            params![hexagram.name, hexagram.description, id],
-        )?;
-
-        Ok(())
+        new_hexagram: UpdatedHexagram,
+    ) -> QueryResult<usize> {
+        let old_hexagram = Self::get(connection, id)?;
+        diesel::update(&old_hexagram)
+            .set(new_hexagram)
+            .execute(connection)
     }
 }

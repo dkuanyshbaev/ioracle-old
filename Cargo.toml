@@ -5,15 +5,17 @@ authors = ["Denis K <orca84@protonmail.com>"]
 edition = "2018"
 
 [dependencies]
+diesel = { version = "1.4.5", features = ["sqlite"] }
 rocket = { version = "0.5.0-dev", path = "../Rocket/core/lib" }
-rppal = "0.11.3"
 serde = "1.0.114"
 serde_derive = "1.0.114"
 uuid = { version = "0.8.1", features = ["v4"]  }
 lettre = "0.10.0-alpha.1"
+rppal = "0.11.3"
+diesel_migrations = "1.4.0"
 
 [dependencies.rocket_contrib]
 version = "0.5.0-dev"
 path = "../Rocket/contrib/lib"
 default-features = false
-features = ["sqlite_pool","tera_templates", "serve", "json"]
+features = ["diesel_sqlite_pool","tera_templates", "serve", "json"]

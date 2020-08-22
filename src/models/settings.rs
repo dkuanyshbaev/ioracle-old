@@ -1,3 +1,6 @@
+use crate::errors::IOracleResult;
+use rocket_contrib::databases::diesel::SqliteConnection;
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Settings {
     pub file_name: String,
@@ -20,4 +23,25 @@ pub struct Settings {
     pub multiply: f32,
     pub bias: f32,
     pub threshold: f32,
+}
+
+impl Settings {
+    pub fn apply(&self, connection: &SqliteConnection) -> IOracleResult<()> {
+        // connection.execute(
+        //     "update settings set name = ?1, description = ?2 where id = ?3",
+        //     params![trigram.name, trigram.description, id],
+        // )?;
+
+        Ok(())
+    }
+
+    pub fn write(&self) -> IOracleResult<()> {
+        // to file
+        Ok(())
+    }
+
+    pub fn read(&self) -> IOracleResult<()> {
+        // from file
+        Ok(())
+    }
 }
