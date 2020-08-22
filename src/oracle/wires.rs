@@ -1,5 +1,5 @@
 use crate::errors::IOracleResult;
-use crate::iching::Hexagram;
+use crate::oracle::iching::Hexagram;
 
 pub fn ask_wires() -> IOracleResult<Hexagram> {
     println!("wires");

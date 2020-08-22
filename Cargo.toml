@@ -16,4 +16,4 @@ lettre = "0.10.0-alpha.1"
 version = "0.5.0-dev"
 path = "../Rocket/contrib/lib"
 default-features = false
-features = ["sqlite_pool","tera_templates", "serve"]
+features = ["sqlite_pool","tera_templates", "serve", "json"]

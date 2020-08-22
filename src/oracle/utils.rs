@@ -1,6 +1,6 @@
 use crate::errors::IOracleResult;
-use crate::iching::ask_iching;
-use crate::wires::ask_wires;
+use crate::oracle::iching::ask_iching;
+use crate::oracle::wires::ask_wires;
 use crate::Config;
 use lettre::transport::smtp::authentication::Credentials;
 use lettre::{Message, SmtpTransport, Transport};

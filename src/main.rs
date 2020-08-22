@@ -10,11 +10,9 @@ extern crate rocket_contrib;
 mod config;
 mod db;
 mod errors;
-mod iching;
 mod models;
 mod oracle;
 mod views;
-mod wires;
 
 use config::Config;
 use rocket_contrib::databases::rusqlite::Connection;

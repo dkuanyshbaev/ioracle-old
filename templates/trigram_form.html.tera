@@ -69,13 +69,13 @@
                 </h6>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/settings/save">
                             <img src="/static/feather/download.svg">
                             Save
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/settings/load">
                             <img src="/static/feather/upload.svg">
                             Load
                         </a>

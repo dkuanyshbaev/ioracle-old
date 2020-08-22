@@ -1,6 +1,6 @@
 use crate::config::Config;
 use crate::errors::IOracleResult;
-use crate::oracle::{ask_question, get_answer};
+use crate::oracle::utils::{ask_question, get_answer};
 use crate::views::context::{ItemContext, NoContext};
 use crate::Db;
 use rocket::request::Form;
