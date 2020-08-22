@@ -6,15 +6,15 @@ use lettre::transport::smtp::authentication::Credentials;
 use lettre::{Message, SmtpTransport, Transport};
 use rocket::State;
 use rocket_contrib::databases::diesel::SqliteConnection;
-use uuid::Uuid;
+// use uuid::Uuid;
 
 pub fn ask_question(
     _config: State<Config>,
-    connection: &SqliteConnection,
-    email: String,
+    _connection: &SqliteConnection,
+    _email: String,
     question: String,
 ) -> IOracleResult<String> {
-    let answer = ioracle(&question)?;
+    let _answer = ioracle(&question)?;
     // let answer_uuid = save(connection, &email, &question, &answer)?;
     // send(config, &email, &question, &answer)?;
 
@@ -46,7 +46,7 @@ pub fn ioracle(question: &String) -> IOracleResult<String> {
 //     Ok(uuid)
 // }
 
-pub fn get_answer(connection: &SqliteConnection, uuid: String) -> IOracleResult<String> {
+pub fn get_answer(_connection: &SqliteConnection, _uuid: String) -> IOracleResult<String> {
     // let mut stmt = connection.prepare("select answer from answers where uuid = ?1")?;
     // let answers_iter = stmt.query_map(params![uuid], |row| Ok(row.get(0)?))?;
     //
