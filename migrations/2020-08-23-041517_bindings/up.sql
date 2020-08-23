@@ -1,4 +1,4 @@
-create table if not exists settings (
+create table if not exists bindings (
     id integer not null primary key,
     file_name text not null,
     heaven_pin integer not null,
@@ -21,5 +21,3 @@ create table if not exists settings (
     bias real not null,
     threshold real not null
 )
-
--- insert or ignore into settings (id, name, image, description) values (1, "", "1.png", "");

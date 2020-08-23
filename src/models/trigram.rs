@@ -31,8 +31,11 @@ impl Trigram {
         id: i32,
         new_trigram: UpdatedTrigram,
     ) -> QueryResult<usize> {
-        let old_trigram = Self::get(connection, id)?;
-        diesel::update(&old_trigram)
+        // let old_trigram = Self::get(connection, id)?;
+        // diesel::update(&old_trigram)
+        //     .set(new_trigram)
+        //     .execute(connection)
+        diesel::update(trigrams::table.find(id))
             .set(new_trigram)
             .execute(connection)
     }

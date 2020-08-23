@@ -1,11 +1,13 @@
 use crate::config::Config;
 use crate::errors::IOracleResult;
+use crate::models::binding::{Binding, UpdatedBinding};
 use crate::oracle::utils::{ask_question, get_answer};
 use crate::views::context::{ItemContext, NoContext};
 use crate::Db;
 use rocket::request::Form;
 use rocket::response::Redirect;
 use rocket::State;
+use rocket_contrib::json::Json;
 use rocket_contrib::templates::Template;
 
 #[derive(FromForm)]
@@ -54,4 +56,19 @@ pub fn operator() -> Template {
 #[get("/run")]
 pub fn run() -> Template {
     Template::render("run", NoContext {})
+}
+
+#[post("/save", format = "json", data = "<bindings>")]
+pub fn save(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Redirect> {
+    // Settings::update(&connection, settings.into_inner())?;
+    // Settings::write(settings)?;
+
+    Ok(Redirect::to("/operator"))
+}
+
+#[get("/load")]
+pub fn load() -> IOracleResult<Redirect> {
+    // read from file
+    // save to db
+    Ok(Redirect::to("/operator"))
 }

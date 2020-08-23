@@ -10,16 +10,7 @@ table! {
 }
 
 table! {
-    hexagrams (id) {
-        id -> Integer,
-        name -> Text,
-        image -> Text,
-        description -> Text,
-    }
-}
-
-table! {
-    settings (id) {
+    bindings (id) {
         id -> Integer,
         file_name -> Text,
         heaven_pin -> Integer,
@@ -45,6 +36,15 @@ table! {
 }
 
 table! {
+    hexagrams (id) {
+        id -> Integer,
+        name -> Text,
+        image -> Text,
+        description -> Text,
+    }
+}
+
+table! {
     trigrams (id) {
         id -> Integer,
         name -> Text,
@@ -55,7 +55,7 @@ table! {
 
 allow_tables_to_appear_in_same_query!(
     answers,
+    bindings,
     hexagrams,
-    settings,
     trigrams,
 );

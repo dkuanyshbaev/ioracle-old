@@ -24,9 +24,8 @@ use rocket::fairing::AdHoc;
 use rocket::Rocket;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
-use std::process::exit;
 use views::operator::{hexagrams, trigrams};
-use views::{catchers, pages, settings};
+use views::{catchers, pages};
 
 embed_migrations!();
 
@@ -48,7 +47,7 @@ async fn run_migrations(mut rocket: Rocket) -> Result<Rocket, Rocket> {
 fn rocket() -> Rocket {
     let config = Config::new().unwrap_or_else(|err| {
         println!("Can't parsing config: {}", err);
-        exit(1);
+        std::process::exit(1);
     });
 
     rocket::ignite()
@@ -65,6 +64,8 @@ fn rocket() -> Rocket {
                 pages::answer,
                 pages::operator,
                 pages::run,
+                pages::save,
+                pages::load,
             ],
         )
         .mount(
@@ -75,6 +76,5 @@ fn rocket() -> Rocket {
             "/hexagrams",
             routes![hexagrams::all, hexagrams::edit, hexagrams::update,],
         )
-        .mount("/settings", routes![settings::save, settings::load])
         .register(catchers![catchers::not_found, catchers::internal_error])
 }
