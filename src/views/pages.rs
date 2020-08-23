@@ -49,8 +49,13 @@ pub fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
 }
 
 #[get("/operator")]
-pub fn operator() -> Template {
-    Template::render("operator", NoContext {})
+pub fn operator(connection: Db) -> IOracleResult<Template> {
+    Ok(Template::render(
+        "operator",
+        ItemContext {
+            item: Binding::get(&connection)?,
+        },
+    ))
 }
 
 #[get("/run")]
@@ -66,10 +71,10 @@ pub fn save(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Red
     Ok(Redirect::to("/operator"))
 }
 
-#[get("/load")]
-pub fn load(_connection: Db) -> IOracleResult<Redirect> {
-    // let bindings = Binding::read_from_file(file_name)?;
-    // Binding::update(&connection, bindings)?;
+#[post("/load", format = "json", data = "<bindings>")]
+pub fn load(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Redirect> {
+    // let bindings = Binding::read_from_file("testfile.conf".to_string())?;
+    Binding::update(&connection, bindings.into_inner())?;
 
     Ok(Redirect::to("/operator"))
 }

@@ -70,13 +70,13 @@
                 </h6>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="/settings/save" data-toggle="modal" data-target="#saveModal">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#saveModal">
                             <img src="/static/feather/download.svg">
                             Save
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/settings/load">
+                        <a class="nav-link" href="#" id="load" onclick="load()">
                             <img src="/static/feather/upload.svg">
                             Load
                         </a>
@@ -109,7 +109,7 @@
                         <td class="align-middle">On/Off static LED strip</td>
                         <td class="align-middle" style="width:200px;">
                             <div id="c1" class="input-group">
-                                <input type="text" class="form-control input-lg" id="heaven_colour" value="#10B3BF"/>
+                                <input type="text" class="form-control input-lg" id="heaven_colour" value="{{item.heaven_colour}}"/>
                                 <span class="input-group-append">
                                 <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                 </span>
@@ -117,9 +117,13 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="heaven_pin">
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                {% for pin in [1, 2, 3,] %}
+                                    {% if pin == item.heaven_pin %}
+                                        <option selected value={{pin}}>{{pin}}</option>
+                                    {% else %}
+                                        <option value={{pin}}>{{pin}}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                         </td>
                     </tr>
@@ -132,7 +136,7 @@
                         <td class="align-middle">On/Off mister</td>
                         <td class="align-middle" style="width:200px;">
                             <div id="c2" class="input-group">
-                                <input type="text" class="form-control input-lg" id="cloud_colour" value="#10B3BF"/>
+                                <input type="text" class="form-control input-lg" id="cloud_colour" value="{{item.cloud_colour}}"/>
                                 <span class="input-group-append">
                                 <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                 </span>
@@ -140,9 +144,13 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="cloud_pin">
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                {% for pin in [1, 2, 3,] %}
+                                    {% if pin == item.cloud_pin %}
+                                        <option selected value={{pin}}>{{pin}}</option>
+                                    {% else %}
+                                        <option value={{pin}}>{{pin}}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                         </td>
                     </tr>
@@ -155,7 +163,7 @@
                         <td class="align-middle">On/Off programmable LED strip</td>
                         <td class="align-middle" style="width:200px;">
                             <div id="c3" class="input-group">
-                                <input type="text" class="form-control input-lg" id="sun_colour" value="#10B3BF"/>
+                                <input type="text" class="form-control input-lg" id="sun_colour" value="{{item.sun_colour}}"/>
                                 <span class="input-group-append">
                                 <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                 </span>
@@ -163,9 +171,13 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="sun_pin">
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                {% for pin in [1, 2, 3,] %}
+                                    {% if pin == item.sun_pin %}
+                                        <option selected value={{pin}}>{{pin}}</option>
+                                    {% else %}
+                                        <option value={{pin}}>{{pin}}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                         </td>
                     </tr>
@@ -178,7 +190,7 @@
                         <td class="align-middle">On/Off fan</td>
                         <td class="align-middle" style="width:200px;">
                             <div id="c4" class="input-group">
-                                <input type="text" class="form-control input-lg" id="wind_colour" value="#10B3BF"/>
+                                <input type="text" class="form-control input-lg" id="wind_colour" value="{{item.wind_colour}}"/>
                                 <span class="input-group-append">
                                 <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                 </span>
@@ -186,9 +198,13 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="wind_pin">
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                {% for pin in [1, 2, 3,] %}
+                                    {% if pin == item.wind_pin %}
+                                        <option selected value={{pin}}>{{pin}}</option>
+                                    {% else %}
+                                        <option value={{pin}}>{{pin}}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                         </td>
                     </tr>
@@ -201,7 +217,7 @@
                         <td class="align-middle">Play audio</td>
                         <td class="align-middle" style="width:200px;">
                             <div id="c5" class="input-group">
-                                <input type="text" class="form-control input-lg" id="thunder_colour" value="#10B3BF"/>
+                                <input type="text" class="form-control input-lg" id="thunder_colour" value="{{item.thunder_colour}}"/>
                                 <span class="input-group-append">
                                 <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                 </span>
@@ -223,7 +239,7 @@
                         <td class="align-middle">On/Off Spray</td>
                         <td class="align-middle" style="width:200px;">
                             <div id="c6" class="input-group">
-                                <input type="text" class="form-control input-lg" id="water_colour" value="#10B3BF"/>
+                                <input type="text" class="form-control input-lg" id="water_colour" value="{{item.water_colour}}"/>
                                 <span class="input-group-append">
                                 <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                 </span>
@@ -231,9 +247,13 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="water_pin">
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                {% for pin in [1, 2, 3,] %}
+                                    {% if pin == item.water_pin %}
+                                        <option selected value={{pin}}>{{pin}}</option>
+                                    {% else %}
+                                        <option value={{pin}}>{{pin}}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                         </td>
                     </tr>
@@ -246,7 +266,7 @@
                         <td class="align-middle">Play audio</td>
                         <td class="align-middle" style="width:200px;">
                             <div id="c7" class="input-group">
-                                <input type="text" class="form-control input-lg" id="mountain_colour" value="#10B3BF"/>
+                                <input type="text" class="form-control input-lg" id="mountain_colour" value="{{item.mountain_colour}}"/>
                                 <span class="input-group-append">
                                 <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                 </span>
@@ -268,7 +288,7 @@
                         <td class="align-middle">On/Off agitator</td>
                         <td class="align-middle" style="width:200px;">
                             <div id="c8" class="input-group">
-                                <input type="text" class="form-control input-lg" id="earth_colour" value="#10B3BF"/>
+                                <input type="text" class="form-control input-lg" id="earth_colour" value="{{item.earth_colour}}"/>
                                 <span class="input-group-append">
                                 <span class="input-group-text colorpicker-input-addon"><i></i></span>
                                 </span>
@@ -276,9 +296,13 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="earth_pin">
-                                <option value="1" selected>1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
+                                {% for pin in [1, 2, 3,] %}
+                                    {% if pin == item.earth_pin %}
+                                        <option selected value={{pin}}>{{pin}}</option>
+                                    {% else %}
+                                        <option value={{pin}}>{{pin}}</option>
+                                    {% endif %}
+                                {% endfor %}
                             </select>
                         </td>
                     </tr>
@@ -289,15 +313,15 @@
             <div class="form-row">
                 <div class="col">
                     <label for="multiply">Multiply</label>
-                    <input type="number" step="0.01" class="form-control" id="multiply" value=0.0>
+                    <input type="number" step="0.01" class="form-control" id="multiply" value={{item.multiply}}>
                 </div>
                 <div class="col">
                     <label for="bias">Bias</label>
-                    <input type="number" step="0.01" class="form-control" id="bias" value=0.0>
+                    <input type="number" step="0.01" class="form-control" id="bias" value={{item.bias}}>
                 </div>
                 <div class="col">
                     <label for="threshold">Threshold</label>
-                    <input type="number" step="0.01" class="form-control" id="threshold" value=0.0>
+                    <input type="number" step="0.01" class="form-control" id="threshold" value={{item.threshold}}>
                 </div>
             </div>
             <br>
@@ -326,7 +350,11 @@
     </div>
 </div>
 
-<script src="/static/js/jquery-3.5.1.slim.min.js"></script>
+
+<!-- Load Input -->
+<input id="load_file" type="file" accept=".conf" name="file_name" style="display: none;" />
+
+<script src="/static/js/jquery-3.5.1.min.js"></script>
 <script src="/static/js/bootstrap.bundle.min.js"></script>
 <script src="/static/js/bootstrap-colorpicker.min.js"></script>
 <script src="/static/js/bs-custom-file-input.min.js"></script>

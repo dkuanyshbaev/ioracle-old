@@ -1,11 +1,11 @@
 use super::schema::bindings;
 use crate::errors::{IOracleError, IOracleResult};
+// use rocket::data::{FromDataSimple, Outcome};
+// use rocket::http::Status;
+// use rocket::{Data, Outcome::*, Request};
 use rocket_contrib::databases::diesel::prelude::*;
 use rocket_contrib::databases::diesel::SqliteConnection;
-use serde_json::to_writer;
-use serde_json::Error;
 use std::fs::File;
-use std::io::Write;
 use std::path::Path;
 
 #[derive(Serialize, Queryable, Identifiable, Debug)]
@@ -74,16 +74,23 @@ impl Binding {
         let path = Path::new(&current_bindings.file_name);
 
         match File::create(&path) {
-            Err(err) => Err(IOracleError::InternalServerError),
-            Ok(file) => match to_writer(file, &current_bindings) {
-                Err(err) => Err(IOracleError::InternalServerError),
+            Err(_) => Err(IOracleError::InternalServerError),
+            Ok(file) => match serde_json::to_writer(file, &current_bindings) {
+                Err(_) => Err(IOracleError::InternalServerError),
                 Ok(_) => Ok(()),
             },
         }
     }
 
-    pub fn read_from_file(file_name: String) -> IOracleResult<()> {
-        println!("{}", file_name);
-        Ok(())
-    }
+    // pub fn read_from_file(file_name: String) -> IOracleResult<UpdatedBinding> {
+    //     let path = Path::new(&file_name);
+    //
+    //     match File::open(&path) {
+    //         Err(_) => Err(IOracleError::InternalServerError),
+    //         Ok(file) => match serde_json::from_reader(file) {
+    //             Err(_) => Err(IOracleError::InternalServerError),
+    //             Ok(bindings) => Ok(bindings),
+    //         },
+    //     }
+    // }
 }

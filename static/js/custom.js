@@ -8,6 +8,34 @@ $(function () {
     });
 });
 
+function load(){
+    $('#load_file').trigger('click');
+}
+
+$("#load_file").change(function() {
+    input = document.getElementById('load_file');
+    file = input.files[0];
+    file_reader = new FileReader();
+    file_reader.onload = receivedText;
+    file_reader.readAsText(file);
+});
+
+function receivedText(e) {
+    let lines = e.target.result;
+    var arr = JSON.parse(lines);
+    var data = JSON.stringify(arr);
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", "/load", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            document.location.reload(true);
+        }
+    };
+    xhr.send(data);
+};
+
 function save(){
     var file_name = $("#filename").val();
     if (file_name) {
