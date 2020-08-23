@@ -1,5 +1,5 @@
 use super::schema::bindings;
-// use crate::errors::IOracleResult;
+use crate::errors::IOracleResult;
 use rocket_contrib::databases::diesel::prelude::*;
 use rocket_contrib::databases::diesel::SqliteConnection;
 
@@ -64,22 +64,15 @@ impl Binding {
             .execute(connection)
     }
 
-    //     pub fn apply(&self, connection: &SqliteConnection) -> IOracleResult<()> {
-    //         // connection.execute(
-    //         //     "update settings set name = ?1, description = ?2 where id = ?3",
-    //         //     params![trigram.name, trigram.description, id],
-    //         // )?;
-    //
-    //         Ok(())
-    //     }
-    //
-    //     pub fn write(&self) -> IOracleResult<()> {
-    //         // to file
-    //         Ok(())
-    //     }
-    //
-    //     pub fn read(&self) -> IOracleResult<()> {
-    //         // from file
-    //         Ok(())
-    //     }
+    pub fn write_to_file() -> IOracleResult<()> {
+        use std::fs::File;
+        use std::path::Path;
+        let json_file_path = Path::new("./data.json");
+        let json_file = File::open(json_file_path).expect("file not found");
+
+        // let x = "{'test':'write'}";
+        // ::serde_json::to_writer(&File::create("data.json")?, &x)?;
+
+        Ok(())
+    }
 }
