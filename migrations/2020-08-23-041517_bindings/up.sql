@@ -20,4 +20,50 @@ create table if not exists bindings (
     multiply real not null,
     bias real not null,
     threshold real not null
-)
+);
+
+insert or ignore into bindings (
+    id,
+    file_name,
+    heaven_pin,
+    heaven_colour,
+    cloud_pin,
+    cloud_colour,
+    sun_pin,
+    sun_colour,
+    wind_pin,
+    wind_colour,
+    thunder_sound,
+    thunder_colour,
+    water_pin,
+    water_colour,
+    mountain_sound,
+    mountain_colour,
+    earth_pin,
+    earth_colour,
+    multiply,
+    bias,
+    threshold
+) values (
+    1,
+    "",
+    0,
+    "",
+    0,
+    "",
+    0,
+    "",
+    0,
+    "",
+    "",
+    "",
+    0,
+    "",
+    "",
+    "",
+    0,
+    "",
+    0.0,
+    0.0,
+    0.0
+);

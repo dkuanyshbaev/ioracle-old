@@ -1,5 +1,5 @@
 use super::schema::bindings;
-use crate::errors::IOracleResult;
+// use crate::errors::IOracleResult;
 use rocket_contrib::databases::diesel::prelude::*;
 use rocket_contrib::databases::diesel::SqliteConnection;
 
@@ -28,7 +28,7 @@ pub struct Binding {
     threshold: f32,
 }
 
-#[derive(Serialize, Deserialize, Insertable, FromForm, AsChangeset)]
+#[derive(Serialize, Deserialize, Insertable, FromForm, AsChangeset, Debug)]
 #[table_name = "bindings"]
 pub struct UpdatedBinding {
     file_name: String,
