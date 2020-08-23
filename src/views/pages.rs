@@ -61,14 +61,14 @@ pub fn run() -> Template {
 #[post("/save", format = "json", data = "<bindings>")]
 pub fn save(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Redirect> {
     Binding::update(&connection, bindings.into_inner())?;
-    Binding::write_to_file()?;
+    Binding::write_to_file(&connection)?;
 
     Ok(Redirect::to("/operator"))
 }
 
 #[get("/load")]
 pub fn load(_connection: Db) -> IOracleResult<Redirect> {
-    // let bindings = Binding::read_from_file()?;
+    // let bindings = Binding::read_from_file(file_name)?;
     // Binding::update(&connection, bindings)?;
 
     Ok(Redirect::to("/operator"))

@@ -846,6 +846,7 @@ dependencies = [
  "rppal",
  "serde",
  "serde_derive",
+ "serde_json",
  "uuid",
 ]
 

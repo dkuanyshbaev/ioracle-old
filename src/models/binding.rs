@@ -1,7 +1,12 @@
 use super::schema::bindings;
-use crate::errors::IOracleResult;
+use crate::errors::{IOracleError, IOracleResult};
 use rocket_contrib::databases::diesel::prelude::*;
 use rocket_contrib::databases::diesel::SqliteConnection;
+use serde_json::to_writer;
+use serde_json::Error;
+use std::fs::File;
+use std::io::Write;
+use std::path::Path;
 
 #[derive(Serialize, Queryable, Identifiable, Debug)]
 pub struct Binding {
@@ -54,8 +59,8 @@ pub struct UpdatedBinding {
 }
 
 impl Binding {
-    pub fn get(connection: &SqliteConnection, id: i32) -> QueryResult<Binding> {
-        bindings::table.find(id).get_result(connection)
+    pub fn get(connection: &SqliteConnection) -> QueryResult<Binding> {
+        bindings::table.find(1).get_result(connection)
     }
 
     pub fn update(connection: &SqliteConnection, bindings: UpdatedBinding) -> QueryResult<usize> {
@@ -64,15 +69,21 @@ impl Binding {
             .execute(connection)
     }
 
-    pub fn write_to_file() -> IOracleResult<()> {
-        use std::fs::File;
-        use std::path::Path;
-        let json_file_path = Path::new("./data.json");
-        let json_file = File::open(json_file_path).expect("file not found");
+    pub fn write_to_file(connection: &SqliteConnection) -> IOracleResult<()> {
+        let current_bindings = Self::get(connection)?;
+        let path = Path::new(&current_bindings.file_name);
 
-        // let x = "{'test':'write'}";
-        // ::serde_json::to_writer(&File::create("data.json")?, &x)?;
+        match File::create(&path) {
+            Err(err) => Err(IOracleError::InternalServerError),
+            Ok(file) => match to_writer(file, &current_bindings) {
+                Err(err) => Err(IOracleError::InternalServerError),
+                Ok(_) => Ok(()),
+            },
+        }
+    }
 
+    pub fn read_from_file(file_name: String) -> IOracleResult<()> {
+        println!("{}", file_name);
         Ok(())
     }
 }

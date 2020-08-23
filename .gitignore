@@ -1,3 +1,4 @@
 /target
 ioracle.db
 .env
+*.conf
