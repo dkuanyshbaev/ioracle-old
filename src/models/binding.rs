@@ -1,8 +1,5 @@
 use super::schema::bindings;
 use crate::errors::{IOracleError, IOracleResult};
-// use rocket::data::{FromDataSimple, Outcome};
-// use rocket::http::Status;
-// use rocket::{Data, Outcome::*, Request};
 use rocket_contrib::databases::diesel::prelude::*;
 use rocket_contrib::databases::diesel::SqliteConnection;
 use std::fs::File;

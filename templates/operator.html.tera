@@ -87,7 +87,7 @@
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Settings</h1>
+                <h1 class="h2">Bindings</h1>
             </div>
 
             <table class="table table-borderless">
@@ -309,7 +309,10 @@
 
                 </tbody>
             </table>
-            <br>
+
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Touch params</h1>
+            </div>
             <div class="form-row">
                 <div class="col">
                     <label for="multiply">Multiply</label>
@@ -324,6 +327,7 @@
                     <input type="number" step="0.01" class="form-control" id="threshold" value={{item.threshold}}>
                 </div>
             </div>
+            <br>
             <br>
             <br>
         </main>

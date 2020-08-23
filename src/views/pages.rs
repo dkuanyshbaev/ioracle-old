@@ -73,7 +73,6 @@ pub fn save(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Red
 
 #[post("/load", format = "json", data = "<bindings>")]
 pub fn load(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Redirect> {
-    // let bindings = Binding::read_from_file("testfile.conf".to_string())?;
     Binding::update(&connection, bindings.into_inner())?;
 
     Ok(Redirect::to("/operator"))

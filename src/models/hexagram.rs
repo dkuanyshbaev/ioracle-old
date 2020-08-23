@@ -31,10 +31,6 @@ impl Hexagram {
         id: i32,
         new_hexagram: UpdatedHexagram,
     ) -> QueryResult<usize> {
-        // let old_hexagram = Self::get(connection, id)?;
-        // diesel::update(&old_hexagram)
-        //     .set(new_hexagram)
-        //     .execute(connection)
         diesel::update(hexagrams::table.find(id))
             .set(new_hexagram)
             .execute(connection)
