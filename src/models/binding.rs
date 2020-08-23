@@ -23,9 +23,9 @@ pub struct Binding {
     mountain_colour: String,
     earth_pin: i32,
     earth_colour: String,
-    multiply: f32,
-    bias: f32,
-    threshold: f32,
+    multiply: String,
+    bias: String,
+    threshold: String,
 }
 
 #[derive(Serialize, Deserialize, Insertable, FromForm, AsChangeset, Debug)]
@@ -48,9 +48,9 @@ pub struct UpdatedBinding {
     mountain_colour: String,
     earth_pin: i32,
     earth_colour: String,
-    multiply: f32,
-    bias: f32,
-    threshold: f32,
+    multiply: String,
+    bias: String,
+    threshold: String,
 }
 
 impl Binding {

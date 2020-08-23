@@ -17,9 +17,9 @@ create table if not exists bindings (
     mountain_colour text not null,
     earth_pin integer not null,
     earth_colour text not null,
-    multiply real not null,
-    bias real not null,
-    threshold real not null
+    multiply text not null,
+    bias text not null,
+    threshold text not null
 );
 
 insert or ignore into bindings (
@@ -63,7 +63,7 @@ insert or ignore into bindings (
     "",
     0,
     "",
-    0.0,
-    0.0,
-    0.0
+    "",
+    "",
+    ""
 );

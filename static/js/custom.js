@@ -49,13 +49,13 @@ function save(){
             "mountain_colour": mountain_colour,
             "earth_pin": parseInt(earth_pin),
             "earth_colour": earth_colour,
-            "multiply": parseFloat(multiply),
-            "bias": parseFloat(bias),
-            "threshold": parseFloat(threshold),
+            "multiply": multiply,
+            "bias": bias,
+            "threshold": threshold,
         });
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/settings/save", true);
+        xhr.open("POST", "/save", true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.send(data);
 
