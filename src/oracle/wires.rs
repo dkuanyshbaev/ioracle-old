@@ -1,10 +1,41 @@
-use crate::errors::IOracleResult;
-// use crate::oracle::iching::Hexagram;
+pub fn heaven(_colour: String, pin: u8) {
+    println!("heaven............");
+    println!("on {}", pin);
+}
 
-pub fn ask_wires() -> IOracleResult<String> {
-    println!("wires");
+pub fn cloud(_colour: String, pin: u8) {
+    println!("cloud............");
+    println!("on {}", pin);
+}
 
-    Ok("ok".to_string())
+pub fn sun(_colour: String, pin: u8) {
+    println!("sun............");
+    println!("on {}", pin);
+}
+
+pub fn wind(_colour: String, pin: u8) {
+    println!("ufffffffffffff............");
+    println!("on {}", pin);
+}
+
+pub fn thunder(_colour: String, sound: String) {
+    println!("thunder............");
+    println!("play {}", sound);
+}
+
+pub fn water(_colour: String, pin: u8) {
+    println!("water............");
+    println!("on {}", pin);
+}
+
+pub fn mountain(_colour: String, sound: String) {
+    println!("mountain............");
+    println!("play {}", sound);
+}
+
+pub fn earth(_colour: String, pin: u8) {
+    println!("earth............");
+    println!("on {}", pin);
 }
 
 // use std::error::Error;

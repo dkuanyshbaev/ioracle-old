@@ -1,5 +1,6 @@
 use crate::errors::IOracleResult;
-use crate::models::iching::{Hexagram, Line, Trigram};
+use crate::oracle::iching::{Hexagram, Line, Trigram};
+use crate::oracle::wires::*;
 use crate::Db;
 use rocket_contrib::json::Json;
 
@@ -20,6 +21,13 @@ pub struct AllLines {
     sixth: String,
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Test {
+    pin: u8,
+    colour: String,
+    sound: String,
+}
+
 #[get("/touch")]
 pub fn touch() -> Json<Line> {
     // Json(Line::get_touch())
@@ -35,7 +43,12 @@ pub fn element(connection: Db, lines: Json<Lines>) -> IOracleResult<Json<String>
     };
     trigram.react(&connection)?;
 
+    // let element = trigram.as_element(&connection)?;
+
+    // element.react();
+
     Ok(Json(trigram.name(&connection)?))
+    // Ok(Json(element.name()))
 }
 
 #[post("/result", format = "json", data = "<all_lines>")]
@@ -56,4 +69,60 @@ pub fn result(connection: Db, all_lines: Json<AllLines>) -> IOracleResult<Json<S
     };
 
     Ok(Json(hexagram.name(&connection)?))
+}
+
+#[post("/heaven", format = "json", data = "<test>")]
+pub fn heaven_test(test: Json<Test>) -> Json<String> {
+    heaven(test.colour.to_owned(), test.pin);
+
+    Json("ok".to_string())
+}
+
+#[post("/cloud", format = "json", data = "<test>")]
+pub fn cloud_test(test: Json<Test>) -> Json<String> {
+    cloud(test.colour.to_owned(), test.pin);
+
+    Json("ok".to_string())
+}
+
+#[post("/sun", format = "json", data = "<test>")]
+pub fn sun_test(test: Json<Test>) -> Json<String> {
+    sun(test.colour.to_owned(), test.pin);
+
+    Json("ok".to_string())
+}
+
+#[post("/wind", format = "json", data = "<test>")]
+pub fn wind_test(test: Json<Test>) -> Json<String> {
+    wind(test.colour.to_owned(), test.pin);
+
+    Json("ok".to_string())
+}
+
+#[post("/thunder", format = "json", data = "<test>")]
+pub fn thunder_test(test: Json<Test>) -> Json<String> {
+    thunder(test.colour.to_owned(), test.sound.to_owned());
+
+    Json("ok".to_string())
+}
+
+#[post("/water", format = "json", data = "<test>")]
+pub fn water_test(test: Json<Test>) -> Json<String> {
+    water(test.colour.to_owned(), test.pin);
+
+    Json("ok".to_string())
+}
+
+#[post("/mountain", format = "json", data = "<test>")]
+pub fn mountain_test(test: Json<Test>) -> Json<String> {
+    mountain(test.colour.to_owned(), test.sound.to_owned());
+
+    Json("ok".to_string())
+}
+
+#[post("/earth", format = "json", data = "<test>")]
+pub fn earth_test(test: Json<Test>) -> Json<String> {
+    earth(test.colour.to_owned(), test.pin);
+
+    Json("ok".to_string())
 }

@@ -80,5 +80,18 @@ fn rocket() -> Rocket {
             "/simulation",
             routes![simulation::touch, simulation::element, simulation::result],
         )
+        .mount(
+            "/test",
+            routes![
+                simulation::heaven_test,
+                simulation::cloud_test,
+                simulation::sun_test,
+                simulation::wind_test,
+                simulation::thunder_test,
+                simulation::water_test,
+                simulation::mountain_test,
+                simulation::earth_test,
+            ],
+        )
         .register(catchers![catchers::not_found, catchers::internal_error])
 }

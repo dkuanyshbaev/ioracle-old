@@ -1,7 +1,7 @@
-// use super::schema::trigrams;
 use crate::errors::IOracleResult;
+use crate::models::binding::Binding;
+use crate::oracle::wires::*;
 use rand::distributions::{Distribution, Uniform};
-// use rocket_contrib::databases::diesel::prelude::*;
 use rocket_contrib::databases::diesel::SqliteConnection;
 use std::fmt;
 
@@ -31,6 +31,16 @@ impl Line {
         }
     }
 
+    pub fn get_touch() -> Line {
+        let mut rng = rand::thread_rng();
+        let line_range = Uniform::from(0..2);
+        if line_range.sample(&mut rng) == 0 {
+            Line::Yin
+        } else {
+            Line::Yang
+        }
+    }
+
     pub fn from_string(line: &String) -> Line {
         if *line == "Yin".to_string() {
             Line::Yin
@@ -49,7 +59,49 @@ pub struct Trigram {
 
 impl Trigram {
     pub fn react(&self, connection: &SqliteConnection) -> IOracleResult<()> {
-        println!("-----------we are reacting!");
+        let bindings = Binding::get(&connection)?;
+        match self {
+            Trigram {
+                top: Line::Yang,
+                middle: Line::Yang,
+                bottom: Line::Yang,
+            } => heaven(bindings.heaven_colour, bindings.heaven_pin as u8),
+            Trigram {
+                top: Line::Yin,
+                middle: Line::Yang,
+                bottom: Line::Yang,
+            } => cloud(bindings.cloud_colour, bindings.cloud_pin as u8),
+            Trigram {
+                top: Line::Yang,
+                middle: Line::Yin,
+                bottom: Line::Yang,
+            } => sun(bindings.sun_colour, bindings.sun_pin as u8),
+            Trigram {
+                top: Line::Yin,
+                middle: Line::Yin,
+                bottom: Line::Yang,
+            } => wind(bindings.wind_colour, bindings.wind_pin as u8),
+            Trigram {
+                top: Line::Yang,
+                middle: Line::Yang,
+                bottom: Line::Yin,
+            } => thunder(bindings.thunder_colour, bindings.thunder_sound),
+            Trigram {
+                top: Line::Yin,
+                middle: Line::Yang,
+                bottom: Line::Yin,
+            } => water(bindings.wind_colour, bindings.water_pin as u8),
+            Trigram {
+                top: Line::Yang,
+                middle: Line::Yin,
+                bottom: Line::Yin,
+            } => mountain(bindings.mountain_colour, bindings.mountain_sound),
+            Trigram {
+                top: Line::Yin,
+                middle: Line::Yin,
+                bottom: Line::Yin,
+            } => earth(bindings.earth_colour, bindings.earth_pin as u8),
+        }
 
         Ok(())
     }
