@@ -1,5 +1,5 @@
 use crate::errors::IOracleResult;
-use crate::oracle::iching::ask_iching;
+// use crate::oracle::iching::ask_iching;
 use crate::oracle::wires::ask_wires;
 use crate::Config;
 use lettre::transport::smtp::authentication::Credentials;
@@ -22,11 +22,11 @@ pub fn ask_question(
     Ok("uuid".to_string())
 }
 
-pub fn ioracle(question: &String) -> IOracleResult<String> {
-    let hexagram = ask_wires()?;
-    let answer = ask_iching(hexagram, question)?;
+pub fn ioracle(_question: &String) -> IOracleResult<String> {
+    let _hexagram = ask_wires()?;
+    // let answer = ask_iching(hexagram, question)?;
 
-    Ok(answer)
+    Ok("answer".to_string())
 }
 
 // pub fn save(

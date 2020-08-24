@@ -841,6 +841,7 @@ dependencies = [
  "diesel",
  "diesel_migrations",
  "lettre",
+ "rand",
  "rocket",
  "rocket_contrib",
  "rppal",
