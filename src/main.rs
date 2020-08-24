@@ -78,7 +78,7 @@ fn rocket() -> Rocket {
         )
         .mount(
             "/simulation",
-            routes![simulation::touch, simulation::element],
+            routes![simulation::touch, simulation::element, simulation::result],
         )
         .register(catchers![catchers::not_found, catchers::internal_error])
 }

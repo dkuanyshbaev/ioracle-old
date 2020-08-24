@@ -8,6 +8,7 @@ function run_simulation(){
     });
 
     $('#run_button').prop('disabled', true);
+    $('.output').empty();
 
     // touch 1
     var line1 = "";
@@ -86,12 +87,16 @@ function run_simulation(){
     });
 
     var all_lines = JSON.stringify({
-        "top" : top_lines,
-        "bottom" : bottom_lines,
+        "first" : line1,
+        "second" : line2,
+        "third" : line3,
+        "fourth" : line4,
+        "fifth" : line5,
+        "sixth" : line6,
     });
 
     $.ajax({
-        url: "simulation/hexagram",
+        url: "simulation/result",
         type: "POST",
         data: all_lines,
         contentType: "application/json; charset=utf-8",

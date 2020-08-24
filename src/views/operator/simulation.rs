@@ -10,6 +10,16 @@ pub struct Lines {
     third: String,
 }
 
+#[derive(Serialize, Deserialize, Debug)]
+pub struct AllLines {
+    first: String,
+    second: String,
+    third: String,
+    fourth: String,
+    fifth: String,
+    sixth: String,
+}
+
 #[get("/touch")]
 pub fn touch() -> Json<Line> {
     Json(Line::get_random())
@@ -26,4 +36,11 @@ pub fn element(lines: Json<Lines>) -> Json<String> {
     trigram.react();
 
     Json(trigram.as_element())
+}
+
+#[post("/result", format = "json", data = "<all_lines>")]
+pub fn result(all_lines: Json<AllLines>) -> Json<String> {
+    println!("{:?}", all_lines);
+
+    Json("?".to_string())
 }
