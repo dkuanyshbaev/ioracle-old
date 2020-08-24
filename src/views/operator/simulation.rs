@@ -43,12 +43,7 @@ pub fn element(connection: Db, lines: Json<Lines>) -> IOracleResult<Json<String>
     };
     trigram.react(&connection)?;
 
-    // let element = trigram.as_element(&connection)?;
-
-    // element.react();
-
-    Ok(Json(trigram.name(&connection)?))
-    // Ok(Json(element.name()))
+    Ok(Json(trigram.name()))
 }
 
 #[post("/result", format = "json", data = "<all_lines>")]

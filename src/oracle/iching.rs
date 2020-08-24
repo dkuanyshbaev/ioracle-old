@@ -31,16 +31,6 @@ impl Line {
         }
     }
 
-    pub fn get_touch() -> Line {
-        let mut rng = rand::thread_rng();
-        let line_range = Uniform::from(0..2);
-        if line_range.sample(&mut rng) == 0 {
-            Line::Yin
-        } else {
-            Line::Yang
-        }
-    }
-
     pub fn from_string(line: &String) -> Line {
         if *line == "Yin".to_string() {
             Line::Yin
@@ -106,48 +96,48 @@ impl Trigram {
         Ok(())
     }
 
-    pub fn name(&self, connection: &SqliteConnection) -> IOracleResult<String> {
+    pub fn name(&self) -> String {
         match self {
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yang,
                 bottom: Line::Yang,
-            } => Ok("Heaven".to_string()),
+            } => "Heaven".to_string(),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yang,
                 bottom: Line::Yang,
-            } => Ok("Cloud".to_string()),
+            } => "Cloud".to_string(),
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yin,
                 bottom: Line::Yang,
-            } => Ok("Sun".to_string()),
+            } => "Sun".to_string(),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yin,
                 bottom: Line::Yang,
-            } => Ok("Wind".to_string()),
+            } => "Wind".to_string(),
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yang,
                 bottom: Line::Yin,
-            } => Ok("Thunder".to_string()),
+            } => "Thunder".to_string(),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yang,
                 bottom: Line::Yin,
-            } => Ok("Water".to_string()),
+            } => "Water".to_string(),
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yin,
                 bottom: Line::Yin,
-            } => Ok("Mountain".to_string()),
+            } => "Mountain".to_string(),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yin,
                 bottom: Line::Yin,
-            } => Ok("Earth".to_string()),
+            } => "Earth".to_string(),
         }
     }
 }
@@ -159,7 +149,7 @@ pub struct Hexagram {
 }
 
 impl Hexagram {
-    pub fn name(&self, connection: &SqliteConnection) -> IOracleResult<String> {
+    pub fn name(&self, _connection: &SqliteConnection) -> IOracleResult<String> {
         Ok("?".to_string())
     }
 }
