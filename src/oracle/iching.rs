@@ -21,14 +21,18 @@ impl fmt::Display for Line {
 }
 
 impl Line {
-    pub fn get_random() -> Line {
+    pub fn get_touch(line_num: u8) -> Line {
         let mut rng = rand::thread_rng();
         let line_range = Uniform::from(0..2);
-        if line_range.sample(&mut rng) == 0 {
+        let line = if line_range.sample(&mut rng) == 0 {
             Line::Yin
         } else {
             Line::Yang
-        }
+        };
+
+        light(&line, line_num);
+
+        line
     }
 
     pub fn from_string(line: &String) -> Line {

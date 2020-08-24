@@ -28,10 +28,9 @@ pub struct Test {
     sound: String,
 }
 
-#[get("/touch")]
-pub fn touch() -> Json<Line> {
-    // Json(Line::get_touch())
-    Json(Line::get_random())
+#[get("/touch/<line_num>")]
+pub fn touch(line_num: u8) -> Json<Line> {
+    Json(Line::get_touch(line_num))
 }
 
 #[post("/element", format = "json", data = "<lines>")]

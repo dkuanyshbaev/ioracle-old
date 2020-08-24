@@ -1,3 +1,9 @@
+use crate::oracle::iching::Line;
+
+pub fn light(_line: &Line, line_num: u8) {
+    println!("light line number {}", line_num);
+}
+
 pub fn heaven(_colour: String, pin: u8) {
     println!("heaven............");
     println!("on {}", pin);

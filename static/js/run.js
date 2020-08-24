@@ -12,21 +12,21 @@ function run_simulation(){
 
     // touch 1
     var line1 = "";
-    $.getJSON('/simulation/touch', function(line) {
+    $.getJSON('/simulation/touch/1', function(line) {
         output("Line 1: " + line);
         line1 = line;
     });
 
     // touch 2
     var line2 = "";
-    $.getJSON('/simulation/touch', function(line) {
+    $.getJSON('/simulation/touch/2', function(line) {
         output("Line 2: " + line);
         line2 = line;
     });
 
     // touch 3
     var line3 = "";
-    $.getJSON('/simulation/touch', function(line) {
+    $.getJSON('/simulation/touch/3', function(line) {
         output("Line 3: " + line);
         line3 = line;
     });
@@ -50,21 +50,21 @@ function run_simulation(){
 
     // touch 4
     var line4 = "";
-    $.getJSON('/simulation/touch', function(line) {
+    $.getJSON('/simulation/touch/4', function(line) {
         output("Line 4: " + line);
         line4 = line;
     });
 
     // touch 5
     var line5 = "";
-    $.getJSON('/simulation/touch', function(line) {
+    $.getJSON('/simulation/touch/5', function(line) {
         output("Line 5: " + line);
         line5 = line;
     });
 
     // touch 6
     var line6 = "";
-    $.getJSON('/simulation/touch', function(line) {
+    $.getJSON('/simulation/touch/6', function(line) {
         output("Line 6: " + line);
         line6 = line;
     });
