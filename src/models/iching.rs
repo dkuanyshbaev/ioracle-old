@@ -1,4 +1,8 @@
+// use super::schema::trigrams;
+use crate::errors::IOracleResult;
 use rand::distributions::{Distribution, Uniform};
+// use rocket_contrib::databases::diesel::prelude::*;
+use rocket_contrib::databases::diesel::SqliteConnection;
 use std::fmt;
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -44,60 +48,54 @@ pub struct Trigram {
 }
 
 impl Trigram {
-    pub fn new() -> Trigram {
-        Trigram {
-            top: Line::Yin,
-            middle: Line::Yin,
-            bottom: Line::Yang,
-        }
-    }
-
-    pub fn react(&self) {
+    pub fn react(&self, connection: &SqliteConnection) -> IOracleResult<()> {
         println!("-----------we are reacting!");
+
+        Ok(())
     }
 
-    pub fn as_element(&self) -> String {
+    pub fn name(&self, connection: &SqliteConnection) -> IOracleResult<String> {
         match self {
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yang,
                 bottom: Line::Yang,
-            } => "Heaven".to_string(),
+            } => Ok("Heaven".to_string()),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yang,
                 bottom: Line::Yang,
-            } => "Cloud".to_string(),
+            } => Ok("Cloud".to_string()),
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yin,
                 bottom: Line::Yang,
-            } => "Sun".to_string(),
+            } => Ok("Sun".to_string()),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yin,
                 bottom: Line::Yang,
-            } => "Wind".to_string(),
+            } => Ok("Wind".to_string()),
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yang,
                 bottom: Line::Yin,
-            } => "Thunder".to_string(),
+            } => Ok("Thunder".to_string()),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yang,
                 bottom: Line::Yin,
-            } => "Water".to_string(),
+            } => Ok("Water".to_string()),
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yin,
                 bottom: Line::Yin,
-            } => "Mountain".to_string(),
+            } => Ok("Mountain".to_string()),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yin,
                 bottom: Line::Yin,
-            } => "Earth".to_string(),
+            } => Ok("Earth".to_string()),
         }
     }
 }
@@ -109,10 +107,7 @@ pub struct Hexagram {
 }
 
 impl Hexagram {
-    // pub fn new() -> Hexagram {
-    //     Hexagram {
-    //         top: Trigram::new(),
-    //         bottom: Trigram::new(),
-    //     }
-    // }
+    pub fn name(&self, connection: &SqliteConnection) -> IOracleResult<String> {
+        Ok("?".to_string())
+    }
 }
