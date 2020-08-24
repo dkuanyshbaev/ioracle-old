@@ -98,6 +98,7 @@
                         <th scope="col">Function</th>
                         <th scope="col">Colour</th>
                         <th scope="col">PinOut / Sound</th>
+                        <th scope="col">Test</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -126,6 +127,9 @@
                                 {% endfor %}
                             </select>
                         </td>
+                        <td class="align-middle">
+                            <button type="button" onclick="heaven_test()" class="btn btn-info">Test</button>
+                        </td>
                     </tr>
 
                     <tr>
@@ -152,6 +156,9 @@
                                     {% endif %}
                                 {% endfor %}
                             </select>
+                        </td>
+                        <td class="align-middle">
+                            <button type="button" onclick="cloud_test()" class="btn btn-info">Test</button>
                         </td>
                     </tr>
 
@@ -180,6 +187,9 @@
                                 {% endfor %}
                             </select>
                         </td>
+                        <td class="align-middle">
+                            <button type="button" onclick="sun_test()" class="btn btn-info">Test</button>
+                        </td>
                     </tr>
 
                     <tr>
@@ -207,6 +217,9 @@
                                 {% endfor %}
                             </select>
                         </td>
+                        <td class="align-middle">
+                            <button type="button" onclick="wind_test()" class="btn btn-info">Test</button>
+                        </td>
                     </tr>
 
                     <tr>
@@ -228,6 +241,9 @@
                                 <input type="file" accept=".wav,.mp3" class="custom-file-input" id="thunder_sound">
                                 <label class="custom-file-label" for="customFile">Sound</label>
                             </div>
+                        </td>
+                        <td class="align-middle">
+                            <button type="button" onclick="thunder_test()" class="btn btn-info">Test</button>
                         </td>
                     </tr>
 
@@ -256,6 +272,9 @@
                                 {% endfor %}
                             </select>
                         </td>
+                        <td class="align-middle">
+                            <button type="button" onclick="water_test()" class="btn btn-info">Test</button>
+                        </td>
                     </tr>
 
                     <tr>
@@ -277,6 +296,9 @@
                                 <input type="file" accept=".wav,.mp3" class="custom-file-input" id="mountain_sound">
                                 <label class="custom-file-label" for="customFile">Sound</label>
                             </div>
+                        </td>
+                        <td class="align-middle">
+                            <button type="button" onclick="mountain_test()" class="btn btn-info">Test</button>
                         </td>
                     </tr>
 
@@ -304,6 +326,9 @@
                                     {% endif %}
                                 {% endfor %}
                             </select>
+                        </td>
+                        <td class="align-middle">
+                            <button type="button" onclick="earth_test()" class="btn btn-info">Test</button>
                         </td>
                     </tr>
 
@@ -363,4 +388,5 @@
 <script src="/static/js/bootstrap-colorpicker.min.js"></script>
 <script src="/static/js/bs-custom-file-input.min.js"></script>
 <script src="/static/js/custom.js"></script>
+<script src="/static/js/test.js"></script>
 {% endblock content %}
