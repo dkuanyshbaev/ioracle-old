@@ -1,8 +1,8 @@
 use crate::oracle::iching::Line;
 use rppal::gpio::Gpio;
 // use std::error::Error;
-// use std::thread;
-// use std::time::Duration;
+use std::thread;
+use std::time::Duration;
 
 pub fn light(_line: &Line, line_num: u8) {
     println!("light line number {}", line_num);
@@ -13,6 +13,7 @@ pub fn on_off(pin: u8) {
         if let Ok(pin) = gpio.get(pin) {
             let mut pin = pin.into_output();
             pin.set_high();
+            thread::sleep(Duration::from_secs(5));
             pin.set_low();
         }
     }
