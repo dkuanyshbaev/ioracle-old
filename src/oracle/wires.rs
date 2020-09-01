@@ -1,11 +1,44 @@
 use crate::oracle::iching::Line;
 use rppal::gpio::Gpio;
 // use std::error::Error;
+use rs_ws281x::ChannelBuilder;
+// use rs_ws281x::Controller;
+use rs_ws281x::ControllerBuilder;
+use rs_ws281x::StripType;
 use std::thread;
 use std::time::Duration;
 
 pub fn light(_line: &Line, line_num: u8) {
     println!("light line number {}", line_num);
+
+    let controller = ControllerBuilder::new()
+        .freq(800_000)
+        .dma(10)
+        .channel(
+            0,
+            ChannelBuilder::new()
+                .pin(12)
+                .count(10)
+                .strip_type(StripType::Ws2811Rgb)
+                .brightness(255)
+                .build(),
+        )
+        .build();
+
+    if let Ok(mut c) = controller {
+        let leds = c.leds_mut(0);
+        leds[0] = [255, 255, 255, 0];
+
+        match c.render() {
+            Ok(_) => println!("ok!"),
+            Err(e) => println!("{:?}", e),
+        };
+    }
+
+    // let leds = controller.leds_mut(0);
+    // leds[0] = [255, 255, 255, 0];
+    //
+    // controller.render();
 }
 
 pub fn on_off(pin: u8) {
