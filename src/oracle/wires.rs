@@ -2,23 +2,22 @@ use crate::oracle::iching::Line;
 use rppal::gpio::Gpio;
 // use std::error::Error;
 use rs_ws281x::ChannelBuilder;
-// use rs_ws281x::Controller;
 use rs_ws281x::ControllerBuilder;
 use rs_ws281x::StripType;
 use std::thread;
 use std::time::Duration;
 
-pub fn light(_line: &Line, line_num: u8) {
-    println!("light line number {}", line_num);
+const LEDS_IN_LINE: u8 = 24;
 
+pub fn yin(line_num: u8) {
     let controller = ControllerBuilder::new()
         .freq(800_000)
         .dma(10)
         .channel(
-            0,
+            0, // 6 channels?
             ChannelBuilder::new()
                 .pin(12)
-                .count(10)
+                .count(10) // numbers of leds connected to channel
                 .strip_type(StripType::Ws2811Rgb)
                 .brightness(255)
                 .build(),
@@ -26,8 +25,11 @@ pub fn light(_line: &Line, line_num: u8) {
         .build();
 
     if let Ok(mut c) = controller {
-        let leds = c.leds_mut(0);
+        let leds = c.leds_mut(0); // channel?
         leds[0] = [255, 255, 255, 0];
+        leds[1] = [255, 255, 255, 0];
+        leds[2] = [255, 255, 255, 0];
+        leds[3] = [255, 255, 255, 0];
 
         match c.render() {
             Ok(_) => println!("ok!"),
@@ -35,10 +37,40 @@ pub fn light(_line: &Line, line_num: u8) {
         };
     }
 
-    // let leds = controller.leds_mut(0);
-    // leds[0] = [255, 255, 255, 0];
-    //
-    // controller.render();
+    println!("yin");
+    println!("light line number {}", line_num);
+}
+
+pub fn yang(line_num: u8) {
+    let controller = ControllerBuilder::new()
+        .freq(800_000)
+        .dma(10)
+        .channel(
+            0, // 6 channels?
+            ChannelBuilder::new()
+                .pin(13)
+                .count(10) // numbers of leds connected to channel
+                .strip_type(StripType::Ws2811Rgb)
+                .brightness(255)
+                .build(),
+        )
+        .build();
+
+    if let Ok(mut c) = controller {
+        let leds = c.leds_mut(0); // channel?
+        leds[0] = [255, 255, 255, 0];
+        leds[1] = [255, 255, 255, 0];
+        leds[2] = [255, 255, 255, 0];
+        leds[3] = [255, 255, 255, 0];
+
+        match c.render() {
+            Ok(_) => println!("ok!"),
+            Err(e) => println!("{:?}", e),
+        };
+    }
+
+    println!("yang");
+    println!("light line number {}", line_num);
 }
 
 pub fn on_off(pin: u8) {
@@ -47,6 +79,24 @@ pub fn on_off(pin: u8) {
             let mut pin = pin.into_output();
             pin.set_high();
             thread::sleep(Duration::from_secs(5));
+            pin.set_low();
+        }
+    }
+}
+
+pub fn on(pin: u8) {
+    if let Ok(gpio) = Gpio::new() {
+        if let Ok(pin) = gpio.get(pin) {
+            let mut pin = pin.into_output();
+            pin.set_high();
+        }
+    }
+}
+
+pub fn off(pin: u8) {
+    if let Ok(gpio) = Gpio::new() {
+        if let Ok(pin) = gpio.get(pin) {
+            let mut pin = pin.into_output();
             pin.set_low();
         }
     }

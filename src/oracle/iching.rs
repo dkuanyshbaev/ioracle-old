@@ -30,9 +30,16 @@ impl Line {
             Line::Yang
         };
 
-        light(&line, line_num);
+        line.on(line_num);
 
         line
+    }
+
+    pub fn on(&self, line_num: u8) {
+        match self {
+            Line::Yin => yin(line_num),
+            Line::Yang => yang(line_num),
+        }
     }
 
     pub fn from_string(line: &String) -> Line {
