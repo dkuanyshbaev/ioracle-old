@@ -7,7 +7,7 @@ use rs_ws281x::StripType;
 use std::thread;
 use std::time::Duration;
 
-const LEDS_IN_LINE: u8 = 24;
+const LEDS_IN_LINE: i32 = 144;
 
 pub fn yin(line_num: u8) {
     let controller = ControllerBuilder::new()
@@ -17,7 +17,7 @@ pub fn yin(line_num: u8) {
             0, // 6 channels?
             ChannelBuilder::new()
                 .pin(12)
-                .count(10) // numbers of leds connected to channel
+                .count(3 * LEDS_IN_LINE) // numbers of leds connected to channel
                 .strip_type(StripType::Ws2811Rgb)
                 .brightness(255)
                 .build(),
@@ -26,49 +26,26 @@ pub fn yin(line_num: u8) {
 
     if let Ok(mut c) = controller {
         let leds = c.leds_mut(0); // channel?
-        leds[0] = [255, 255, 255, 0];
-        leds[1] = [255, 255, 255, 0];
-        leds[2] = [255, 255, 255, 0];
-        leds[3] = [255, 255, 255, 0];
+
+        for line in 0..3 {
+            for num in 0..LEDS_IN_LINE {
+                leds[num as usize] = [255, 255, 255, 0];
+            }
+        }
 
         match c.render() {
             Ok(_) => println!("ok!"),
             Err(e) => println!("{:?}", e),
         };
     }
+
+    // thread::sleep(Duration::from_secs(5));
 
     println!("yin");
     println!("light line number {}", line_num);
 }
 
 pub fn yang(line_num: u8) {
-    let controller = ControllerBuilder::new()
-        .freq(800_000)
-        .dma(10)
-        .channel(
-            0, // 6 channels?
-            ChannelBuilder::new()
-                .pin(13)
-                .count(10) // numbers of leds connected to channel
-                .strip_type(StripType::Ws2811Rgb)
-                .brightness(255)
-                .build(),
-        )
-        .build();
-
-    if let Ok(mut c) = controller {
-        let leds = c.leds_mut(0); // channel?
-        leds[0] = [255, 255, 255, 0];
-        leds[1] = [255, 255, 255, 0];
-        leds[2] = [255, 255, 255, 0];
-        leds[3] = [255, 255, 255, 0];
-
-        match c.render() {
-            Ok(_) => println!("ok!"),
-            Err(e) => println!("{:?}", e),
-        };
-    }
-
     println!("yang");
     println!("light line number {}", line_num);
 }
