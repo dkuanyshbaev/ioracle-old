@@ -79,66 +79,98 @@ pub fn off(pin: u8) {
     }
 }
 
-pub fn heaven(_colour: String, pin: u8) {
-    println!("----> heaven");
+pub fn heaven_on(_colour: String, pin: u8) {
+    println!("----> heaven on");
 
-    on_off(pin);
+    on(pin);
 }
 
-pub fn cloud(_colour: String, pin: u8) {
-    println!("----> cloud");
+pub fn heaven_off(pin: u8) {
+    println!("----> heaven off");
 
-    on_off(pin);
+    off(pin);
 }
 
-pub fn sun(_colour: String, pin: u8) {
-    println!("----> sun");
+pub fn cloud_on(_colour: String, pin: u8) {
+    println!("----> cloud on");
 
-    on_off(pin);
+    on(pin);
 }
 
-pub fn wind(_colour: String, pin: u8) {
-    println!("----> wind");
+pub fn cloud_off(pin: u8) {
+    println!("----> cloud off");
 
-    on_off(pin);
+    off(pin);
 }
 
-pub fn thunder(_colour: String, sound: String) {
-    println!("----> thunder");
+pub fn sun_on(_colour: String, pin: u8) {
+    println!("----> sun on");
+
+    on(pin);
+}
+
+pub fn sun_off(pin: u8) {
+    println!("----> sun off");
+
+    off(pin);
+}
+
+pub fn wind_on(_colour: String, pin: u8) {
+    println!("----> wind on");
+
+    on(pin);
+}
+
+pub fn wind_off(pin: u8) {
+    println!("----> wind off");
+
+    off(pin);
+}
+
+pub fn thunder_on(_colour: String, sound: String) {
+    println!("----> thunder on");
 
     println!("play {}", sound);
 }
 
-pub fn water(_colour: String, pin: u8) {
-    println!("----> water");
+pub fn thunder_off(sound: String) {
+    println!("----> thunder off");
 
-    on_off(pin);
+    println!("stop play {}", sound);
 }
 
-pub fn mountain(_colour: String, sound: String) {
-    println!("----> mountain");
+pub fn water_on(_colour: String, pin: u8) {
+    println!("----> water on");
+
+    on(pin);
+}
+
+pub fn water_off(pin: u8) {
+    println!("----> water off");
+
+    off(pin);
+}
+
+pub fn mountain_on(_colour: String, sound: String) {
+    println!("----> mountain on");
 
     println!("play {}", sound);
 }
 
-pub fn earth(_colour: String, _pin: u8) {
-    println!("----> earth");
+pub fn mountain_off(sound: String) {
+    println!("----> mountain off");
+
+    println!("stop play {}", sound);
+}
+
+pub fn earth_on(_colour: String, _pin: u8) {
+    println!("----> earth on");
 
     // on_off(pin);
 }
 
-// fn main() -> Result<(), Box<dyn Error>> {
-//     println!("Blinking an LED on a {}.", DeviceInfo::new()?.model());
-//     let mut pin = Gpio::new()?.get(GPIO_LED)?.into_output();
-//
-//     for _ in 1..17 {
-//         println!("on");
-//         pin.set_high();
-//         thread::sleep(Duration::from_secs(1));
-//         println!("off");
-//         pin.set_low();
-//         thread::sleep(Duration::from_secs(1));
-//     }
-//
-//     Ok(())
-// }
+pub fn earth_off(_pin: u8) {
+    println!("----> earth off");
+
+    // on_off(pin);
+}

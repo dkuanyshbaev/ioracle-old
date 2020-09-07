@@ -97,8 +97,8 @@
                         <th scope="col">Name</th>
                         <th scope="col">Function</th>
                         <th scope="col">Colour</th>
-                        <th scope="col">PinOut / Sound</th>
-                        <th scope="col">Test</th>
+                        <th scope="col">Bind</th>
+                        <th scope="col">On</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,7 +128,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <button type="button" onclick="heaven_test()" class="btn btn-info">Test</button>
+                            <input type="checkbox" onclick="on_off(this)" value="" id="heaven">
                         </td>
                     </tr>
 
@@ -158,7 +158,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <button type="button" onclick="cloud_test()" class="btn btn-info">Test</button>
+                            <input type="checkbox" onclick="on_off(this)" value="" id="cloud">
                         </td>
                     </tr>
 
@@ -188,7 +188,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <button type="button" onclick="sun_test()" class="btn btn-info">Test</button>
+                            <input type="checkbox" onclick="on_off(this)" value="" id="sun">
                         </td>
                     </tr>
 
@@ -218,7 +218,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <button type="button" onclick="wind_test()" class="btn btn-info">Test</button>
+                            <input type="checkbox" onclick="on_off(this)" value="" id="wind">
                         </td>
                     </tr>
 
@@ -243,7 +243,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <button type="button" onclick="thunder_test()" class="btn btn-info">Test</button>
+                            <input type="checkbox" onclick="on_off(this)" value="" id="thunder">
                         </td>
                     </tr>
 
@@ -273,7 +273,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <button type="button" onclick="water_test()" class="btn btn-info">Test</button>
+                            <input type="checkbox" onclick="on_off(this)" value="" id="water">
                         </td>
                     </tr>
 
@@ -298,7 +298,7 @@
                             </div>
                         </td>
                         <td class="align-middle">
-                            <button type="button" onclick="mountain_test()" class="btn btn-info">Test</button>
+                            <input type="checkbox" onclick="on_off(this)" value="" id="mountain">
                         </td>
                     </tr>
 
@@ -328,7 +328,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <button type="button" onclick="earth_test()" class="btn btn-info">Test</button>
+                            <input type="checkbox" onclick="on_off(this)" value="" id="earth">
                         </td>
                     </tr>
 

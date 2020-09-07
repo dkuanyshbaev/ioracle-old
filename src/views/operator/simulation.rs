@@ -65,58 +65,114 @@ pub fn result(connection: Db, all_lines: Json<AllLines>) -> IOracleResult<Json<S
     Ok(Json(hexagram.name(&connection)?))
 }
 
-#[post("/heaven", format = "json", data = "<test>")]
-pub fn heaven_test(test: Json<Test>) -> Json<String> {
-    heaven(test.colour.to_owned(), test.pin);
+#[post("/heaven/on", format = "json", data = "<test>")]
+pub fn heaven_test_on(test: Json<Test>) -> Json<String> {
+    heaven_on(test.colour.to_owned(), test.pin);
 
     Json("ok".to_string())
 }
 
-#[post("/cloud", format = "json", data = "<test>")]
-pub fn cloud_test(test: Json<Test>) -> Json<String> {
-    cloud(test.colour.to_owned(), test.pin);
+#[post("/heaven/off", format = "json", data = "<test>")]
+pub fn heaven_test_off(test: Json<Test>) -> Json<String> {
+    heaven_off(test.pin);
 
     Json("ok".to_string())
 }
 
-#[post("/sun", format = "json", data = "<test>")]
-pub fn sun_test(test: Json<Test>) -> Json<String> {
-    sun(test.colour.to_owned(), test.pin);
+#[post("/cloud/on", format = "json", data = "<test>")]
+pub fn cloud_test_on(test: Json<Test>) -> Json<String> {
+    cloud_on(test.colour.to_owned(), test.pin);
 
     Json("ok".to_string())
 }
 
-#[post("/wind", format = "json", data = "<test>")]
-pub fn wind_test(test: Json<Test>) -> Json<String> {
-    wind(test.colour.to_owned(), test.pin);
+#[post("/cloud/off", format = "json", data = "<test>")]
+pub fn cloud_test_off(test: Json<Test>) -> Json<String> {
+    cloud_off(test.pin);
 
     Json("ok".to_string())
 }
 
-#[post("/thunder", format = "json", data = "<test>")]
-pub fn thunder_test(test: Json<Test>) -> Json<String> {
-    thunder(test.colour.to_owned(), test.sound.to_owned());
+#[post("/sun/on", format = "json", data = "<test>")]
+pub fn sun_test_on(test: Json<Test>) -> Json<String> {
+    sun_on(test.colour.to_owned(), test.pin);
 
     Json("ok".to_string())
 }
 
-#[post("/water", format = "json", data = "<test>")]
-pub fn water_test(test: Json<Test>) -> Json<String> {
-    water(test.colour.to_owned(), test.pin);
+#[post("/sun/off", format = "json", data = "<test>")]
+pub fn sun_test_off(test: Json<Test>) -> Json<String> {
+    sun_off(test.pin);
 
     Json("ok".to_string())
 }
 
-#[post("/mountain", format = "json", data = "<test>")]
-pub fn mountain_test(test: Json<Test>) -> Json<String> {
-    mountain(test.colour.to_owned(), test.sound.to_owned());
+#[post("/wind/on", format = "json", data = "<test>")]
+pub fn wind_test_on(test: Json<Test>) -> Json<String> {
+    wind_on(test.colour.to_owned(), test.pin);
 
     Json("ok".to_string())
 }
 
-#[post("/earth", format = "json", data = "<test>")]
-pub fn earth_test(test: Json<Test>) -> Json<String> {
-    earth(test.colour.to_owned(), test.pin);
+#[post("/wind/off", format = "json", data = "<test>")]
+pub fn wind_test_off(test: Json<Test>) -> Json<String> {
+    wind_off(test.pin);
+
+    Json("ok".to_string())
+}
+
+#[post("/thunder/on", format = "json", data = "<test>")]
+pub fn thunder_test_on(test: Json<Test>) -> Json<String> {
+    thunder_on(test.colour.to_owned(), test.sound.to_owned());
+
+    Json("ok".to_string())
+}
+
+#[post("/thunder/off", format = "json", data = "<test>")]
+pub fn thunder_test_off(test: Json<Test>) -> Json<String> {
+    thunder_off(test.sound.to_owned());
+
+    Json("ok".to_string())
+}
+
+#[post("/water/on", format = "json", data = "<test>")]
+pub fn water_test_on(test: Json<Test>) -> Json<String> {
+    water_on(test.colour.to_owned(), test.pin);
+
+    Json("ok".to_string())
+}
+
+#[post("/water/off", format = "json", data = "<test>")]
+pub fn water_test_off(test: Json<Test>) -> Json<String> {
+    water_off(test.pin);
+
+    Json("ok".to_string())
+}
+
+#[post("/mountain/on", format = "json", data = "<test>")]
+pub fn mountain_test_on(test: Json<Test>) -> Json<String> {
+    mountain_on(test.colour.to_owned(), test.sound.to_owned());
+
+    Json("ok".to_string())
+}
+
+#[post("/mountain/off", format = "json", data = "<test>")]
+pub fn mountain_test_off(test: Json<Test>) -> Json<String> {
+    mountain_off(test.sound.to_owned());
+
+    Json("ok".to_string())
+}
+
+#[post("/earth/on", format = "json", data = "<test>")]
+pub fn earth_test_on(test: Json<Test>) -> Json<String> {
+    earth_on(test.colour.to_owned(), test.pin);
+
+    Json("ok".to_string())
+}
+
+#[post("/earth/off", format = "json", data = "<test>")]
+pub fn earth_test_off(test: Json<Test>) -> Json<String> {
+    earth_off(test.pin);
 
     Json("ok".to_string())
 }

@@ -66,42 +66,42 @@ impl Trigram {
                 top: Line::Yang,
                 middle: Line::Yang,
                 bottom: Line::Yang,
-            } => heaven(bindings.heaven_colour, bindings.heaven_pin as u8),
+            } => heaven_on(bindings.heaven_colour, bindings.heaven_pin as u8),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yang,
                 bottom: Line::Yang,
-            } => cloud(bindings.cloud_colour, bindings.cloud_pin as u8),
+            } => cloud_on(bindings.cloud_colour, bindings.cloud_pin as u8),
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yin,
                 bottom: Line::Yang,
-            } => sun(bindings.sun_colour, bindings.sun_pin as u8),
+            } => sun_on(bindings.sun_colour, bindings.sun_pin as u8),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yin,
                 bottom: Line::Yang,
-            } => wind(bindings.wind_colour, bindings.wind_pin as u8),
+            } => wind_on(bindings.wind_colour, bindings.wind_pin as u8),
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yang,
                 bottom: Line::Yin,
-            } => thunder(bindings.thunder_colour, bindings.thunder_sound),
+            } => thunder_on(bindings.thunder_colour, bindings.thunder_sound),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yang,
                 bottom: Line::Yin,
-            } => water(bindings.wind_colour, bindings.water_pin as u8),
+            } => water_on(bindings.wind_colour, bindings.water_pin as u8),
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yin,
                 bottom: Line::Yin,
-            } => mountain(bindings.mountain_colour, bindings.mountain_sound),
+            } => mountain_on(bindings.mountain_colour, bindings.mountain_sound),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yin,
                 bottom: Line::Yin,
-            } => earth(bindings.earth_colour, bindings.earth_pin as u8),
+            } => earth_on(bindings.earth_colour, bindings.earth_pin as u8),
         }
 
         Ok(())
