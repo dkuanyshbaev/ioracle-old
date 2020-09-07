@@ -50,16 +50,16 @@ pub fn yang(line_num: u8) {
     println!("light line number {}", line_num);
 }
 
-pub fn on_off(pin: u8) {
-    if let Ok(gpio) = Gpio::new() {
-        if let Ok(pin) = gpio.get(pin) {
-            let mut pin = pin.into_output();
-            pin.set_high();
-            thread::sleep(Duration::from_secs(5));
-            pin.set_low();
-        }
-    }
-}
+// pub fn on_off(pin: u8) {
+//     if let Ok(gpio) = Gpio::new() {
+//         if let Ok(pin) = gpio.get(pin) {
+//             let mut pin = pin.into_output();
+//             pin.set_high();
+//             thread::sleep(Duration::from_secs(5));
+//             pin.set_low();
+//         }
+//     }
+// }
 
 pub fn on(pin: u8) {
     if let Ok(gpio) = Gpio::new() {
@@ -80,49 +80,49 @@ pub fn off(pin: u8) {
 }
 
 pub fn heaven_on(_colour: String, pin: u8) {
-    println!("----> heaven on");
+    println!("----> heaven on, pin {}", pin);
 
     on(pin);
 }
 
 pub fn heaven_off(pin: u8) {
-    println!("----> heaven off");
+    println!("----> heaven off, pin {}", pin);
 
     off(pin);
 }
 
 pub fn cloud_on(_colour: String, pin: u8) {
-    println!("----> cloud on");
+    println!("----> cloud on, pin {}", pin);
 
     on(pin);
 }
 
 pub fn cloud_off(pin: u8) {
-    println!("----> cloud off");
+    println!("----> cloud off, pin {}", pin);
 
     off(pin);
 }
 
 pub fn sun_on(_colour: String, pin: u8) {
-    println!("----> sun on");
+    println!("----> sun on, pin {}", pin);
 
     on(pin);
 }
 
 pub fn sun_off(pin: u8) {
-    println!("----> sun off");
+    println!("----> sun off, pin {}", pin);
 
     off(pin);
 }
 
 pub fn wind_on(_colour: String, pin: u8) {
-    println!("----> wind on");
+    println!("----> wind on, pin {}", pin);
 
     on(pin);
 }
 
 pub fn wind_off(pin: u8) {
-    println!("----> wind off");
+    println!("----> wind off, pin {}", pin);
 
     off(pin);
 }
@@ -140,13 +140,13 @@ pub fn thunder_off(sound: String) {
 }
 
 pub fn water_on(_colour: String, pin: u8) {
-    println!("----> water on");
+    println!("----> water on, pin {}", pin);
 
     on(pin);
 }
 
 pub fn water_off(pin: u8) {
-    println!("----> water off");
+    println!("----> water off, pin {}", pin);
 
     off(pin);
 }
