@@ -14,10 +14,10 @@ pub fn yin(line_num: u8) {
         .freq(800_000)
         .dma(10)
         .channel(
-            0, // 6 channels?
+            0,
             ChannelBuilder::new()
                 .pin(12)
-                .count(3 * LEDS_IN_LINE) // numbers of leds connected to channel
+                .count(3 * LEDS_IN_LINE)
                 .strip_type(StripType::Ws2811Rgb)
                 .brightness(255)
                 .build(),
@@ -25,7 +25,7 @@ pub fn yin(line_num: u8) {
         .build();
 
     if let Ok(mut c) = controller {
-        let leds = c.leds_mut(0); // channel?
+        let leds = c.leds_mut(0);
 
         for line in 0..3 {
             for num in 0..LEDS_IN_LINE {
@@ -49,17 +49,6 @@ pub fn yang(line_num: u8) {
     println!("yang");
     println!("light line number {}", line_num);
 }
-
-// pub fn on_off(pin: u8) {
-//     if let Ok(gpio) = Gpio::new() {
-//         if let Ok(pin) = gpio.get(pin) {
-//             let mut pin = pin.into_output();
-//             pin.set_high();
-//             thread::sleep(Duration::from_secs(5));
-//             pin.set_low();
-//         }
-//     }
-// }
 
 pub fn on(pin: u8) {
     if let Ok(gpio) = Gpio::new() {
