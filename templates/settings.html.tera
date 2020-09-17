@@ -95,7 +95,7 @@
                         </td>
                         <td class="align-middle">Heaven (Qian)</td>
                         <td class="align-middle">On/Off static LED strip</td>
-                        <td class="align-middle" style="width:200px;">
+                        <td class="align-middle" style="width:240px;">
                             <div id="c1" class="input-group">
                                 <input type="text" class="form-control input-lg" id="heaven_colour" value="{{item.heaven_colour}}"/>
                                 <span class="input-group-append">
@@ -122,7 +122,7 @@
                         </td>
                         <td class="align-middle">Cloud (Dui)</td>
                         <td class="align-middle">On/Off mister</td>
-                        <td class="align-middle" style="width:200px;">
+                        <td class="align-middle" style="width:240px;">
                             <div id="c2" class="input-group">
                                 <input type="text" class="form-control input-lg" id="cloud_colour" value="{{item.cloud_colour}}"/>
                                 <span class="input-group-append">
@@ -149,7 +149,7 @@
                         </td>
                         <td class="align-middle">Sun (Li)</td>
                         <td class="align-middle">On/Off programmable LED strip</td>
-                        <td class="align-middle" style="width:200px;">
+                        <td class="align-middle" style="width:240px;">
                             <div id="c3" class="input-group">
                                 <input type="text" class="form-control input-lg" id="sun_colour" value="{{item.sun_colour}}"/>
                                 <span class="input-group-append">
@@ -176,7 +176,7 @@
                         </td>
                         <td class="align-middle">Wind (Zhen)</td>
                         <td class="align-middle">On/Off fan</td>
-                        <td class="align-middle" style="width:200px;">
+                        <td class="align-middle" style="width:240px;">
                             <div id="c4" class="input-group">
                                 <input type="text" class="form-control input-lg" id="wind_colour" value="{{item.wind_colour}}"/>
                                 <span class="input-group-append">
@@ -203,7 +203,7 @@
                         </td>
                         <td class="align-middle">Thunder (Quian)</td>
                         <td class="align-middle">Play audio</td>
-                        <td class="align-middle" style="width:200px;">
+                        <td class="align-middle" style="width:240px;">
                             <div id="c5" class="input-group">
                                 <input type="text" class="form-control input-lg" id="thunder_colour" value="{{item.thunder_colour}}"/>
                                 <span class="input-group-append">
@@ -221,7 +221,7 @@
                         </td>
                         <td class="align-middle">Water (Kan)</td>
                         <td class="align-middle">On/Off Spray</td>
-                        <td class="align-middle" style="width:200px;">
+                        <td class="align-middle" style="width:240px;">
                             <div id="c6" class="input-group">
                                 <input type="text" class="form-control input-lg" id="water_colour" value="{{item.water_colour}}"/>
                                 <span class="input-group-append">
@@ -248,7 +248,7 @@
                         </td>
                         <td class="align-middle">Mountain (Gen)</td>
                         <td class="align-middle">Play audio</td>
-                        <td class="align-middle" style="width:200px;">
+                        <td class="align-middle" style="width:240px;">
                             <div id="c7" class="input-group">
                                 <input type="text" class="form-control input-lg" id="mountain_colour" value="{{item.mountain_colour}}"/>
                                 <span class="input-group-append">
@@ -275,7 +275,7 @@
                         </td>
                         <td class="align-middle">Earth (Kun)</td>
                         <td class="align-middle">On/Off agitator</td>
-                        <td class="align-middle" style="width:200px;">
+                        <td class="align-middle" style="width:240px;">
                             <div id="c8" class="input-group">
                                 <input type="text" class="form-control input-lg" id="earth_colour" value="{{item.earth_colour}}"/>
                                 <span class="input-group-append">

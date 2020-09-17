@@ -60,6 +60,7 @@ pub fn settings(connection: Db) -> IOracleResult<Template> {
 
 #[post("/save", format = "json", data = "<bindings>")]
 pub fn save(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Redirect> {
+    println!("{:?}", bindings);
     Binding::update(&connection, bindings.into_inner())?;
 
     Ok(Redirect::to("/settings"))
