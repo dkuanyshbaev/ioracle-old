@@ -71,7 +71,7 @@ pub fn send(
     let email = Message::builder()
         .from(config.email.parse().unwrap())
         .to(email.parse().unwrap())
-        .subject(config.subject.to_owned())
+        .subject("iOracle")
         .body(body_text)
         .unwrap();
 

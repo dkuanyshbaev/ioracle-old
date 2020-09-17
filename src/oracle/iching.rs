@@ -86,7 +86,7 @@ impl Trigram {
                 top: Line::Yang,
                 middle: Line::Yang,
                 bottom: Line::Yin,
-            } => thunder_on(bindings.thunder_colour, bindings.thunder_sound),
+            } => thunder_on(bindings.thunder_colour),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yang,
@@ -96,12 +96,12 @@ impl Trigram {
                 top: Line::Yang,
                 middle: Line::Yin,
                 bottom: Line::Yin,
-            } => mountain_on(bindings.mountain_colour, bindings.mountain_sound),
+            } => mountain_on(bindings.mountain_colour, bindings.mountain_pin as u8),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yin,
                 bottom: Line::Yin,
-            } => earth_on(bindings.earth_colour, bindings.earth_pin as u8),
+            } => earth_on(bindings.earth_colour),
         }
 
         Ok(())

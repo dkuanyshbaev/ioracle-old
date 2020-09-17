@@ -22,7 +22,7 @@
 
 {% block content %}
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/operator">iOracle Operator</a>
+    <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="/settings">iOracle Operator</a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -39,15 +39,9 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="/operator">
+                        <a class="nav-link" href="/settings">
                             <img src="/static/feather/tool.svg">
                             Settings
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/run">
-                            <img src="/static/feather/activity.svg">
-                            Run
                         </a>
                     </li>
                     <li class="nav-item">

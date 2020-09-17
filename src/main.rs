@@ -24,7 +24,7 @@ use rocket::fairing::AdHoc;
 use rocket::Rocket;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
-use views::operator::{hexagrams, simulation, trigrams};
+use views::operator::{hexagrams, trigrams};
 use views::{catchers, pages};
 
 embed_migrations!();
@@ -62,10 +62,8 @@ fn rocket() -> Rocket {
                 pages::index,
                 pages::question,
                 pages::answer,
-                pages::operator,
-                pages::run,
+                pages::settings,
                 pages::save,
-                pages::load,
             ],
         )
         .mount(
@@ -75,31 +73,6 @@ fn rocket() -> Rocket {
         .mount(
             "/hexagrams",
             routes![hexagrams::all, hexagrams::edit, hexagrams::update,],
-        )
-        .mount(
-            "/simulation",
-            routes![simulation::touch, simulation::element, simulation::result],
-        )
-        .mount(
-            "/test",
-            routes![
-                simulation::heaven_test_on,
-                simulation::heaven_test_off,
-                simulation::cloud_test_on,
-                simulation::cloud_test_off,
-                simulation::sun_test_on,
-                simulation::sun_test_off,
-                simulation::wind_test_on,
-                simulation::wind_test_off,
-                simulation::thunder_test_on,
-                simulation::thunder_test_off,
-                simulation::water_test_on,
-                simulation::water_test_off,
-                simulation::mountain_test_on,
-                simulation::mountain_test_off,
-                simulation::earth_test_on,
-                simulation::earth_test_off,
-            ],
         )
         .register(catchers![catchers::not_found, catchers::internal_error])
 }

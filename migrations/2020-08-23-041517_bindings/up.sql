@@ -1,6 +1,7 @@
 create table if not exists bindings (
     id integer not null primary key,
-    file_name text not null,
+    default_colour text not null,
+    resting_colour text not null,
     heaven_pin integer not null,
     heaven_colour text not null,
     cloud_pin integer not null,
@@ -9,13 +10,11 @@ create table if not exists bindings (
     sun_colour text not null,
     wind_pin integer not null,
     wind_colour text not null,
-    thunder_sound text not null,
     thunder_colour text not null,
     water_pin integer not null,
     water_colour text not null,
-    mountain_sound text not null,
+    mountain_pin integer not null,
     mountain_colour text not null,
-    earth_pin integer not null,
     earth_colour text not null,
     multiply text not null,
     bias text not null,
@@ -24,7 +23,8 @@ create table if not exists bindings (
 
 insert or ignore into bindings (
     id,
-    file_name,
+    default_colour,
+    resting_colour,
     heaven_pin,
     heaven_colour,
     cloud_pin,
@@ -33,37 +33,34 @@ insert or ignore into bindings (
     sun_colour,
     wind_pin,
     wind_colour,
-    thunder_sound,
     thunder_colour,
     water_pin,
     water_colour,
-    mountain_sound,
+    mountain_pin,
     mountain_colour,
-    earth_pin,
     earth_colour,
     multiply,
     bias,
     threshold
 ) values (
-    1,
-    "",
-    0,
-    "",
-    0,
-    "",
-    0,
-    "",
-    0,
-    "",
-    "",
-    "",
-    0,
-    "",
-    "",
-    "",
-    0,
-    "",
-    "",
-    "",
-    ""
+    1, -- id
+    "#FFFFFF", -- default_colour
+    "#FFFFFF", -- resting_colour
+    0, -- heaven_pin
+    "#FFFFFF", -- heaven_colour
+    0, -- cloud_pin
+    "#FFFFFF", -- cloud_colour
+    0, -- sun_pin
+    "#FFFFFF", -- sun_colour
+    0, -- wind_pin
+    "#FFFFFF", -- wind_colour
+    "#FFFFFF", -- thunder_colour
+    0, -- water_pin
+    "#FFFFFF", -- water_colour
+    0, -- mountain_pin
+    "#FFFFFF", -- mountain_colour
+    "#FFFFFF", -- earth_colour
+    "0.0", -- multiply
+    "0.0", -- bias
+    "0.0" -- threshold
 );

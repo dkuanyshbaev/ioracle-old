@@ -1,11 +1,11 @@
-use crate::oracle::iching::Line;
+// use crate::oracle::iching::Line;
 use rppal::gpio::Gpio;
 // use std::error::Error;
 use rs_ws281x::ChannelBuilder;
 use rs_ws281x::ControllerBuilder;
 use rs_ws281x::StripType;
-use std::thread;
-use std::time::Duration;
+// use std::thread;
+// use std::time::Duration;
 
 const LEDS_IN_LINE: i32 = 144;
 
@@ -27,7 +27,7 @@ pub fn yin(line_num: u8) {
     if let Ok(mut c) = controller {
         let leds = c.leds_mut(0);
 
-        for line in 0..3 {
+        for _line in 0..3 {
             for num in 0..LEDS_IN_LINE {
                 leds[num as usize] = [255, 255, 255, 0];
             }
@@ -116,17 +116,17 @@ pub fn wind_off(pin: u8) {
     off(pin);
 }
 
-pub fn thunder_on(_colour: String, sound: String) {
+pub fn thunder_on(_colour: String) {
     println!("----> thunder on");
 
-    println!("play {}", sound);
+    // println!("play {}", sound);
 }
 
-pub fn thunder_off(sound: String) {
-    println!("----> thunder off");
-
-    println!("stop play {}", sound);
-}
+// pub fn thunder_off(sound: String) {
+//     println!("----> thunder off");
+//
+//     println!("stop play {}", sound);
+// }
 
 pub fn water_on(_colour: String, pin: u8) {
     println!("----> water on, pin {}", pin);
@@ -140,19 +140,19 @@ pub fn water_off(pin: u8) {
     off(pin);
 }
 
-pub fn mountain_on(_colour: String, sound: String) {
+pub fn mountain_on(_colour: String, _pin: u8) {
     println!("----> mountain on");
 
-    println!("play {}", sound);
+    // println!("play {}", sound);
 }
 
-pub fn mountain_off(sound: String) {
-    println!("----> mountain off");
+// pub fn mountain_off(sound: String) {
+//     println!("----> mountain off");
+//
+//     println!("stop play {}", sound);
+// }
 
-    println!("stop play {}", sound);
-}
-
-pub fn earth_on(_colour: String, _pin: u8) {
+pub fn earth_on(_colour: String) {
     println!("----> earth on");
 
     // on_off(pin);
