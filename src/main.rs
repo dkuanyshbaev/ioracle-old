@@ -74,6 +74,9 @@ fn rocket() -> Rocket {
             "/hexagrams",
             routes![hexagrams::all, hexagrams::edit, hexagrams::update,],
         )
-        .mount("/testing", routes![testing::testing, testing::pin])
+        .mount(
+            "/testing",
+            routes![testing::testing, testing::pin, testing::simulation],
+        )
         .register(catchers![catchers::not_found, catchers::internal_error])
 }

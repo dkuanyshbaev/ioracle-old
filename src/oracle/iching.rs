@@ -1,11 +1,9 @@
-use crate::errors::IOracleResult;
 use crate::models::binding::Binding;
 use crate::oracle::wires::*;
 use rand::distributions::{Distribution, Uniform};
-use rocket_contrib::databases::diesel::SqliteConnection;
+use rs_ws281x::Controller;
 use std::fmt;
 
-#[derive(Debug, Serialize, Deserialize)]
 pub enum Line {
     Yin,  // open line
     Yang, // solid line
@@ -21,7 +19,7 @@ impl fmt::Display for Line {
 }
 
 impl Line {
-    pub fn get_touch(line_num: u8) -> Line {
+    pub fn random() -> Line {
         let mut rng = rand::thread_rng();
         let line_range = Uniform::from(0..2);
         let line = if line_range.sample(&mut rng) == 0 {
@@ -30,137 +28,172 @@ impl Line {
             Line::Yang
         };
 
-        line.on(line_num);
-
         line
     }
 
-    pub fn on(&self, line_num: u8) {
+    pub fn render(&self, line_num: i32, controller: &mut Controller, colour: &String) {
         match self {
-            Line::Yin => yin(line_num),
-            Line::Yang => yang(line_num),
-        }
-    }
-
-    pub fn from_string(line: &String) -> Line {
-        if *line == "Yin".to_string() {
-            Line::Yin
-        } else {
-            Line::Yang
+            Line::Yin => render_yin(line_num, controller, colour),
+            Line::Yang => render_yang(line_num, controller, colour),
         }
     }
 }
 
-#[derive(Serialize, Debug)]
 pub struct Trigram {
     pub top: Line,
     pub middle: Line,
     pub bottom: Line,
 }
 
-impl Trigram {
-    pub fn react(&self, connection: &SqliteConnection) -> IOracleResult<()> {
-        let bindings = Binding::get(&connection)?;
-        match self {
+impl fmt::Display for Trigram {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yang,
                 bottom: Line::Yang,
-            } => heaven_on(bindings.heaven_colour, bindings.heaven_pin as u8),
+            } => write!(f, "Heaven"),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yang,
                 bottom: Line::Yang,
-            } => cloud_on(bindings.cloud_colour, bindings.cloud_pin as u8),
+            } => write!(f, "Cloud"),
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yin,
                 bottom: Line::Yang,
-            } => sun_on(bindings.sun_colour, bindings.sun_pin as u8),
+            } => write!(f, "Sun"),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yin,
                 bottom: Line::Yang,
-            } => wind_on(bindings.wind_colour, bindings.wind_pin as u8),
+            } => write!(f, "Wind"),
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yang,
                 bottom: Line::Yin,
-            } => thunder_on(bindings.thunder_colour),
+            } => write!(f, "Thunder"),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yang,
                 bottom: Line::Yin,
-            } => water_on(bindings.wind_colour, bindings.water_pin as u8),
+            } => write!(f, "Water"),
             Trigram {
                 top: Line::Yang,
                 middle: Line::Yin,
                 bottom: Line::Yin,
-            } => mountain_on(bindings.mountain_colour, bindings.mountain_pin as u8),
+            } => write!(f, "Mountain"),
             Trigram {
                 top: Line::Yin,
                 middle: Line::Yin,
                 bottom: Line::Yin,
-            } => earth_on(bindings.earth_colour),
-        }
-
-        Ok(())
-    }
-
-    pub fn name(&self) -> String {
-        match self {
-            Trigram {
-                top: Line::Yang,
-                middle: Line::Yang,
-                bottom: Line::Yang,
-            } => "Heaven".to_string(),
-            Trigram {
-                top: Line::Yin,
-                middle: Line::Yang,
-                bottom: Line::Yang,
-            } => "Cloud".to_string(),
-            Trigram {
-                top: Line::Yang,
-                middle: Line::Yin,
-                bottom: Line::Yang,
-            } => "Sun".to_string(),
-            Trigram {
-                top: Line::Yin,
-                middle: Line::Yin,
-                bottom: Line::Yang,
-            } => "Wind".to_string(),
-            Trigram {
-                top: Line::Yang,
-                middle: Line::Yang,
-                bottom: Line::Yin,
-            } => "Thunder".to_string(),
-            Trigram {
-                top: Line::Yin,
-                middle: Line::Yang,
-                bottom: Line::Yin,
-            } => "Water".to_string(),
-            Trigram {
-                top: Line::Yang,
-                middle: Line::Yin,
-                bottom: Line::Yin,
-            } => "Mountain".to_string(),
-            Trigram {
-                top: Line::Yin,
-                middle: Line::Yin,
-                bottom: Line::Yin,
-            } => "Earth".to_string(),
+            } => write!(f, "Earth"),
         }
     }
 }
 
-#[derive(Serialize, Debug)]
+impl Trigram {
+    pub fn render(&self, settings: &Binding, controller: &mut Controller) {
+        match self {
+            // Heaven
+            Trigram {
+                top: Line::Yang,
+                middle: Line::Yang,
+                bottom: Line::Yang,
+            } => {
+                pin_on(settings.heaven_pin as u8);
+                render_yang(1, controller, &settings.heaven_colour);
+                render_yang(2, controller, &settings.heaven_colour);
+                render_yang(3, controller, &settings.heaven_colour);
+            }
+            // Cloud
+            Trigram {
+                top: Line::Yin,
+                middle: Line::Yang,
+                bottom: Line::Yang,
+            } => {
+                pin_on(settings.cloud_pin as u8);
+                render_yin(1, controller, &settings.cloud_colour);
+                render_yang(2, controller, &settings.cloud_colour);
+                render_yang(3, controller, &settings.cloud_colour);
+            }
+            // Sun
+            Trigram {
+                top: Line::Yang,
+                middle: Line::Yin,
+                bottom: Line::Yang,
+            } => {
+                pin_on(settings.sun_pin as u8);
+                render_yang(1, controller, &settings.sun_colour);
+                render_yin(2, controller, &settings.sun_colour);
+                render_yang(3, controller, &settings.sun_colour);
+            }
+            // Wind
+            Trigram {
+                top: Line::Yin,
+                middle: Line::Yin,
+                bottom: Line::Yang,
+            } => {
+                pin_on(settings.wind_pin as u8);
+                render_yin(1, controller, &settings.wind_colour);
+                render_yin(2, controller, &settings.wind_colour);
+                render_yang(3, controller, &settings.wind_colour);
+            }
+            // Thunder
+            Trigram {
+                top: Line::Yang,
+                middle: Line::Yang,
+                bottom: Line::Yin,
+            } => {
+                play_sound("thunder.wav".to_string());
+                render_yang(1, controller, &settings.thunder_colour);
+                render_yang(2, controller, &settings.thunder_colour);
+                render_yin(3, controller, &settings.thunder_colour);
+            }
+            // Water
+            Trigram {
+                top: Line::Yin,
+                middle: Line::Yang,
+                bottom: Line::Yin,
+            } => {
+                pin_on(settings.water_pin as u8);
+                render_yin(1, controller, &settings.water_colour);
+                render_yang(2, controller, &settings.water_colour);
+                render_yin(3, controller, &settings.water_colour);
+            }
+            // Mountain
+            Trigram {
+                top: Line::Yang,
+                middle: Line::Yin,
+                bottom: Line::Yin,
+            } => {
+                pin_on(settings.mountain_pin as u8);
+                play_sound("mountain.wav".to_string());
+                render_yang(1, controller, &settings.mountain_colour);
+                render_yin(2, controller, &settings.mountain_colour);
+                render_yin(3, controller, &settings.mountain_colour);
+            }
+            // Earth
+            Trigram {
+                top: Line::Yin,
+                middle: Line::Yin,
+                bottom: Line::Yin,
+            } => {
+                render_yin(1, controller, &settings.earth_colour);
+                render_yin(2, controller, &settings.earth_colour);
+                render_yin(3, controller, &settings.earth_colour);
+            }
+        }
+    }
+}
+
 pub struct Hexagram {
     pub top: Trigram,
     pub bottom: Trigram,
 }
 
-impl Hexagram {
-    pub fn name(&self, _connection: &SqliteConnection) -> IOracleResult<String> {
-        Ok("?".to_string())
+impl fmt::Display for Hexagram {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "----")
     }
 }

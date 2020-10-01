@@ -107,3 +107,12 @@ function pin_off(id){
         }
     });
 };
+
+function run_simulation(){
+    $.ajaxSetup({
+        async: false
+    });
+
+    $.getJSON('/testing/simulation', function() {
+    });
+};

@@ -214,7 +214,8 @@
                     </tr>
                 </tbody>
             </table>
-
+            <br>
+            <button id="run_simulation" onclick="run_simulation()" class="btn btn-outline-info">Run simulation</button>
             <br>
             <br>
             <br>
