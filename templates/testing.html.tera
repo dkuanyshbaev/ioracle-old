@@ -219,6 +219,10 @@
             <br>
             <br>
             <br>
+            <canvas id="myChart"></canvas>
+            <br>
+            <br>
+            <br>
         </main>
     </div>
 </div>
@@ -228,4 +232,38 @@
 <script src="/static/js/bootstrap-colorpicker.min.js"></script>
 <script src="/static/js/bs-custom-file-input.min.js"></script>
 <script src="/static/js/custom.js"></script>
+
+<script type="text/javascript" src="/static/js/moment.js"></script>
+<script type="text/javascript" src="/static/js/Chart.min.js"></script>
+<script type="text/javascript" src="/static/js/chartjs-plugin-streaming.min.js"></script>
+<script type="text/javascript">
+var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+    datasets: [{
+    data: []
+    }, {
+    data: []
+    }]
+    },
+    options: {
+        scales: {
+        xAxes: [{
+            type: 'realtime',
+            realtime: {
+            onRefresh: function(chart) {
+                chart.data.datasets.forEach(function(dataset) {
+                dataset.data.push({
+                    x: Date.now(),
+                    y: Math.random()
+                });
+                });
+            }
+            }
+        }]
+        }
+    }
+    });
+</script>
 {% endblock content %}
