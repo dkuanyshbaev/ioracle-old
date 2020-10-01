@@ -24,7 +24,7 @@ use rocket::fairing::AdHoc;
 use rocket::Rocket;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
-use views::operator::{hexagrams, trigrams};
+use views::operator::{hexagrams, testing, trigrams};
 use views::{catchers, pages};
 
 embed_migrations!();
@@ -74,5 +74,6 @@ fn rocket() -> Rocket {
             "/hexagrams",
             routes![hexagrams::all, hexagrams::edit, hexagrams::update,],
         )
+        .mount("/testing", routes![testing::testing, testing::pin])
         .register(catchers![catchers::not_found, catchers::internal_error])
 }

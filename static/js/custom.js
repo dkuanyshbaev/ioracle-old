@@ -55,3 +55,55 @@ function save(){
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(data);
 };
+
+function on_off(element, id) {
+    if (element.checked) {
+        pin_on(id);
+    } else {
+        pin_off(id);
+    }
+};
+
+function pin_on(id){
+    $.ajaxSetup({
+        async: false
+    });
+
+    var pin = $('#pin' + id).val();
+    var data = JSON.stringify({
+        "pin" : parseInt(pin),
+        "action" : 1,
+    });
+
+    $.ajax({
+        url: "testing/pin",
+        type: "POST",
+        data: data,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(){
+        }
+    });
+};
+
+function pin_off(id){
+    $.ajaxSetup({
+        async: false
+    });
+
+    var pin = $('#pin' + id).val();
+    var data = JSON.stringify({
+        "pin" : parseInt(pin),
+        "action" : 0,
+    });
+
+    $.ajax({
+        url: "testing/pin",
+        type: "POST",
+        data: data,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(){
+        }
+    });
+};
