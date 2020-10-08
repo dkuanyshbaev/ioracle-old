@@ -56,12 +56,6 @@
                             Hexagrams
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/testing">
-                            <img src="/static/feather/database.svg">
-                            Testing
-                        </a>
-                    </li>
                 </ul>
             </div>
         </nav>
