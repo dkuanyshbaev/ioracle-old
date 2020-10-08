@@ -418,6 +418,13 @@
             </div>
             <br>
             <br>
+
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Simulation</h1>
+            </div>
+            <button id="run_simulation" onclick="run_simulation()" class="btn btn-outline-info">Run simulation</button>
+            <br>
+            <br>
             <br>
         </main>
     </div>
