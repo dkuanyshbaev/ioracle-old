@@ -19,8 +19,10 @@ create table if not exists bindings (
     multiply text not null,
     bias text not null,
     threshold text not null,
+    led_pin integer not null,
     led_freq integer not null,
     led_cycles text not null,
+    fan_pin integer not null,
     fan_freq integer not null,
     fan_cycles text not null
 );
@@ -46,8 +48,10 @@ insert or ignore into bindings (
     multiply,
     bias,
     threshold,
+    led_pin,
     led_freq,
     led_cycles,
+    fan_pin,
     fan_freq,
     fan_cycles
 ) values (
@@ -71,8 +75,10 @@ insert or ignore into bindings (
     "0.0", -- multiply
     "0.0", -- bias
     "0.0", -- threshold
+    0, -- led_pin
     0, -- led_freq
     "0.0", -- led_cycles
+    0, -- fan_pin
     0, -- fan_freq
     "0.0" -- fan_cycles
 );

@@ -31,8 +31,10 @@ table! {
         multiply -> Text,
         bias -> Text,
         threshold -> Text,
+        led_pin -> Integer,
         led_freq -> Integer,
         led_cycles -> Text,
+        fan_pin -> Integer,
         fan_freq -> Integer,
         fan_cycles -> Text,
     }

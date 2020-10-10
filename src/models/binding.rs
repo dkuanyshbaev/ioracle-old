@@ -24,8 +24,10 @@ pub struct Binding {
     pub multiply: String,
     pub bias: String,
     pub threshold: String,
+    pub led_pin: i32,
     pub led_freq: i32,
     pub led_cycles: String,
+    pub fan_pin: i32,
     pub fan_freq: i32,
     pub fan_cycles: String,
 }
@@ -52,8 +54,10 @@ pub struct UpdatedBinding {
     pub multiply: String,
     pub bias: String,
     pub threshold: String,
+    pub led_pin: i32,
     pub led_freq: i32,
     pub led_cycles: String,
+    pub fan_pin: i32,
     pub fan_freq: i32,
     pub fan_cycles: String,
 }
