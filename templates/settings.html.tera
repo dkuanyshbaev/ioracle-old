@@ -334,7 +334,7 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="led_pin">
-                                {% for p in [20] %}
+                                {% for p in [21] %}
                                     {% if p == item.led_pin %}
                                         <option selected value={{p}}>{{p}}</option>
                                     {% else %}
@@ -372,7 +372,7 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="fan_pin">
-                                {% for p in [21] %}
+                                {% for p in [20] %}
                                     {% if p == item.fan_pin %}
                                         <option selected value={{p}}>{{p}}</option>
                                     {% else %}

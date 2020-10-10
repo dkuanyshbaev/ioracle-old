@@ -75,10 +75,10 @@ insert or ignore into bindings (
     "0.0", -- multiply
     "0.0", -- bias
     "0.0", -- threshold
-    0, -- led_pin
-    0, -- led_freq
+    21, -- led_pin
+    500, -- led_freq
     "0.0", -- led_cycles
-    0, -- fan_pin
-    0, -- fan_freq
+    20, -- fan_pin
+    500, -- fan_freq
     "0.0" -- fan_cycles
 );
