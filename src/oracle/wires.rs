@@ -2,6 +2,7 @@ use crate::errors::{IOracleError, IOracleResult};
 use crate::models::binding::Binding;
 use crate::oracle::iching::{Hexagram, Line, Trigram};
 use rppal::gpio::Gpio;
+use rppal::pwm::Pwm;
 use rs_ws281x::ChannelBuilder;
 use rs_ws281x::Controller;
 use rs_ws281x::ControllerBuilder;
@@ -124,29 +125,18 @@ pub fn element_off(pin: u8) {
     };
 }
 
-pub fn set_pwm(pin: i32, freq: i32, cycles: String) {
+pub fn set_pwm(pwm: &Pwm, pin: i32, freq: i32, cycles: String) {
     println!(
         ">>>> set pwm pin: {}, freq: {}, cycles: {}",
         pin, freq, cycles
     );
 
-    // use rppal::pwm::{Channel, Polarity, Pwm};
-    //
-    // // Enable PWM channel 0 (BCM GPIO 18, physical pin 12) at 2 Hz with a 25% duty cycle.
-    // let pwm = Pwm::with_frequency(Channel::Pwm0, 2.0, 0.25, Polarity::Normal, true)?;
-    //
-    // // Sleep for 2 seconds while the LED blinks.
-    // thread::sleep(Duration::from_secs(2));
-    //
-    // // Reconfigure the PWM channel for an 8 Hz frequency, 50% duty cycle.
+    // Reconfigure the PWM channel for an 8 Hz frequency, 50% duty cycle.
     // pwm.set_frequency(8.0, 0.5)?;
-    //
-    // thread::sleep(Duration::from_secs(3));
-    //
-    // Ok(())
 
-    // When the pwm variable goes out of scope, the PWM channel is automatically disabled.
-    // You can manually disable the channel by calling the Pwm::disable() method.
+    if let Err(e) = pwm.set_frequency(freq as f64, 0.5) {
+        println!("Can't set pwm frequency: {}", e);
+    };
 }
 
 pub fn play_sound(file_name: String) {

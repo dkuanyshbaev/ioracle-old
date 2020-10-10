@@ -10,6 +10,7 @@ use rocket::response::Redirect;
 use rocket::State;
 use rocket_contrib::json::Json;
 use rocket_contrib::templates::Template;
+use rppal::pwm::Pwm;
 
 #[derive(FromForm)]
 pub struct Question {
@@ -77,13 +78,15 @@ pub fn save(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Red
 }
 
 #[post("/pwm", format = "json", data = "<pwm_data>")]
-pub fn pwm(pwm_data: Json<PwmData>) -> Json<String> {
+pub fn pwm(pwm: State<Pwm>, pwm_data: Json<PwmData>) -> Json<String> {
     set_pwm(
+        pwm.inner(),
         pwm_data.led_pin,
         pwm_data.led_freq,
         pwm_data.led_cycles.to_owned(),
     );
     set_pwm(
+        pwm.inner(),
         pwm_data.fan_pin,
         pwm_data.fan_freq,
         pwm_data.fan_cycles.to_owned(),

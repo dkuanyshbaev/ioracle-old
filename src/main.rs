@@ -24,6 +24,7 @@ use rocket::fairing::AdHoc;
 use rocket::Rocket;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
+use rppal::pwm::{Channel, Polarity, Pwm};
 use views::operator::{hexagrams, testing, trigrams};
 use views::{catchers, pages};
 
@@ -50,8 +51,17 @@ fn rocket() -> Rocket {
         std::process::exit(1);
     });
 
+    // Enable PWM channel 0 (BCM GPIO 18, physical pin 12) at 2 Hz with a 25% duty cycle.
+    let pwm = Pwm::with_frequency(Channel::Pwm0, 2.0, 0.25, Polarity::Normal, true).unwrap_or_else(
+        |err| {
+            println!("Can't init pwm channels: {}", err);
+            std::process::exit(1);
+        },
+    );
+
     rocket::ignite()
         .manage(config)
+        .manage(pwm)
         .attach(Db::fairing())
         .attach(AdHoc::on_attach("run migrations", run_migrations))
         .attach(Template::fairing())
