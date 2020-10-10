@@ -63,7 +63,8 @@ fn rocket() -> Rocket {
                 pages::question,
                 pages::answer,
                 pages::settings,
-                pages::save
+                pages::save,
+                pages::pwm
             ],
         )
         .mount(

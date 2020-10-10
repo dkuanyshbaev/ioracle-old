@@ -278,7 +278,7 @@
                         <td class="align-middle">
                             <select class="custom-select" id="mountain_pin">
                                 {% for pin in [1, 4, 7, 8, 9, 10, 11, 14, 15, 16, 17] %}
-                                    {% if pin == item.water_pin %}
+                                    {% if pin == item.mountain_pin %}
                                         <option selected value={{pin}}>{{pin}}</option>
                                     {% else %}
                                         <option value={{pin}}>{{pin}}</option>
@@ -406,6 +406,9 @@
                     </tr>
                 </tbody>
             </table>
+            <button onclick="apply_pwm()" class="btn btn-outline-info">Apply</button>
+            <br>
+            <br>
 
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">LED</h1>
@@ -456,8 +459,8 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">Simulation</h1>
             </div>
-            <button id="run_simulation" onclick="run_simulation()" class="btn btn-outline-info">Run simulation</button>
-            <button id="run_simulation" onclick="reset()" class="btn btn-outline-secondary">Reset</button>
+            <button onclick="run_simulation()" class="btn btn-outline-info">Run simulation</button>
+            <button onclick="reset()" class="btn btn-outline-secondary">Reset</button>
             <br>
             <br>
             <br>

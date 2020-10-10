@@ -228,6 +228,38 @@ function earth_test(element) {
     }
 };
 
+function apply_pwm(){
+    $.ajaxSetup({
+        async: false
+    });
+
+    var led_pin = $("#led_pin").val();
+    var led_freq = $("#led_freq").val();
+    var led_cycles = $("#led_cycles").val();
+    var fan_pin = $("#fan_pin").val();
+    var fan_freq = $("#fan_freq").val();
+    var fan_cycles = $("#fan_cycles").val();
+
+    var data = JSON.stringify({
+        "led_pin": parseInt(led_pin),
+        "led_freq": parseInt(led_freq),
+        "led_cycles": led_cycles,
+        "fan_pin": parseInt(fan_pin),
+        "fan_freq": parseInt(fan_freq),
+        "fan_cycles": fan_cycles,
+    });
+
+    $.ajax({
+        url: "/pwm",
+        type: "POST",
+        data: data,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(){
+        }
+    });
+};
+
 function run_simulation(){
     $.ajaxSetup({
         async: false

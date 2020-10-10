@@ -151,6 +151,13 @@ pub fn reset_leds(settings: Binding) {
     println!("reset");
 }
 
+pub fn set_pwm(pin: i32, freq: i32, cycles: String) {
+    println!(
+        ">>>> set pwm pin: {}, freq: {}, cycles: {}",
+        pin, freq, cycles
+    );
+}
+
 pub fn play_sound(file_name: String) {
     println!("--------> play: {}", file_name);
 

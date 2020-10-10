@@ -2,6 +2,7 @@ use crate::config::Config;
 use crate::errors::IOracleResult;
 use crate::models::binding::{Binding, UpdatedBinding};
 use crate::oracle::utils::{ask_question, get_answer};
+use crate::oracle::wires::set_pwm;
 use crate::views::context::{ItemContext, NoContext};
 use crate::Db;
 use rocket::request::Form;
@@ -14,6 +15,16 @@ use rocket_contrib::templates::Template;
 pub struct Question {
     email: String,
     question: String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct PwmData {
+    led_pin: i32,
+    led_freq: i32,
+    led_cycles: String,
+    fan_pin: i32,
+    fan_freq: i32,
+    fan_cycles: String,
 }
 
 #[get("/")]
@@ -63,4 +74,20 @@ pub fn save(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Red
     Binding::update(&connection, bindings.into_inner())?;
 
     Ok(Redirect::to("/settings"))
+}
+
+#[post("/pwm", format = "json", data = "<pwm_data>")]
+pub fn pwm(pwm_data: Json<PwmData>) -> Json<String> {
+    set_pwm(
+        pwm_data.led_pin,
+        pwm_data.led_freq,
+        pwm_data.led_cycles.to_owned(),
+    );
+    set_pwm(
+        pwm_data.fan_pin,
+        pwm_data.fan_freq,
+        pwm_data.fan_cycles.to_owned(),
+    );
+
+    Json("ok".to_string())
 }
