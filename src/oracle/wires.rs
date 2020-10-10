@@ -20,7 +20,7 @@ pub fn build_controller() -> IOracleResult<Controller> {
             0,
             ChannelBuilder::new()
                 .pin(18)
-                .count(3 * LEDS_IN_LINE)
+                .count(6 * LEDS_IN_LINE)
                 .strip_type(StripType::Ws2811Rgb)
                 .brightness(255)
                 .build(),
@@ -29,7 +29,7 @@ pub fn build_controller() -> IOracleResult<Controller> {
             1,
             ChannelBuilder::new()
                 .pin(19)
-                .count(2 * LEDS_IN_LINE)
+                .count(1 * LEDS_IN_LINE)
                 .strip_type(StripType::Ws2811Rgb)
                 .brightness(255)
                 .build(),
@@ -96,59 +96,32 @@ pub fn pin_off(pin: u8) {
     }
 }
 
-// pub fn reset(settings: &Binding, controller: &mut Controller) {
-//     println!("--------> reset all");
-//
-//     // all pins off
-//     pin_off(settings.heaven_pin as u8);
-//     pin_off(settings.cloud_pin as u8);
-//     pin_off(settings.sun_pin as u8);
-//     pin_off(settings.wind_pin as u8);
-//     pin_off(settings.water_pin as u8);
-//     pin_off(settings.mountain_pin as u8);
-//
-//     // all leds to resting_colour
-//     let (a, b, c) = parse_colour(&settings.resting_colour);
-//     let yao_leds = controller.leds_mut(0);
-//     for num in 0..yao_leds.len() - 1 {
-//         yao_leds[num as usize] = [a, b, c, 0];
-//     }
-//     let li_leds = controller.leds_mut(1);
-//     for num in 0..li_leds.len() - 1 {
-//         li_leds[num as usize] = [a, b, c, 0];
-//     }
-//
-//     match controller.render() {
-//         Ok(_) => println!("reset"),
-//         Err(e) => println!("{:?}", e),
-//     };
-// }
-
 pub fn element_on(pin: u8, colour: String) {
     println!(
         "--------> element pin {}: on, element colour: {}",
         pin, colour
     );
-    // if let Ok(gpio) = Gpio::new() {
-    //     if let Ok(pin) = gpio.get(pin) {
-    //         let mut pin = pin.into_output();
-    //         pin.set_high();
-    //     }
-    // }
+
+    pin_on(pin);
+
+    if let Ok(mut controller) = build_controller() {
+        for i in 0..6 {
+            render_yang(i, &mut controller, &colour);
+        }
+    };
 }
 
 pub fn element_off(pin: u8) {
     println!("--------> element pin {}: off", pin);
-    // if let Ok(gpio) = Gpio::new() {
-    //     if let Ok(pin) = gpio.get(pin) {
-    //         let mut pin = pin.into_output();
-    //         pin.set_low();
-    //     }
-    // }
-}
 
-pub fn reset_leds(settings: Binding) {
-    println!("reset");
+    pin_off(pin);
+    let colour = "rgb(0, 0, 0)".to_string();
+
+    if let Ok(mut controller) = build_controller() {
+        for i in 0..6 {
+            render_yang(i, &mut controller, &colour);
+        }
+    };
 }
 
 pub fn set_pwm(pin: i32, freq: i32, cycles: String) {
@@ -156,6 +129,24 @@ pub fn set_pwm(pin: i32, freq: i32, cycles: String) {
         ">>>> set pwm pin: {}, freq: {}, cycles: {}",
         pin, freq, cycles
     );
+
+    // use rppal::pwm::{Channel, Polarity, Pwm};
+    //
+    // // Enable PWM channel 0 (BCM GPIO 18, physical pin 12) at 2 Hz with a 25% duty cycle.
+    // let pwm = Pwm::with_frequency(Channel::Pwm0, 2.0, 0.25, Polarity::Normal, true)?;
+    //
+    // // Sleep for 2 seconds while the LED blinks.
+    // thread::sleep(Duration::from_secs(2));
+    //
+    // // Reconfigure the PWM channel for an 8 Hz frequency, 50% duty cycle.
+    // pwm.set_frequency(8.0, 0.5)?;
+    //
+    // thread::sleep(Duration::from_secs(3));
+    //
+    // Ok(())
+
+    // When the pwm variable goes out of scope, the PWM channel is automatically disabled.
+    // You can manually disable the channel by calling the Pwm::disable() method.
 }
 
 pub fn play_sound(file_name: String) {
@@ -194,66 +185,94 @@ fn parse_colour(colour: &String) -> (u8, u8, u8) {
     rgb
 }
 
+pub fn reset_all(settings: &Binding, controller: &mut Controller) {
+    println!("--------> reset all");
+
+    // all pins off
+    pin_off(settings.heaven_pin as u8);
+    pin_off(settings.cloud_pin as u8);
+    pin_off(settings.sun_pin as u8);
+    pin_off(settings.wind_pin as u8);
+    pin_off(settings.water_pin as u8);
+    pin_off(settings.mountain_pin as u8);
+
+    // all leds to resting_colour
+    let (a, b, c) = parse_colour(&settings.resting_colour);
+    let yao_leds = controller.leds_mut(0);
+    for num in 0..yao_leds.len() - 1 {
+        yao_leds[num as usize] = [a, b, c, 0];
+    }
+    let li_leds = controller.leds_mut(1);
+    for num in 0..li_leds.len() - 1 {
+        li_leds[num as usize] = [a, b, c, 0];
+    }
+
+    match controller.render() {
+        Ok(_) => println!("reset"),
+        Err(e) => println!("{:?}", e),
+    };
+}
+
 pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     println!("Simulation");
 
-    // let mut controller = build_controller()?;
-    //
-    // let line1 = Line::random();
-    // println!("Line 1: {}", line1);
-    // line1.render(1, &mut controller, &settings.default_colour);
-    // thread::sleep(Duration::from_secs(1));
-    //
-    // let line2 = Line::random();
-    // println!("Line 2: {}", line2);
-    // line2.render(2, &mut controller, &settings.default_colour);
-    // thread::sleep(Duration::from_secs(1));
-    //
-    // let line3 = Line::random();
-    // println!("Line 3: {}", line3);
-    // line3.render(3, &mut controller, &settings.default_colour);
-    // thread::sleep(Duration::from_secs(1));
-    //
-    // let top_trigram = Trigram {
-    //     top: line1,
-    //     middle: line2,
-    //     bottom: line3,
-    // };
-    // println!("Top Trigram: {}", top_trigram);
-    // top_trigram.render(&settings, &mut controller);
-    // thread::sleep(Duration::from_secs(1));
-    //
-    // let line4 = Line::random();
-    // println!("Line 4: {}", line4);
-    // line4.render(4, &mut controller, &settings.default_colour);
-    // thread::sleep(Duration::from_secs(1));
-    //
-    // let line5 = Line::random();
-    // println!("Line 5: {}", line5);
-    // line5.render(5, &mut controller, &settings.default_colour);
-    // thread::sleep(Duration::from_secs(1));
-    //
-    // let line6 = Line::random();
-    // println!("Line 6: {}", line6);
-    // line6.render(6, &mut controller, &settings.default_colour);
-    // thread::sleep(Duration::from_secs(1));
-    //
-    // let bottom_trigram = Trigram {
-    //     top: line4,
-    //     middle: line5,
-    //     bottom: line6,
-    // };
-    // println!("Bottom Trigram: {}", bottom_trigram);
-    // bottom_trigram.render(&settings, &mut controller);
-    // thread::sleep(Duration::from_secs(1));
-    //
-    // let hexagram = Hexagram {
-    //     top: top_trigram,
-    //     bottom: bottom_trigram,
-    // };
-    // println!("Hexagram: {}", hexagram);
+    let mut controller = build_controller()?;
 
-    // reset(&settings, &mut controller);
+    let line1 = Line::random();
+    println!("Line 1: {}", line1);
+    line1.render(1, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
+
+    let line2 = Line::random();
+    println!("Line 2: {}", line2);
+    line2.render(2, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
+
+    let line3 = Line::random();
+    println!("Line 3: {}", line3);
+    line3.render(3, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
+
+    let top_trigram = Trigram {
+        top: line1,
+        middle: line2,
+        bottom: line3,
+    };
+    println!("Top Trigram: {}", top_trigram);
+    top_trigram.render(&settings, &mut controller);
+    thread::sleep(Duration::from_secs(1));
+
+    let line4 = Line::random();
+    println!("Line 4: {}", line4);
+    line4.render(4, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
+
+    let line5 = Line::random();
+    println!("Line 5: {}", line5);
+    line5.render(5, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
+
+    let line6 = Line::random();
+    println!("Line 6: {}", line6);
+    line6.render(6, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
+
+    let bottom_trigram = Trigram {
+        top: line4,
+        middle: line5,
+        bottom: line6,
+    };
+    println!("Bottom Trigram: {}", bottom_trigram);
+    bottom_trigram.render(&settings, &mut controller);
+    thread::sleep(Duration::from_secs(1));
+
+    let hexagram = Hexagram {
+        top: top_trigram,
+        bottom: bottom_trigram,
+    };
+    println!("Hexagram: {}", hexagram);
+
+    reset_all(&settings, &mut controller);
 
     Ok(())
 }

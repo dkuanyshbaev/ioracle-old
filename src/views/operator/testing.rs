@@ -1,11 +1,8 @@
 use crate::errors::IOracleResult;
 use crate::models::binding::Binding;
-use crate::oracle::wires::{element_off, element_on, reset_leds, run_simulation};
-use crate::views::context::NoContext;
+use crate::oracle::wires::{build_controller, element_off, element_on, reset_all, run_simulation};
 use crate::Db;
-use rocket::request::Form;
 use rocket_contrib::json::Json;
-use rocket_contrib::templates::Template;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Test {
@@ -33,7 +30,9 @@ pub fn simulation(connection: Db) -> IOracleResult<Json<String>> {
 
 #[get("/reset")]
 pub fn reset(connection: Db) -> IOracleResult<Json<String>> {
-    reset_leds(Binding::get(&connection)?);
+    let settings = Binding::get(&connection)?;
+    let mut controller = build_controller()?;
+    reset_all(&settings, &mut controller);
 
     Ok(Json("ok".to_string()))
 }
