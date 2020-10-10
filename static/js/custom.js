@@ -116,3 +116,62 @@ function run_simulation(){
     $.getJSON('/testing/simulation', function() {
     });
 };
+
+function heaven_test(element) {
+    $.ajaxSetup({
+        async: false
+    });
+
+    var heaven_pin = $("#heaven_pin").val();
+    var heaven_colour = $("#heaven_colour").val();
+
+    if (element.checked) {
+        element_on(parseInt(heaven_pin), heaven_colour);
+    } else {
+        element_off(parseInt(heaven_pin));
+    }
+};
+
+function element_on(pin, colour){
+    $.ajaxSetup({
+        async: false
+    });
+
+    var data = JSON.stringify({
+        "pin" : pin,
+        "colour" : colour,
+        "action" : 1,
+    });
+
+    $.ajax({
+        url: "testing/element",
+        type: "POST",
+        data: data,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(){
+        }
+    });
+};
+
+function element_off(pin){
+    $.ajaxSetup({
+        async: false
+    });
+
+    var data = JSON.stringify({
+        "pin" : pin,
+        "colour" : "",
+        "action" : 0,
+    });
+
+    $.ajax({
+        url: "testing/element",
+        type: "POST",
+        data: data,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(){
+        }
+    });
+};

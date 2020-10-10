@@ -116,7 +116,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="on_off(this, 1)" id="on_off_box">
+                            <input type="checkbox" onclick="heaven_test(this)" id="on_off_box">
                         <td>
                     </tr>
 
@@ -146,7 +146,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="on_off(this, 2)" id="on_off_box">
+                            <input type="checkbox" onclick="cloud_test(this)" id="on_off_box">
                         <td>
                     </tr>
 
@@ -176,7 +176,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="on_off(this, 3)" id="on_off_box">
+                            <input type="checkbox" onclick="sun_test(this)" id="on_off_box">
                         <td>
                     </tr>
 
@@ -197,7 +197,7 @@
                         <td>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="on_off(this, 4)" id="on_off_box">
+                            <input type="checkbox" onclick="thunder_test(this)" id="on_off_box">
                         <td>
                     </tr>
 
@@ -227,7 +227,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="on_off(this, 5)" id="on_off_box">
+                            <input type="checkbox" onclick="wind_test(this)" id="on_off_box">
                         <td>
                     </tr>
 
@@ -257,7 +257,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="on_off(this, 6)" id="on_off_box">
+                            <input type="checkbox" onclick="water_test(this)" id="on_off_box">
                         <td>
                     </tr>
 
@@ -287,7 +287,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="on_off(this, 7)" id="on_off_box">
+                            <input type="checkbox" onclick="mountain_test(this)" id="on_off_box">
                         <td>
                     </tr>
 
@@ -297,12 +297,18 @@
                         </td>
                         <td class="align-middle">Earth (Kun)</td>
                         <td class="align-middle">LED</td>
-                        <td>
+                        <td class="align-middle" style="width:240px;">
+                            <div id="c8" class="input-group">
+                                <input type="text" class="form-control input-lg" id="earth_colour" value="{{item.earth_colour}}"/>
+                                <span class="input-group-append">
+                                <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                </span>
+                            </div>
                         </td>
                         <td>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="on_off(this, 8)" id="on_off_box">
+                            <input type="checkbox" onclick="earth_test(this)" id="on_off_box">
                         <td>
                     </tr>
 
@@ -342,12 +348,12 @@
                 <div class="col">
                     <label for="default_colour">Plant LED Freq</label>
                     <div class="input-group">
-                        <select class="custom-select" id="mountain_pin">
-                            {% for pin in [10, 20, 40, 50, 80, 100, 160, 200, 250, 320, 400, 500, 800, 1000, 1600, 2000, 4000, 8000] %}
-                                {% if pin == item.water_pin %}
-                                    <option selected value={{pin}}>{{pin}}</option>
+                        <select class="custom-select" id="led_freq">
+                            {% for f in [10, 20, 40, 50, 80, 100, 160, 200, 250, 320, 400, 500, 800, 1000, 1600, 2000, 4000, 8000] %}
+                                {% if f == item.led_freq %}
+                                    <option selected value={{f}}>{{f}}</option>
                                 {% else %}
-                                    <option value={{pin}}>{{pin}}</option>
+                                    <option value={{f}}>{{f}}</option>
                                 {% endif %}
                             {% endfor %}
                         </select>
@@ -356,12 +362,12 @@
                 <div class="col">
                     <label for="default_colour">Plant LED Cycles</label>
                     <div class="input-group">
-                        <select class="custom-select" id="mountain_pin">
-                            {% for pin in [0, 64, 128, 192, 255] %}
-                                {% if pin == item.water_pin %}
-                                    <option selected value={{pin}}>{{pin}}</option>
+                        <select class="custom-select" id="led_cycles">
+                            {% for c in [0, 64, 128, 192, 255] %}
+                                {% if c == item.led_cycles %}
+                                    <option selected value={{c}}>{{c}}</option>
                                 {% else %}
-                                    <option value={{pin}}>{{pin}}</option>
+                                    <option value={{c}}>{{c}}</option>
                                 {% endif %}
                             {% endfor %}
                         </select>
@@ -370,12 +376,12 @@
                 <div class="col">
                     <label for="default_colour">Fan Freq</label>
                     <div class="input-group">
-                        <select class="custom-select" id="mountain_pin">
-                            {% for pin in [10, 20, 40, 50, 80, 100, 160, 200, 250, 320, 400, 500, 800, 1000, 1600, 2000, 4000, 8000] %}
-                                {% if pin == item.water_pin %}
-                                    <option selected value={{pin}}>{{pin}}</option>
+                        <select class="custom-select" id="fan_freq">
+                            {% for f in [10, 20, 40, 50, 80, 100, 160, 200, 250, 320, 400, 500, 800, 1000, 1600, 2000, 4000, 8000] %}
+                                {% if f == item.fan_freq %}
+                                    <option selected value={{f}}>{{f}}</option>
                                 {% else %}
-                                    <option value={{pin}}>{{pin}}</option>
+                                    <option value={{f}}>{{f}}</option>
                                 {% endif %}
                             {% endfor %}
                         </select>
@@ -384,12 +390,12 @@
                 <div class="col">
                     <label for="default_colour">Fan Cycles</label>
                     <div class="input-group">
-                        <select class="custom-select" id="mountain_pin">
-                            {% for pin in [0, 64, 128, 192, 255] %}
-                                {% if pin == item.water_pin %}
-                                    <option selected value={{pin}}>{{pin}}</option>
+                        <select class="custom-select" id="fan_cycles">
+                            {% for c in [0, 64, 128, 192, 255] %}
+                                {% if c == item.fan_cycles %}
+                                    <option selected value={{c}}>{{c}}</option>
                                 {% else %}
-                                    <option value={{pin}}>{{pin}}</option>
+                                    <option value={{c}}>{{c}}</option>
                                 {% endif %}
                             {% endfor %}
                         </select>

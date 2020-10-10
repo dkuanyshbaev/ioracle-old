@@ -20,9 +20,9 @@ table! {
         cloud_colour -> Text,
         sun_pin -> Integer,
         sun_colour -> Text,
+        thunder_colour -> Text,
         wind_pin -> Integer,
         wind_colour -> Text,
-        thunder_colour -> Text,
         water_pin -> Integer,
         water_colour -> Text,
         mountain_pin -> Integer,
@@ -31,6 +31,10 @@ table! {
         multiply -> Text,
         bias -> Text,
         threshold -> Text,
+        led_freq -> Integer,
+        led_cycles -> Text,
+        fan_freq -> Integer,
+        fan_cycles -> Text,
     }
 }
 

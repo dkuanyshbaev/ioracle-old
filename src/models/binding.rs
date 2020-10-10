@@ -13,9 +13,9 @@ pub struct Binding {
     pub cloud_colour: String,
     pub sun_pin: i32,
     pub sun_colour: String,
+    pub thunder_colour: String,
     pub wind_pin: i32,
     pub wind_colour: String,
-    pub thunder_colour: String,
     pub water_pin: i32,
     pub water_colour: String,
     pub mountain_pin: i32,
@@ -24,6 +24,10 @@ pub struct Binding {
     pub multiply: String,
     pub bias: String,
     pub threshold: String,
+    pub led_freq: i32,
+    pub led_cycles: String,
+    pub fan_freq: i32,
+    pub fan_cycles: String,
 }
 
 #[derive(Serialize, Deserialize, Insertable, FromForm, AsChangeset, Debug)]
@@ -37,9 +41,9 @@ pub struct UpdatedBinding {
     pub cloud_colour: String,
     pub sun_pin: i32,
     pub sun_colour: String,
+    pub thunder_colour: String,
     pub wind_pin: i32,
     pub wind_colour: String,
-    pub thunder_colour: String,
     pub water_pin: i32,
     pub water_colour: String,
     pub mountain_pin: i32,
@@ -48,6 +52,10 @@ pub struct UpdatedBinding {
     pub multiply: String,
     pub bias: String,
     pub threshold: String,
+    pub led_freq: i32,
+    pub led_cycles: String,
+    pub fan_freq: i32,
+    pub fan_cycles: String,
 }
 
 impl Binding {
