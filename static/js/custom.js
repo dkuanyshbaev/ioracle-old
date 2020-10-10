@@ -6,49 +6,59 @@ $(function () {
 });
 
 function save(){
+    var default_colour = $("#default_colour").val();
+    var resting_colour = $("#resting_colour").val();
     var heaven_pin = $("#heaven_pin").val();
     var heaven_colour = $("#heaven_colour").val();
     var cloud_pin = $("#cloud_pin").val();
     var cloud_colour = $("#cloud_colour").val();
     var sun_pin = $("#sun_pin").val();
     var sun_colour = $("#sun_colour").val();
+    var thunder_colour = $("#thunder_colour").val();
     var wind_pin = $("#wind_pin").val();
     var wind_colour = $("#wind_colour").val();
-    var thunder_colour = $("#thunder_colour").val();
     var water_pin = $("#water_pin").val();
     var water_colour = $("#water_colour").val();
     var mountain_pin = $("#mountain_pin").val();
     var mountain_colour = $("#mountain_colour").val();
     var earth_colour = $("#earth_colour").val();
-    var default_colour = $("#default_colour").val();
-    var resting_colour = $("#resting_colour").val();
     var multiply = $("#multiply").val();
     var bias = $("#bias").val();
     var threshold = $("#threshold").val();
+    var led_pin = $("#led_pin").val();
+    var led_freq = $("#led_freq").val();
+    var led_cycles = $("#led_cycles").val();
+    var fan_pin = $("#fan_pin").val();
+    var fan_freq = $("#fan_freq").val();
+    var fan_cycles = $("#fan_cycles").val();
 
     var data = JSON.stringify({
+        "default_colour": default_colour,
+        "resting_colour": resting_colour,
         "heaven_pin": parseInt(heaven_pin),
         "heaven_colour": heaven_colour,
         "cloud_pin": parseInt(cloud_pin),
         "cloud_colour": cloud_colour,
         "sun_pin": parseInt(sun_pin),
         "sun_colour": sun_colour,
+        "thunder_colour": thunder_colour,
         "wind_pin": parseInt(wind_pin),
         "wind_colour": wind_colour,
-        "thunder_colour": thunder_colour,
         "water_pin": parseInt(water_pin),
         "water_colour": water_colour,
         "mountain_pin": parseInt(mountain_pin),
         "mountain_colour": mountain_colour,
         "earth_colour": earth_colour,
-        "default_colour": default_colour,
-        "resting_colour": resting_colour,
         "multiply": multiply,
         "bias": bias,
         "threshold": threshold,
+        "led_pin": parseInt(led_pin),
+        "led_freq": parseInt(led_freq),
+        "led_cycles": led_cycles,
+        "fan_pin": parseInt(fan_pin),
+        "fan_freq": parseInt(fan_freq),
+        "fan_cycles": fan_cycles,
     });
-
-    console.log(data);
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/save", true);
@@ -56,81 +66,57 @@ function save(){
     xhr.send(data);
 };
 
-function on_off(element, id) {
-    if (element.checked) {
-        pin_on(id);
-    } else {
-        pin_off(id);
-    }
-};
-
-function pin_on(id){
-    $.ajaxSetup({
-        async: false
-    });
-
-    var pin = $('#pin' + id).val();
-    var data = JSON.stringify({
-        "pin" : parseInt(pin),
-        "action" : 1,
-    });
-
-    $.ajax({
-        url: "testing/pin",
-        type: "POST",
-        data: data,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(){
-        }
-    });
-};
-
-function pin_off(id){
-    $.ajaxSetup({
-        async: false
-    });
-
-    var pin = $('#pin' + id).val();
-    var data = JSON.stringify({
-        "pin" : parseInt(pin),
-        "action" : 0,
-    });
-
-    $.ajax({
-        url: "testing/pin",
-        type: "POST",
-        data: data,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(){
-        }
-    });
-};
-
-function run_simulation(){
-    $.ajaxSetup({
-        async: false
-    });
-
-    $.getJSON('/testing/simulation', function() {
-    });
-};
-
-function heaven_test(element) {
-    $.ajaxSetup({
-        async: false
-    });
-
-    var heaven_pin = $("#heaven_pin").val();
-    var heaven_colour = $("#heaven_colour").val();
-
-    if (element.checked) {
-        element_on(parseInt(heaven_pin), heaven_colour);
-    } else {
-        element_off(parseInt(heaven_pin));
-    }
-};
+// function on_off(element, id) {
+//     if (element.checked) {
+//         pin_on(id);
+//     } else {
+//         pin_off(id);
+//     }
+// };
+//
+// function pin_on(id){
+//     $.ajaxSetup({
+//         async: false
+//     });
+//
+//     var pin = $('#pin' + id).val();
+//     var data = JSON.stringify({
+//         "pin" : parseInt(pin),
+//         "action" : 1,
+//     });
+//
+//     $.ajax({
+//         url: "testing/pin",
+//         type: "POST",
+//         data: data,
+//         contentType: "application/json; charset=utf-8",
+//         dataType: "json",
+//         success: function(){
+//         }
+//     });
+// };
+//
+// function pin_off(id){
+//     $.ajaxSetup({
+//         async: false
+//     });
+//
+//     var pin = $('#pin' + id).val();
+//     var data = JSON.stringify({
+//         "pin" : parseInt(pin),
+//         "action" : 0,
+//     });
+//
+//     $.ajax({
+//         url: "testing/pin",
+//         type: "POST",
+//         data: data,
+//         contentType: "application/json; charset=utf-8",
+//         dataType: "json",
+//         success: function(){
+//         }
+//     });
+// };
 
 function element_on(pin, colour){
     $.ajaxSetup({
@@ -173,5 +159,29 @@ function element_off(pin){
         dataType: "json",
         success: function(){
         }
+    });
+};
+
+function heaven_test(element) {
+    $.ajaxSetup({
+        async: false
+    });
+
+    var heaven_pin = $("#heaven_pin").val();
+    var heaven_colour = $("#heaven_colour").val();
+
+    if (element.checked) {
+        element_on(parseInt(heaven_pin), heaven_colour);
+    } else {
+        element_off(parseInt(heaven_pin));
+    }
+};
+
+function run_simulation(){
+    $.ajaxSetup({
+        async: false
+    });
+
+    $.getJSON('/testing/simulation', function() {
     });
 };

@@ -356,7 +356,7 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="led_cycles">
-                                {% for c in [0, 64, 128, 192, 255] %}
+                                {% for c in ["0", "64", "128", "192", "255"] %}
                                     {% if c == item.led_cycles %}
                                         <option selected value={{c}}>{{c}}</option>
                                     {% else %}
@@ -394,7 +394,7 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="fan_cycles">
-                                {% for c in [0, 64, 128, 192, 255] %}
+                                {% for c in ["0", "64", "128", "192", "255"] %}
                                     {% if c == item.fan_cycles %}
                                         <option selected value={{c}}>{{c}}</option>
                                     {% else %}
