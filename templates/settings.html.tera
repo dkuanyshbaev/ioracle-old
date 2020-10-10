@@ -457,6 +457,7 @@
                 <h1 class="h2">Simulation</h1>
             </div>
             <button id="run_simulation" onclick="run_simulation()" class="btn btn-outline-info">Run simulation</button>
+            <button id="run_simulation" onclick="reset()" class="btn btn-outline-secondary">Reset</button>
             <br>
             <br>
             <br>
