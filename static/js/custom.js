@@ -177,11 +177,123 @@ function heaven_test(element) {
     }
 };
 
+function cloud_test(element) {
+    $.ajaxSetup({
+        async: false
+    });
+
+    var cloud_pin = $("#cloud_pin").val();
+    var cloud_colour = $("#cloud_colour").val();
+
+    if (element.checked) {
+        element_on(parseInt(cloud_pin), cloud_colour);
+    } else {
+        element_off(parseInt(cloud_pin));
+    }
+};
+
+function sun_test(element) {
+    $.ajaxSetup({
+        async: false
+    });
+
+    var sun_pin = $("#sun_pin").val();
+    var sun_colour = $("#sun_colour").val();
+
+    if (element.checked) {
+        element_on(parseInt(sun_pin), sun_colour);
+    } else {
+        element_off(parseInt(sun_pin));
+    }
+};
+
+function thunder_test(element) {
+    $.ajaxSetup({
+        async: false
+    });
+
+    var thunder_colour = $("#thunder_colour").val();
+
+    if (element.checked) {
+        element_on(0, thunder_colour);
+    } else {
+        element_off(0);
+    }
+};
+
+function wind_test(element) {
+    $.ajaxSetup({
+        async: false
+    });
+
+    var wind_pin = $("#wind_pin").val();
+    var wind_colour = $("#wind_colour").val();
+
+    if (element.checked) {
+        element_on(parseInt(wind_pin), wind_colour);
+    } else {
+        element_off(parseInt(wind_pin));
+    }
+};
+
+function water_test(element) {
+    $.ajaxSetup({
+        async: false
+    });
+
+    var water_pin = $("#water_pin").val();
+    var water_colour = $("#water_colour").val();
+
+    if (element.checked) {
+        element_on(parseInt(water_pin), water_colour);
+    } else {
+        element_off(parseInt(water_pin));
+    }
+};
+
+function mountain_test(element) {
+    $.ajaxSetup({
+        async: false
+    });
+
+    var mountain_pin = $("#mountain_pin").val();
+    var mountain_colour = $("#mountain_colour").val();
+
+    if (element.checked) {
+        element_on(parseInt(mountain_pin), mountain_colour);
+    } else {
+        element_off(parseInt(mountain_pin));
+    }
+};
+
+function earth_test(element) {
+    $.ajaxSetup({
+        async: false
+    });
+
+    var earth_colour = $("#earth_colour").val();
+
+    if (element.checked) {
+        element_on(0, earth_colour);
+    } else {
+        element_off(0);
+    }
+};
+
 function run_simulation(){
     $.ajaxSetup({
         async: false
     });
 
     $.getJSON('/testing/simulation', function() {
+    });
+};
+
+function reset(){
+    $.ajaxSetup({
+        async: false
+    });
+
+    $.getJSON('/testing/reset', function() {
     });
 };

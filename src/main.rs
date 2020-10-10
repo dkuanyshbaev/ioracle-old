@@ -63,20 +63,20 @@ fn rocket() -> Rocket {
                 pages::question,
                 pages::answer,
                 pages::settings,
-                pages::save,
+                pages::save
             ],
         )
         .mount(
             "/trigrams",
-            routes![trigrams::all, trigrams::edit, trigrams::update,],
+            routes![trigrams::all, trigrams::edit, trigrams::update],
         )
         .mount(
             "/hexagrams",
-            routes![hexagrams::all, hexagrams::edit, hexagrams::update,],
+            routes![hexagrams::all, hexagrams::edit, hexagrams::update],
         )
         .mount(
             "/testing",
-            routes![testing::testing, testing::pin, testing::simulation],
+            routes![testing::element, testing::simulation, testing::reset],
         )
         .register(catchers![catchers::not_found, catchers::internal_error])
 }
