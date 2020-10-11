@@ -106,7 +106,7 @@ pub fn element_on(pin: u8, colour: String) {
     pin_on(pin);
 
     if let Ok(mut controller) = build_controller() {
-        for i in 0..6 {
+        for i in 1..7 {
             render_yang(i, &mut controller, &colour);
         }
     };
@@ -119,7 +119,7 @@ pub fn element_off(pin: u8) {
     let colour = "rgb(0, 0, 0)".to_string();
 
     if let Ok(mut controller) = build_controller() {
-        for i in 0..6 {
+        for i in 1..7 {
             render_yang(i, &mut controller, &colour);
         }
     };

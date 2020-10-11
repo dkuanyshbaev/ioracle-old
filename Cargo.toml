@@ -6,7 +6,8 @@ edition = "2018"
 
 [dependencies]
 diesel = { version = "1.4.5", features = ["sqlite"] }
-rocket = { version = "0.5.0-dev", path = "../Rocket/core/lib" }
+# rocket = { version = "0.5.0-dev", path = "../Rocket/core/lib" }
+rocket = "0.4.5"
 serde = "1.0.114"
 serde_derive = "1.0.114"
 serde_json = "1.0.57"
@@ -18,7 +19,8 @@ rand = "0.7.3"
 rs_ws281x = "0.3.1"
 
 [dependencies.rocket_contrib]
-version = "0.5.0-dev"
-path = "../Rocket/contrib/lib"
+# version = "0.5.0-dev"
+# path = "../Rocket/contrib/lib"
+version = "0.4.5"
 default-features = false
 features = ["diesel_sqlite_pool","tera_templates", "serve", "json"]
