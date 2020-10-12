@@ -15,14 +15,11 @@ create table if not exists bindings (
     water_colour text not null,
     mountain_pin integer not null,
     mountain_colour text not null,
-    earth_colour text not null,
     multiply text not null,
     bias text not null,
     threshold text not null,
-    led_pin integer not null,
     led_freq integer not null,
     led_cycles text not null,
-    fan_pin integer not null,
     fan_freq integer not null,
     fan_cycles text not null
 );
@@ -44,14 +41,11 @@ insert or ignore into bindings (
     water_colour,
     mountain_pin,
     mountain_colour,
-    earth_colour,
     multiply,
     bias,
     threshold,
-    led_pin,
     led_freq,
     led_cycles,
-    fan_pin,
     fan_freq,
     fan_cycles
 ) values (
@@ -71,14 +65,11 @@ insert or ignore into bindings (
     "#FFFFFF", -- water_colour
     0, -- mountain_pin
     "#FFFFFF", -- mountain_colour
-    "#FFFFFF", -- earth_colour
     "0.0", -- multiply
     "0.0", -- bias
     "0.0", -- threshold
-    21, -- led_pin
     500, -- led_freq
     "0.0", -- led_cycles
-    20, -- fan_pin
     500, -- fan_freq
     "0.0" -- fan_cycles
 );

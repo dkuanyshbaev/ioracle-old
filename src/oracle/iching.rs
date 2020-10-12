@@ -179,9 +179,9 @@ impl Trigram {
                 middle: Line::Yin,
                 bottom: Line::Yin,
             } => {
-                render_yin(1, controller, &settings.earth_colour);
-                render_yin(2, controller, &settings.earth_colour);
-                render_yin(3, controller, &settings.earth_colour);
+                render_yin(1, controller, &"rgb(0, 0, 0)".to_string());
+                render_yin(2, controller, &"rgb(0, 0, 0)".to_string());
+                render_yin(3, controller, &"rgb(0, 0, 0)".to_string());
             }
         }
     }

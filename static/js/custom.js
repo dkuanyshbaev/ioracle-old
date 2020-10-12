@@ -21,14 +21,11 @@ function save(){
     var water_colour = $("#water_colour").val();
     var mountain_pin = $("#mountain_pin").val();
     var mountain_colour = $("#mountain_colour").val();
-    var earth_colour = $("#earth_colour").val();
     var multiply = $("#multiply").val();
     var bias = $("#bias").val();
     var threshold = $("#threshold").val();
-    var led_pin = $("#led_pin").val();
     var led_freq = $("#led_freq").val();
     var led_cycles = $("#led_cycles").val();
-    var fan_pin = $("#fan_pin").val();
     var fan_freq = $("#fan_freq").val();
     var fan_cycles = $("#fan_cycles").val();
 
@@ -48,14 +45,11 @@ function save(){
         "water_colour": water_colour,
         "mountain_pin": parseInt(mountain_pin),
         "mountain_colour": mountain_colour,
-        "earth_colour": earth_colour,
         "multiply": multiply,
         "bias": bias,
         "threshold": threshold,
-        "led_pin": parseInt(led_pin),
         "led_freq": parseInt(led_freq),
         "led_cycles": led_cycles,
-        "fan_pin": parseInt(fan_pin),
         "fan_freq": parseInt(fan_freq),
         "fan_cycles": fan_cycles,
     });
@@ -219,10 +213,8 @@ function earth_test(element) {
         async: false
     });
 
-    var earth_colour = $("#earth_colour").val();
-
     if (element.checked) {
-        element_on(0, earth_colour);
+        element_on(0, "");
     } else {
         element_off(0);
     }
@@ -233,18 +225,14 @@ function apply_pwm(){
         async: false
     });
 
-    var led_pin = $("#led_pin").val();
     var led_freq = $("#led_freq").val();
     var led_cycles = $("#led_cycles").val();
-    var fan_pin = $("#fan_pin").val();
     var fan_freq = $("#fan_freq").val();
     var fan_cycles = $("#fan_cycles").val();
 
     var data = JSON.stringify({
-        "led_pin": parseInt(led_pin),
         "led_freq": parseInt(led_freq),
         "led_cycles": led_cycles,
-        "fan_pin": parseInt(fan_pin),
         "fan_freq": parseInt(fan_freq),
         "fan_cycles": fan_cycles,
     });

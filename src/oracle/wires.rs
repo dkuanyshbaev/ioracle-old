@@ -125,18 +125,15 @@ pub fn element_off(pin: u8) {
     };
 }
 
-pub fn set_pwm(pwm: &Pwm, pin: i32, freq: i32, cycles: String) {
-    println!(
-        ">>>> set pwm pin: {}, freq: {}, cycles: {}",
-        pin, freq, cycles
-    );
+pub fn set_pwm(freq: i32, cycles: String) {
+    println!(">>>> set pwm freq: {}, cycles: {}", freq, cycles);
 
     // Reconfigure the PWM channel for an 8 Hz frequency, 50% duty cycle.
     // pwm.set_frequency(8.0, 0.5)?;
 
-    if let Err(e) = pwm.set_frequency(freq as f64, 0.5) {
-        println!("Can't set pwm frequency: {}", e);
-    };
+    // if let Err(e) = pwm.set_frequency(freq as f64, 0.5) {
+    //     println!("Can't set pwm frequency: {}", e);
+    // };
 }
 
 pub fn play_sound(file_name: String) {

@@ -20,10 +20,8 @@ pub struct Question {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PwmData {
-    led_pin: i32,
     led_freq: i32,
     led_cycles: String,
-    fan_pin: i32,
     fan_freq: i32,
     fan_cycles: String,
 }
@@ -78,19 +76,9 @@ pub fn save(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Red
 }
 
 #[post("/pwm", format = "json", data = "<pwm_data>")]
-pub fn pwm(pwm: State<Pwm>, pwm_data: Json<PwmData>) -> Json<String> {
-    set_pwm(
-        pwm.inner(),
-        pwm_data.led_pin,
-        pwm_data.led_freq,
-        pwm_data.led_cycles.to_owned(),
-    );
-    set_pwm(
-        pwm.inner(),
-        pwm_data.fan_pin,
-        pwm_data.fan_freq,
-        pwm_data.fan_cycles.to_owned(),
-    );
+pub fn pwm(pwm_data: Json<PwmData>) -> Json<String> {
+    set_pwm(pwm_data.led_freq, pwm_data.led_cycles.to_owned());
+    set_pwm(pwm_data.fan_freq, pwm_data.fan_cycles.to_owned());
 
     Json("ok".to_string())
 }

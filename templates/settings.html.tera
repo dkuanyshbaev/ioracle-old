@@ -95,7 +95,7 @@
                             <img src="/static/trigrams/1.png" width="80px;">
                         </td>
                         <td class="align-middle">Heaven (Qian)</td>
-                        <td class="align-middle">LED</td>
+                        <td class="align-middle">UV LED</td>
                         <td class="align-middle" style="width:240px;">
                             <div id="c1" class="input-group">
                                 <input type="text" class="form-control input-lg" id="heaven_colour" value="{{item.heaven_colour}}"/>
@@ -185,7 +185,7 @@
                             <img src="/static/trigrams/4.png" width="80px;">
                         </td>
                         <td class="align-middle">Thunder (Zhen)</td>
-                        <td class="align-middle">Audio</td>
+                        <td class="align-middle">Woofer</td>
                         <td class="align-middle" style="width:240px;">
                             <div id="c5" class="input-group">
                                 <input type="text" class="form-control input-lg" id="thunder_colour" value="{{item.thunder_colour}}"/>
@@ -236,7 +236,7 @@
                             <img src="/static/trigrams/6.png" width="80px;">
                         </td>
                         <td class="align-middle">Water (Kan)</td>
-                        <td class="align-middle">Pump</td>
+                        <td class="align-middle">Spray Pump</td>
                         <td class="align-middle" style="width:240px;">
                             <div id="c6" class="input-group">
                                 <input type="text" class="form-control input-lg" id="water_colour" value="{{item.water_colour}}"/>
@@ -266,7 +266,7 @@
                             <img src="/static/trigrams/7.png" width="80px;">
                         </td>
                         <td class="align-middle">Mountain (Gen)</td>
-                        <td class="align-middle">Pump</td>
+                        <td class="align-middle">Stream Pump</td>
                         <td class="align-middle" style="width:240px;">
                             <div id="c7" class="input-group">
                                 <input type="text" class="form-control input-lg" id="mountain_colour" value="{{item.mountain_colour}}"/>
@@ -296,14 +296,8 @@
                             <img src="/static/trigrams/8.png" width="80px;">
                         </td>
                         <td class="align-middle">Earth (Kun)</td>
-                        <td class="align-middle">LED</td>
-                        <td class="align-middle" style="width:240px;">
-                            <div id="c8" class="input-group">
-                                <input type="text" class="form-control input-lg" id="earth_colour" value="{{item.earth_colour}}"/>
-                                <span class="input-group-append">
-                                <span class="input-group-text colorpicker-input-addon"><i></i></span>
-                                </span>
-                            </div>
+                        <td class="align-middle">NO LEDS</td>
+                        <td>
                         </td>
                         <td>
                         </td>
@@ -322,7 +316,6 @@
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
-                        <th scope="col">Pin</th>
                         <th scope="col">Freq</th>
                         <th scope="col">Cycles</th>
                     </tr>
@@ -330,18 +323,7 @@
                 <tbody>
                     <tr>
                         <td class="align-middle">
-                            Plant LED
-                        </td>
-                        <td class="align-middle">
-                            <select class="custom-select" id="led_pin">
-                                {% for p in [21] %}
-                                    {% if p == item.led_pin %}
-                                        <option selected value={{p}}>{{p}}</option>
-                                    {% else %}
-                                        <option value={{p}}>{{p}}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
+                            Plant LED (pin 21)
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="led_freq">
@@ -368,18 +350,7 @@
                     </tr>
                     <tr>
                         <td class="align-middle">
-                            Fan
-                        </td>
-                        <td class="align-middle">
-                            <select class="custom-select" id="fan_pin">
-                                {% for p in [20] %}
-                                    {% if p == item.fan_pin %}
-                                        <option selected value={{p}}>{{p}}</option>
-                                    {% else %}
-                                        <option value={{p}}>{{p}}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
+                            Fan (pin 20)
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="fan_freq">
@@ -411,7 +382,7 @@
             <br>
 
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">LED</h1>
+                <h1 class="h2">LEDS</h1>
             </div>
             <div class="form-row">
                 <div class="col">
@@ -437,7 +408,7 @@
             <br>
 
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Sensor</h1>
+                <h1 class="h2">PiP</h1>
             </div>
             <div class="form-row">
                 <div class="col">
