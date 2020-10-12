@@ -6,7 +6,6 @@ create table if not exists bindings (
     heaven_colour text not null,
     cloud_pin integer not null,
     cloud_colour text not null,
-    sun_pin integer not null,
     sun_colour text not null,
     thunder_colour text not null,
     wind_pin integer not null,
@@ -32,7 +31,6 @@ insert or ignore into bindings (
     heaven_colour,
     cloud_pin,
     cloud_colour,
-    sun_pin,
     sun_colour,
     thunder_colour,
     wind_pin,
@@ -56,7 +54,6 @@ insert or ignore into bindings (
     "#FFFFFF", -- heaven_colour
     0, -- cloud_pin
     "#FFFFFF", -- cloud_colour
-    0, -- sun_pin
     "#FFFFFF", -- sun_colour
     "#FFFFFF", -- thunder_colour
     0, -- wind_pin

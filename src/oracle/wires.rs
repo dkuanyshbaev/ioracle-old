@@ -224,7 +224,6 @@ pub fn reset_all(settings: &Binding, controller: &mut Controller) {
     // all pins off
     pin_off(settings.heaven_pin as u8);
     pin_off(settings.cloud_pin as u8);
-    pin_off(settings.sun_pin as u8);
     pin_off(settings.wind_pin as u8);
     pin_off(settings.water_pin as u8);
     pin_off(settings.mountain_pin as u8);

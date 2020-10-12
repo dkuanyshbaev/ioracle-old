@@ -18,7 +18,6 @@ table! {
         heaven_colour -> Text,
         cloud_pin -> Integer,
         cloud_colour -> Text,
-        sun_pin -> Integer,
         sun_colour -> Text,
         thunder_colour -> Text,
         wind_pin -> Integer,

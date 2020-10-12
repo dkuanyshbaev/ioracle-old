@@ -12,7 +12,6 @@ function save(){
     var heaven_colour = $("#heaven_colour").val();
     var cloud_pin = $("#cloud_pin").val();
     var cloud_colour = $("#cloud_colour").val();
-    var sun_pin = $("#sun_pin").val();
     var sun_colour = $("#sun_colour").val();
     var thunder_colour = $("#thunder_colour").val();
     var wind_pin = $("#wind_pin").val();
@@ -36,7 +35,6 @@ function save(){
         "heaven_colour": heaven_colour,
         "cloud_pin": parseInt(cloud_pin),
         "cloud_colour": cloud_colour,
-        "sun_pin": parseInt(sun_pin),
         "sun_colour": sun_colour,
         "thunder_colour": thunder_colour,
         "wind_pin": parseInt(wind_pin),
@@ -141,13 +139,12 @@ function sun_test(element) {
         async: false
     });
 
-    var sun_pin = $("#sun_pin").val();
     var sun_colour = $("#sun_colour").val();
 
     if (element.checked) {
-        element_on(parseInt(sun_pin), sun_colour, "101");
+        element_on(0, sun_colour, "101");
     } else {
-        element_off(parseInt(sun_pin));
+        element_off(0);
     }
 };
 

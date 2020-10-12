@@ -117,7 +117,7 @@
                         </td>
                         <td class="align-middle">
                             <input type="checkbox" onclick="heaven_test(this)" id="on_off_box">
-                        <td>
+                        </td>
                     </tr>
 
                     <tr>
@@ -147,7 +147,7 @@
                         </td>
                         <td class="align-middle">
                             <input type="checkbox" onclick="cloud_test(this)" id="on_off_box">
-                        <td>
+                        </td>
                     </tr>
 
                     <tr>
@@ -164,20 +164,11 @@
                                 </span>
                             </div>
                         </td>
-                        <td class="align-middle">
-                            <select class="custom-select" id="sun_pin">
-                                {% for pin in [19, 18] %}
-                                    {% if pin == item.sun_pin %}
-                                        <option selected value={{pin}}>{{pin}}</option>
-                                    {% else %}
-                                        <option value={{pin}}>{{pin}}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
+                        <td>
                         </td>
                         <td class="align-middle">
                             <input type="checkbox" onclick="sun_test(this)" id="on_off_box">
-                        <td>
+                        </td>
                     </tr>
 
                     <tr>
@@ -198,7 +189,7 @@
                         </td>
                         <td class="align-middle">
                             <input type="checkbox" onclick="thunder_test(this)" id="on_off_box">
-                        <td>
+                        </td>
                     </tr>
 
                     <tr>
@@ -228,7 +219,7 @@
                         </td>
                         <td class="align-middle">
                             <input type="checkbox" onclick="wind_test(this)" id="on_off_box">
-                        <td>
+                        </td>
                     </tr>
 
                     <tr>
@@ -258,7 +249,7 @@
                         </td>
                         <td class="align-middle">
                             <input type="checkbox" onclick="water_test(this)" id="on_off_box">
-                        <td>
+                        </td>
                     </tr>
 
                     <tr>
@@ -288,7 +279,7 @@
                         </td>
                         <td class="align-middle">
                             <input type="checkbox" onclick="mountain_test(this)" id="on_off_box">
-                        <td>
+                        </td>
                     </tr>
 
                     <tr>
@@ -303,7 +294,7 @@
                         </td>
                         <td class="align-middle">
                             <input type="checkbox" onclick="earth_test(this)" id="on_off_box">
-                        <td>
+                        </td>
                     </tr>
 
                 </tbody>
