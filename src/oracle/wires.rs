@@ -1,6 +1,7 @@
 use crate::errors::{IOracleError, IOracleResult};
 use crate::models::binding::Binding;
 use crate::oracle::iching::{Hexagram, Line, Trigram};
+use rand::distributions::{Distribution, Uniform};
 use rppal::gpio::Gpio;
 use rppal::pwm::Pwm;
 use rs_ws281x::ChannelBuilder;
@@ -9,9 +10,11 @@ use rs_ws281x::ControllerBuilder;
 use rs_ws281x::StripType;
 use std::process::Command;
 use std::thread;
-use std::time::Duration;
+use std::time::{Duration, SystemTime};
 
 const LEDS_IN_LINE: i32 = 144;
+const LI_SEGMENTS_NUM: i32 = 1;
+const YAO_SEGMENTS_NUM: i32 = 6;
 
 pub fn build_controller() -> IOracleResult<Controller> {
     match ControllerBuilder::new()
@@ -21,7 +24,7 @@ pub fn build_controller() -> IOracleResult<Controller> {
             0,
             ChannelBuilder::new()
                 .pin(18)
-                .count(6 * LEDS_IN_LINE)
+                .count(YAO_SEGMENTS_NUM * LEDS_IN_LINE)
                 .strip_type(StripType::Ws2811Rgb)
                 .brightness(255)
                 .build(),
@@ -30,7 +33,7 @@ pub fn build_controller() -> IOracleResult<Controller> {
             1,
             ChannelBuilder::new()
                 .pin(19)
-                .count(1 * LEDS_IN_LINE)
+                .count(LI_SEGMENTS_NUM * LEDS_IN_LINE)
                 .strip_type(StripType::Ws2811Rgb)
                 .brightness(255)
                 .build(),
@@ -97,6 +100,40 @@ pub fn pin_off(pin: u8) {
     }
 }
 
+pub fn render_fire(controller: &mut Controller) {
+    let mut rng1 = rand::thread_rng();
+    let mut rng2 = rand::thread_rng();
+    let start = SystemTime::now();
+
+    loop {
+        if let Ok(d) = start.elapsed() {
+            if d > Duration::from_secs(5) {
+                break;
+            };
+        }
+
+        let li = controller.leds_mut(1);
+        let red_range = Uniform::from(54..255);
+
+        let mut k;
+        for i in 0..LI_SEGMENTS_NUM * LEDS_IN_LINE - 1 {
+            k = i * 9;
+            for j in k..k + 9 {
+                let r = red_range.sample(&mut rng1);
+                let green_range = Uniform::from(0..r / 4);
+                let g = green_range.sample(&mut rng2);
+                li[j as usize] = [0, g, r, 0];
+            }
+        }
+
+        std::thread::sleep(Duration::from_millis(70));
+
+        if let Err(e) = controller.render() {
+            println!("Fire error: {:?}", e);
+        };
+    }
+}
+
 pub fn element_on(pin: u8, colour: String, code: String) {
     println!(
         "--------> element pin {}: on, element colour: {}",
@@ -114,6 +151,9 @@ pub fn element_on(pin: u8, colour: String, code: String) {
             } else {
                 render_yin(i as i32, &mut controller, &colour);
             }
+        }
+        if code == "101" {
+            render_fire(&mut controller);
         }
     };
 }
