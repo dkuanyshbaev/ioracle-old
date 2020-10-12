@@ -60,7 +60,7 @@ function save(){
     xhr.send(data);
 };
 
-function element_on(pin, colour){
+function element_on(pin, colour, code){
     $.ajaxSetup({
         async: false
     });
@@ -68,6 +68,7 @@ function element_on(pin, colour){
     var data = JSON.stringify({
         "pin" : pin,
         "colour" : colour,
+        "code" : code,
         "action" : 1,
     });
 
@@ -90,6 +91,7 @@ function element_off(pin){
     var data = JSON.stringify({
         "pin" : pin,
         "colour" : "",
+        "code" : "",
         "action" : 0,
     });
 
@@ -113,7 +115,7 @@ function heaven_test(element) {
     var heaven_colour = $("#heaven_colour").val();
 
     if (element.checked) {
-        element_on(parseInt(heaven_pin), heaven_colour);
+        element_on(parseInt(heaven_pin), heaven_colour, "111");
     } else {
         element_off(parseInt(heaven_pin));
     }
@@ -128,7 +130,7 @@ function cloud_test(element) {
     var cloud_colour = $("#cloud_colour").val();
 
     if (element.checked) {
-        element_on(parseInt(cloud_pin), cloud_colour);
+        element_on(parseInt(cloud_pin), cloud_colour, "011");
     } else {
         element_off(parseInt(cloud_pin));
     }
@@ -143,7 +145,7 @@ function sun_test(element) {
     var sun_colour = $("#sun_colour").val();
 
     if (element.checked) {
-        element_on(parseInt(sun_pin), sun_colour);
+        element_on(parseInt(sun_pin), sun_colour, "101");
     } else {
         element_off(parseInt(sun_pin));
     }
@@ -157,7 +159,7 @@ function thunder_test(element) {
     var thunder_colour = $("#thunder_colour").val();
 
     if (element.checked) {
-        element_on(0, thunder_colour);
+        element_on(0, thunder_colour, "001");
     } else {
         element_off(0);
     }
@@ -172,7 +174,7 @@ function wind_test(element) {
     var wind_colour = $("#wind_colour").val();
 
     if (element.checked) {
-        element_on(parseInt(wind_pin), wind_colour);
+        element_on(parseInt(wind_pin), wind_colour, "110");
     } else {
         element_off(parseInt(wind_pin));
     }
@@ -187,7 +189,7 @@ function water_test(element) {
     var water_colour = $("#water_colour").val();
 
     if (element.checked) {
-        element_on(parseInt(water_pin), water_colour);
+        element_on(parseInt(water_pin), water_colour, "010");
     } else {
         element_off(parseInt(water_pin));
     }
@@ -202,7 +204,7 @@ function mountain_test(element) {
     var mountain_colour = $("#mountain_colour").val();
 
     if (element.checked) {
-        element_on(parseInt(mountain_pin), mountain_colour);
+        element_on(parseInt(mountain_pin), mountain_colour, "100");
     } else {
         element_off(parseInt(mountain_pin));
     }
@@ -214,7 +216,7 @@ function earth_test(element) {
     });
 
     if (element.checked) {
-        element_on(0, "");
+        element_on(0, "", "000");
     } else {
         element_off(0);
     }

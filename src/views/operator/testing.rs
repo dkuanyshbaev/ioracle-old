@@ -8,13 +8,14 @@ use rocket_contrib::json::Json;
 pub struct Test {
     pin: u8,
     colour: String,
+    code: String,
     action: u8,
 }
 
 #[post("/element", format = "json", data = "<test>")]
 pub fn element(test: Json<Test>) -> Json<String> {
     match test.action {
-        1 => element_on(test.pin, test.colour.to_owned()),
+        1 => element_on(test.pin, test.colour.to_owned(), test.code.to_owned()),
         _ => element_off(test.pin),
     }
 

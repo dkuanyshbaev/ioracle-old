@@ -97,7 +97,7 @@ pub fn pin_off(pin: u8) {
     }
 }
 
-pub fn element_on(pin: u8, colour: String) {
+pub fn element_on(pin: u8, colour: String, code: String) {
     println!(
         "--------> element pin {}: on, element colour: {}",
         pin, colour
@@ -105,9 +105,15 @@ pub fn element_on(pin: u8, colour: String) {
 
     pin_on(pin);
 
+    let full_code = format!("{}{}", code, code);
     if let Ok(mut controller) = build_controller() {
         for i in 1..7 {
-            render_yang(i, &mut controller, &colour);
+            let ch = full_code.chars().nth(i - 1).unwrap();
+            if ch == '1' {
+                render_yang(i as i32, &mut controller, &colour);
+            } else {
+                render_yin(i as i32, &mut controller, &colour);
+            }
         }
     };
 }
@@ -116,8 +122,8 @@ pub fn element_off(pin: u8) {
     println!("--------> element pin {}: off", pin);
 
     pin_off(pin);
-    let colour = "rgb(0, 0, 0)".to_string();
 
+    let colour = "rgb(0, 0, 0)".to_string();
     if let Ok(mut controller) = build_controller() {
         for i in 1..7 {
             render_yang(i, &mut controller, &colour);
