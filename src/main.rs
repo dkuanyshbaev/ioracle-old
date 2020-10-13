@@ -54,7 +54,12 @@ fn rocket(config: Config) -> rocket::Rocket {
         )
         .mount(
             "/testing",
-            routes![testing::element, testing::simulation, testing::reset],
+            routes![
+                testing::mail,
+                testing::element,
+                testing::simulation,
+                testing::reset
+            ],
         )
         .register(catchers![catchers::not_found, catchers::internal_error])
 }

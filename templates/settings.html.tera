@@ -423,6 +423,7 @@
             </div>
             <button onclick="run_simulation()" class="btn btn-outline-info">Run simulation</button>
             <button onclick="reset()" class="btn btn-outline-secondary">Reset</button>
+            <button onclick="send_mail()" class="btn btn-outline-danger">Mail</button>
             <br>
             <br>
             <br>

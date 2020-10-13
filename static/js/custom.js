@@ -264,3 +264,12 @@ function reset(){
     $.getJSON('/testing/reset', function() {
     });
 };
+
+function send_mail(){
+    $.ajaxSetup({
+        async: false
+    });
+
+    $.getJSON('/testing/mail', function() {
+    });
+};

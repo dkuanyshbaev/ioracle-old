@@ -77,7 +77,8 @@ pub fn send(
 
     let creds = Credentials::new(config.username.to_owned(), config.password.to_owned());
 
-    let mailer = SmtpTransport::relay("smtp.gmail.com")
+    // let mailer = SmtpTransport::relay("smtp.gmail.com")
+    let mailer = SmtpTransport::relay("mail.privateemail.com")
         .unwrap()
         .credentials(creds)
         .build();

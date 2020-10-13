@@ -1,7 +1,9 @@
 use crate::errors::IOracleResult;
 use crate::models::binding::Binding;
+use crate::oracle::utils::send;
 use crate::oracle::wires::{build_controller, element_off, element_on, reset_all, run_simulation};
-use crate::Db;
+use crate::{Config, Db};
+use rocket::State;
 use rocket_contrib::json::Json;
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -34,6 +36,18 @@ pub fn reset(connection: Db) -> IOracleResult<Json<String>> {
     let settings = Binding::get(&connection)?;
     let mut controller = build_controller()?;
     reset_all(&settings, &mut controller);
+
+    Ok(Json("ok".to_string()))
+}
+
+#[get("/mail")]
+pub fn mail(config: State<Config>, connection: Db) -> IOracleResult<Json<String>> {
+    println!("mail---------------->");
+    let email = "konsistentsi@gmail.com".to_string();
+    let question = "test".to_string();
+    let answer = "!".to_string();
+
+    send(config, &email, &question, &answer)?;
 
     Ok(Json("ok".to_string()))
 }
