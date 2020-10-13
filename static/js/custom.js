@@ -213,7 +213,7 @@ function earth_test(element) {
     });
 
     if (element.checked) {
-        element_on(0, "", "000");
+        element_on(0, "rgb(0, 0, 0)", "000");
     } else {
         element_off(0);
     }

@@ -34,8 +34,7 @@ pub fn build_controller() -> IOracleResult<Controller> {
             ChannelBuilder::new()
                 .pin(19)
                 .count(LI_SEGMENTS_NUM * LEDS_IN_LINE)
-                // .strip_type(StripType::Ws2811Rgb)
-                .strip_type(StripType::Ws2811Brg)
+                .strip_type(StripType::Ws2811Rgb)
                 .brightness(255)
                 .build(),
         )
@@ -56,7 +55,8 @@ pub fn render_yin(line_num: i32, controller: &mut Controller, colour: &String) {
         if num > position + part && num < position + part * 2 {
             leds[num as usize] = [0, 0, 0, 0];
         } else {
-            leds[num as usize] = [a, b, c, 0];
+            // leds[num as usize] = [a, b, c, 0];
+            leds[num as usize] = [c, a, b, 0];
         }
     }
 
@@ -72,7 +72,8 @@ pub fn render_yang(line_num: i32, controller: &mut Controller, colour: &String) 
 
     let position = LEDS_IN_LINE * (line_num - 1);
     for num in position..position + LEDS_IN_LINE {
-        leds[num as usize] = [a, b, c, 0];
+        // leds[num as usize] = [a, b, c, 0];
+        leds[num as usize] = [c, a, b, 0];
     }
 
     match controller.render() {
