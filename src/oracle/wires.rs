@@ -34,7 +34,8 @@ pub fn build_controller() -> IOracleResult<Controller> {
             ChannelBuilder::new()
                 .pin(19)
                 .count(LI_SEGMENTS_NUM * LEDS_IN_LINE)
-                .strip_type(StripType::Ws2811Rgb)
+                // .strip_type(StripType::Ws2811Rgb)
+                .strip_type(StripType::Ws2811Brg)
                 .brightness(255)
                 .build(),
         )

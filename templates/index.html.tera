@@ -1,21 +1,70 @@
 {% extends "layout" %}
 
 {% block head %}
+<style>
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+</style>
 <link rel="stylesheet" href="/static/css/custom.css">
+<link rel="stylesheet" href="/static/css/cover.css">
 {% endblock head %}
 
 {% block content %}
-<form action="/question" method="post" accept-charset="utf-8" class="question-form">
-    <input type="hidden" name="_method" value="post" />
+<div class="text-center cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  <header class="masthead mb-auto">
+    <div class="inner">
+      <h3 class="masthead-brand">iOracle</h3>
+      <!--
+      <nav class="nav nav-masthead justify-content-center">
+        <a class="nav-link active" href="#">Home</a>
+        <a class="nav-link" href="#">Features</a>
+        <a class="nav-link" href="#">Contact</a>
+      </nav>
+      -->
+    </div>
+  </header>
 
-    <input type="text" class="form-control" name="email" placeholder="email" required
-    oninvalid="this.setCustomValidity('Please enter email')"
-    oninput="setCustomValidity('')"></input>
+  <main role="main" class="inner cover">
+    <h1 class="cover-heading">iOracle</h1>
+    <h4>Hybrid I Ching divination system</h4>
+    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris..</p>
 
-    <textarea class="form-control" rows="10" cols="45" name="question" placeholder="question" required
-    oninvalid="this.setCustomValidity('Please enter question')"
-    oninput="setCustomValidity('')"></textarea>
+    <form action="/question" method="post" accept-charset="utf-8" class="question-form">
+        <input type="hidden" name="_method" value="post" />
 
-    <button class="btn btn-lg btn-info btn-block" type="submit">Ask</button>
-</form>
+        <input type="text" class="form-control" name="email" placeholder="email" required
+        oninvalid="this.setCustomValidity('Please enter email')"
+        oninput="setCustomValidity('')"></input>
+
+        <textarea class="form-control" rows="10" cols="45" name="question" placeholder="question" required
+        oninvalid="this.setCustomValidity('Please enter question')"
+        oninput="setCustomValidity('')"></textarea>
+
+        <button class="btn btn-lg btn-info btn-block" type="submit">Ask</button>
+    </form>
+
+    <p class="lead">
+      <a href="#" class="btn btn-lg btn-secondary">Commit</a>
+    </p>
+  </main>
+
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p><a href="/">How might iOracle be benefical?</a></p>
+    </div>
+  </footer>
+</div>
 {% endblock content %}
+

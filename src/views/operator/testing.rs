@@ -41,7 +41,7 @@ pub fn reset(connection: Db) -> IOracleResult<Json<String>> {
 }
 
 #[get("/mail")]
-pub fn mail(config: State<Config>, connection: Db) -> IOracleResult<Json<String>> {
+pub fn mail(config: State<Config>) -> IOracleResult<Json<String>> {
     println!("mail---------------->");
     let email = "konsistentsi@gmail.com".to_string();
     let question = "test".to_string();
