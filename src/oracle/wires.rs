@@ -187,6 +187,7 @@ pub fn colour_on(colour: String, code: String) {
             }
         }
         if code == "101" {
+            println!("fire!!!");
             render_fire(&mut controller);
         }
     };

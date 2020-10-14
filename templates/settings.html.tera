@@ -177,7 +177,6 @@
                         <td>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="sun_pin(this)" id="on_off_box">
                         </td>
                     </tr>
 
@@ -201,7 +200,6 @@
                         <td>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="thunder_pin(this)" id="on_off_box">
                         </td>
                     </tr>
 
