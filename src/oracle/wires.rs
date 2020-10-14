@@ -84,6 +84,27 @@ pub fn render_yang(line_num: i32, controller: &mut Controller, colour: &String) 
 
 pub fn pin_on(pin: u8) {
     println!("--------> pin {}: on", pin);
+
+    //---------------------------------
+    const ADDR_DS3231: u16 = 0x20;
+
+    if pin == 2 {
+        use rppal::i2c::I2c;
+        // if let Ok(mut i2c) = I2c::new() {
+        if let Ok(mut i2c) = I2c::with_bus(1) {
+            //--------------------------
+            if let Ok(res) = i2c.set_slave_address(ADDR_DS3231) {
+                //--------------------------
+                if let Ok(r) = i2c.write(&[1]) {
+                    println!("{:?}", r);
+                    //--------------------------
+                };
+            };
+        };
+    }
+
+    //---------------------------------
+
     if let Ok(gpio) = Gpio::new() {
         if let Ok(pin) = gpio.get(pin) {
             let mut pin = pin.into_output();
@@ -118,8 +139,12 @@ pub fn render_fire(controller: &mut Controller) {
         let red_range = Uniform::from(54..255);
 
         let mut k;
-        for i in 0..LI_SEGMENTS_NUM * LEDS_IN_LINE - 1 {
+        for i in 0..li.len() - 1 {
             k = i * 9;
+            // !!!???
+            if k > li.len() - 9 {
+                k = li.len() - 9;
+            }
             for j in k..k + 9 {
                 let r = red_range.sample(&mut rng1);
                 let green_range = Uniform::from(0..r / 4);
@@ -265,11 +290,11 @@ pub fn reset_all(settings: &Binding, controller: &mut Controller) {
     let (a, b, c) = parse_colour(&settings.resting_colour);
     let yao_leds = controller.leds_mut(0);
     for num in 0..yao_leds.len() - 1 {
-        yao_leds[num as usize] = [a, b, c, 0];
+        yao_leds[num as usize] = [c, a, b, 0];
     }
     let li_leds = controller.leds_mut(1);
     for num in 0..li_leds.len() - 1 {
-        li_leds[num as usize] = [a, b, c, 0];
+        li_leds[num as usize] = [c, a, b, 0];
     }
 
     match controller.render() {

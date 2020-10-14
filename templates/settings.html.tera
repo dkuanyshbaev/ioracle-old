@@ -321,78 +321,6 @@
             </table>
 
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">PWM</h1>
-            </div>
-            <table class="table table-borderless">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Freq</th>
-                        <th scope="col">Cycles</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="align-middle">
-                            Plant LED (pin 21)
-                        </td>
-                        <td class="align-middle">
-                            <select class="custom-select" id="led_freq">
-                                {% for f in [10, 20, 40, 50, 80, 100, 160, 200, 250, 320, 400, 500, 800, 1000, 1600, 2000, 4000, 8000] %}
-                                    {% if f == item.led_freq %}
-                                        <option selected value={{f}}>{{f}}</option>
-                                    {% else %}
-                                        <option value={{f}}>{{f}}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                        </td>
-                        <td class="align-middle">
-                            <select class="custom-select" id="led_cycles">
-                                {% for c in ["0", "64", "128", "192", "255"] %}
-                                    {% if c == item.led_cycles %}
-                                        <option selected value={{c}}>{{c}}</option>
-                                    {% else %}
-                                        <option value={{c}}>{{c}}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="align-middle">
-                            Fan (pin 20)
-                        </td>
-                        <td class="align-middle">
-                            <select class="custom-select" id="fan_freq">
-                                {% for f in [10, 20, 40, 50, 80, 100, 160, 200, 250, 320, 400, 500, 800, 1000, 1600, 2000, 4000, 8000] %}
-                                    {% if f == item.fan_freq %}
-                                        <option selected value={{f}}>{{f}}</option>
-                                    {% else %}
-                                        <option value={{f}}>{{f}}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                        </td>
-                        <td class="align-middle">
-                            <select class="custom-select" id="fan_cycles">
-                                {% for c in ["0", "64", "128", "192", "255"] %}
-                                    {% if c == item.fan_cycles %}
-                                        <option selected value={{c}}>{{c}}</option>
-                                    {% else %}
-                                        <option value={{c}}>{{c}}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <button onclick="apply_pwm()" class="btn btn-outline-info">Apply</button>
-            <br>
-            <br>
-
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">LEDS</h1>
             </div>
             <div class="form-row">
@@ -443,7 +371,6 @@
             </div>
             <button onclick="run_simulation()" class="btn btn-outline-info">Run simulation</button>
             <button onclick="reset()" class="btn btn-outline-secondary">Reset</button>
-            <button onclick="send_mail()" class="btn btn-outline-danger">Mail</button>
             <br>
             <br>
             <br>
