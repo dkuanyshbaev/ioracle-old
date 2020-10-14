@@ -40,13 +40,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-2">
-                <img width=80 src="/static/trigrams/1.png">
+                <h1>☰</h1>
             </div>
             <div class="col-md-8">
                 <h1 class="cover-heading">I ORACLE</h1>
             </div>
             <div class="col-md-2">
-                <img width=80 src="/static/trigrams/8.png">
+                <h1>☷</h1>
             </div>
         </div>
     </div>

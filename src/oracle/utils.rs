@@ -8,14 +8,14 @@ use rocket_contrib::databases::diesel::SqliteConnection;
 // use uuid::Uuid;
 
 pub fn ask_question(
-    _config: State<Config>,
-    _connection: &SqliteConnection,
-    _email: String,
+    config: State<Config>,
+    connection: &SqliteConnection,
+    email: String,
     question: String,
 ) -> IOracleResult<String> {
-    let _answer = ioracle(&question)?;
+    let answer = ioracle(&question)?;
     // let answer_uuid = save(connection, &email, &question, &answer)?;
-    // send(config, &email, &question, &answer)?;
+    send(config, &email, &question, &answer)?;
 
     // Ok(answer_uuid)
     Ok("uuid".to_string())
@@ -71,13 +71,12 @@ pub fn send(
     let email = Message::builder()
         .from(config.email.parse().unwrap())
         .to(email.parse().unwrap())
-        .subject("iOracle")
+        .subject("I Oracle")
         .body(body_text)
         .unwrap();
 
     let creds = Credentials::new(config.username.to_owned(), config.password.to_owned());
 
-    // let mailer = SmtpTransport::relay("smtp.gmail.com")
     let mailer = SmtpTransport::relay("mail.privateemail.com")
         .unwrap()
         .credentials(creds)
