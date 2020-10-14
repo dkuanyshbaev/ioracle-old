@@ -173,6 +173,36 @@ pub fn element_off(pin: u8) {
     };
 }
 
+pub fn colour_on(colour: String, code: String) {
+    println!("--------> element colour: {}", colour);
+
+    let full_code = format!("{}{}", code, code);
+    if let Ok(mut controller) = build_controller() {
+        for i in 1..7 {
+            let ch = full_code.chars().nth(i - 1).unwrap();
+            if ch == '1' {
+                render_yang(i as i32, &mut controller, &colour);
+            } else {
+                render_yin(i as i32, &mut controller, &colour);
+            }
+        }
+        if code == "101" {
+            render_fire(&mut controller);
+        }
+    };
+}
+
+pub fn colour_off() {
+    println!("--------> element colour off");
+
+    let colour = "rgb(0, 0, 0)".to_string();
+    if let Ok(mut controller) = build_controller() {
+        for i in 1..7 {
+            render_yang(i, &mut controller, &colour);
+        }
+    };
+}
+
 pub fn set_pwm(freq: i32, cycles: String) {
     println!(">>>> set pwm freq: {}, cycles: {}", freq, cycles);
 

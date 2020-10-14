@@ -57,6 +57,8 @@ fn rocket(config: Config) -> rocket::Rocket {
             routes![
                 testing::mail,
                 testing::element,
+                testing::pin,
+                testing::colour,
                 testing::simulation,
                 testing::reset
             ],

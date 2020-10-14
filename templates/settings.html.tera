@@ -85,6 +85,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">Function</th>
                         <th scope="col">Colour</th>
+                        <th scope="col">Set</th>
                         <th scope="col">Pin</th>
                         <th scope="col">On/Off</th>
                     </tr>
@@ -105,6 +106,9 @@
                             </div>
                         </td>
                         <td class="align-middle">
+                            <input type="checkbox" onclick="heaven_colour(this)" id="on_off_box">
+                        </td>
+                        <td class="align-middle">
                             <select class="custom-select" id="heaven_pin">
                                 {% for pin in [2, 4, 5, 6, 9, 10, 11, 16, 17] %}
                                     {% if pin == item.heaven_pin %}
@@ -116,7 +120,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="heaven_test(this)" id="on_off_box">
+                            <input type="checkbox" onclick="heaven_pin(this)" id="on_off_box">
                         </td>
                     </tr>
 
@@ -135,6 +139,9 @@
                             </div>
                         </td>
                         <td class="align-middle">
+                            <input type="checkbox" onclick="cloud_colour(this)" id="on_off_box">
+                        </td>
+                        <td class="align-middle">
                             <select class="custom-select" id="cloud_pin">
                                 {% for pin in [2, 4, 5, 6, 9, 10, 11, 16, 17] %}
                                     {% if pin == item.cloud_pin %}
@@ -146,7 +153,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="cloud_test(this)" id="on_off_box">
+                            <input type="checkbox" onclick="cloud_pin(this)" id="on_off_box">
                         </td>
                     </tr>
 
@@ -164,10 +171,13 @@
                                 </span>
                             </div>
                         </td>
+                        <td class="align-middle">
+                            <input type="checkbox" onclick="sun_colour(this)" id="on_off_box">
+                        </td>
                         <td>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="sun_test(this)" id="on_off_box">
+                            <input type="checkbox" onclick="sun_pin(this)" id="on_off_box">
                         </td>
                     </tr>
 
@@ -185,10 +195,13 @@
                                 </span>
                             </div>
                         </td>
+                        <td class="align-middle">
+                            <input type="checkbox" onclick="thunder_colour(this)" id="on_off_box">
+                        </td>
                         <td>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="thunder_test(this)" id="on_off_box">
+                            <input type="checkbox" onclick="thunder_pin(this)" id="on_off_box">
                         </td>
                     </tr>
 
@@ -207,6 +220,9 @@
                             </div>
                         </td>
                         <td class="align-middle">
+                            <input type="checkbox" onclick="wind_colour(this)" id="on_off_box">
+                        </td>
+                        <td class="align-middle">
                             <select class="custom-select" id="wind_pin">
                                 {% for pin in [2, 4, 5, 6, 9, 10, 11, 16, 17, 20] %}
                                     {% if pin == item.wind_pin %}
@@ -218,7 +234,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="wind_test(this)" id="on_off_box">
+                            <input type="checkbox" onclick="wind_pin(this)" id="on_off_box">
                         </td>
                     </tr>
 
@@ -237,6 +253,9 @@
                             </div>
                         </td>
                         <td class="align-middle">
+                            <input type="checkbox" onclick="water_colour(this)" id="on_off_box">
+                        </td>
+                        <td class="align-middle">
                             <select class="custom-select" id="water_pin">
                                 {% for pin in [2, 4, 5, 6, 9, 10, 11, 16, 17] %}
                                     {% if pin == item.water_pin %}
@@ -248,7 +267,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="water_test(this)" id="on_off_box">
+                            <input type="checkbox" onclick="water_pin(this)" id="on_off_box">
                         </td>
                     </tr>
 
@@ -267,6 +286,9 @@
                             </div>
                         </td>
                         <td class="align-middle">
+                            <input type="checkbox" onclick="mountain_colour(this)" id="on_off_box">
+                        </td>
+                        <td class="align-middle">
                             <select class="custom-select" id="mountain_pin">
                                 {% for pin in [2, 4, 5, 6, 9, 10, 11, 16, 17] %}
                                     {% if pin == item.mountain_pin %}
@@ -278,7 +300,7 @@
                             </select>
                         </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="mountain_test(this)" id="on_off_box">
+                            <input type="checkbox" onclick="mountain_pin(this)" id="on_off_box">
                         </td>
                     </tr>
 
@@ -290,10 +312,10 @@
                         <td class="align-middle">NO LEDS</td>
                         <td>
                         </td>
-                        <td>
-                        </td>
                         <td class="align-middle">
-                            <input type="checkbox" onclick="earth_test(this)" id="on_off_box">
+                            <input type="checkbox" onclick="earth_colour(this)" id="on_off_box">
+                        </td>
+                        <td>
                         </td>
                     </tr>
 
