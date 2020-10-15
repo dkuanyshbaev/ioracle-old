@@ -16,11 +16,7 @@ create table if not exists bindings (
     mountain_colour text not null,
     multiply text not null,
     bias text not null,
-    threshold text not null,
-    led_freq integer not null,
-    led_cycles text not null,
-    fan_freq integer not null,
-    fan_cycles text not null
+    threshold text not null
 );
 
 insert or ignore into bindings (
@@ -41,11 +37,7 @@ insert or ignore into bindings (
     mountain_colour,
     multiply,
     bias,
-    threshold,
-    led_freq,
-    led_cycles,
-    fan_freq,
-    fan_cycles
+    threshold
 ) values (
     1, -- id
     "#FFFFFF", -- default_colour
@@ -64,9 +56,5 @@ insert or ignore into bindings (
     "#FFFFFF", -- mountain_colour
     "0.0", -- multiply
     "0.0", -- bias
-    "0.0", -- threshold
-    500, -- led_freq
-    "0.0", -- led_cycles
-    500, -- fan_freq
-    "0.0" -- fan_cycles
+    "0.0" -- threshold
 );
