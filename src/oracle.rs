@@ -1,8 +1,9 @@
 use crate::errors::IOracleResult;
 use crate::iching::Hexagram;
 use crate::models::binding::Binding;
+use crate::models::hexagram;
 use crate::models::record::{Record, UpdatedRecord};
-use crate::wires::reading;
+use crate::wires::{reading, to_binary};
 use crate::Config;
 use lettre::transport::smtp::authentication::Credentials;
 use lettre::{Message, SmtpTransport, Transport};
@@ -18,6 +19,11 @@ pub fn ask(
 ) -> IOracleResult<String> {
     let settings = Binding::get(&connection)?;
     let hexagram = reading(settings)?;
+
+    let h = to_binary(&hexagram);
+    let full_h = hexagram::Hexagram::get_by_binary(connection, h)?;
+    println!("{:#?}", full_h);
+
     let answer = generate(question.clone(), hexagram)?;
     let answer_uuid = save(connection, &email, &question, &answer)?;
     send(config, &email, &question, &answer)?;

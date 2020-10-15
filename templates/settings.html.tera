@@ -110,7 +110,7 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="heaven_pin">
-                                {% for pin in [2, 4, 5, 6, 9, 10, 11, 16, 17] %}
+                                {% for pin in [2, 4, 5, 6, 7, 8, 9, 10, 11, 16, 17] %}
                                     {% if pin == item.heaven_pin %}
                                         <option selected value={{pin}}>{{pin}}</option>
                                     {% else %}
@@ -143,7 +143,7 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="cloud_pin">
-                                {% for pin in [2, 4, 5, 6, 9, 10, 11, 16, 17] %}
+                                {% for pin in [2, 4, 5, 6, 7, 8, 9, 10, 11, 16, 17] %}
                                     {% if pin == item.cloud_pin %}
                                         <option selected value={{pin}}>{{pin}}</option>
                                     {% else %}
@@ -222,7 +222,7 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="wind_pin">
-                                {% for pin in [2, 4, 5, 6, 9, 10, 11, 16, 17, 20] %}
+                                {% for pin in [2, 4, 5, 6, 7, 8, 9, 10, 11, 16, 17, 20] %}
                                     {% if pin == item.wind_pin %}
                                         <option selected value={{pin}}>{{pin}}</option>
                                     {% else %}
@@ -255,7 +255,7 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="water_pin">
-                                {% for pin in [2, 4, 5, 6, 9, 10, 11, 16, 17] %}
+                                {% for pin in [2, 4, 5, 6, 7, 8, 9, 10, 11, 16, 17] %}
                                     {% if pin == item.water_pin %}
                                         <option selected value={{pin}}>{{pin}}</option>
                                     {% else %}
@@ -288,7 +288,7 @@
                         </td>
                         <td class="align-middle">
                             <select class="custom-select" id="mountain_pin">
-                                {% for pin in [2, 4, 5, 6, 9, 10, 11, 16, 17] %}
+                                {% for pin in [2, 4, 5, 6, 7, 8, 9, 10, 11, 16, 17] %}
                                     {% if pin == item.mountain_pin %}
                                         <option selected value={{pin}}>{{pin}}</option>
                                     {% else %}

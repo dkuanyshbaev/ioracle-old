@@ -11,6 +11,8 @@ use std::time::{Duration, SystemTime};
 const LEDS_IN_LINE: i32 = 144;
 const LI_SEGMENTS_NUM: i32 = 1;
 const YAO_SEGMENTS_NUM: i32 = 6;
+const YAO_PIN: i32 = 12;
+const LI_PIN: i32 = 13;
 
 pub fn build_controller() -> IOracleResult<Controller> {
     match ControllerBuilder::new()
@@ -19,7 +21,7 @@ pub fn build_controller() -> IOracleResult<Controller> {
         .channel(
             0,
             ChannelBuilder::new()
-                .pin(18)
+                .pin(YAO_PIN)
                 .count(YAO_SEGMENTS_NUM * LEDS_IN_LINE)
                 .strip_type(StripType::Ws2811Rgb)
                 .brightness(255)
@@ -28,7 +30,7 @@ pub fn build_controller() -> IOracleResult<Controller> {
         .channel(
             1,
             ChannelBuilder::new()
-                .pin(19)
+                .pin(LI_PIN)
                 .count(LI_SEGMENTS_NUM * LEDS_IN_LINE)
                 .strip_type(StripType::Ws2811Rgb)
                 .brightness(255)
@@ -389,9 +391,46 @@ pub fn reading(settings: Binding) -> IOracleResult<Hexagram> {
         top: top_trigram,
         bottom: bottom_trigram,
     };
+
     println!("Hexagram: {}", hexagram);
 
     reset_all(&settings, &mut controller);
 
     Ok(hexagram)
+}
+
+pub fn to_binary(h: &Hexagram) -> String {
+    let mut r = "".to_string();
+
+    match h.top.top {
+        Line::Yang => r = format!("{}1", r),
+        Line::Yin => r = format!("{}0", r),
+    }
+
+    match h.top.middle {
+        Line::Yang => r = format!("{}1", r),
+        Line::Yin => r = format!("{}0", r),
+    }
+
+    match h.top.bottom {
+        Line::Yang => r = format!("{}1", r),
+        Line::Yin => r = format!("{}0", r),
+    }
+
+    match h.bottom.top {
+        Line::Yang => r = format!("{}1", r),
+        Line::Yin => r = format!("{}0", r),
+    }
+
+    match h.bottom.middle {
+        Line::Yang => r = format!("{}1", r),
+        Line::Yin => r = format!("{}0", r),
+    }
+
+    match h.bottom.bottom {
+        Line::Yang => r = format!("{}1", r),
+        Line::Yin => r = format!("{}0", r),
+    }
+
+    r
 }

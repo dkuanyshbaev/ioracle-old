@@ -48,6 +48,12 @@ impl Hexagram {
         hexagrams::table.find(id).get_result(connection)
     }
 
+    pub fn get_by_binary(connection: &SqliteConnection, binary: String) -> QueryResult<Hexagram> {
+        hexagrams::table
+            .filter(hexagrams::binary.eq(&binary))
+            .first(connection)
+    }
+
     pub fn insert(
         connection: &SqliteConnection,
         new_hexagram: UpdatedHexagram,
