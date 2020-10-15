@@ -24,7 +24,7 @@ use config::Config;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
 use views::operator::{hexagrams, testing, trigrams};
-use views::{catchers, pages};
+use views::pages;
 
 #[database("ioracle")]
 pub struct Db(diesel::SqliteConnection);
@@ -58,14 +58,14 @@ fn rocket(config: Config) -> rocket::Rocket {
             "/testing",
             routes![
                 testing::mail,
-                testing::element,
+                // testing::element,
                 testing::pin,
                 testing::colour,
                 testing::simulation,
                 testing::reset
             ],
         )
-        .register(catchers![catchers::not_found, catchers::internal_error])
+        .register(catchers![pages::not_found, pages::internal_error])
 }
 
 fn main() {

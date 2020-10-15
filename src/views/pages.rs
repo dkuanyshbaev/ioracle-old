@@ -90,3 +90,13 @@ pub fn csv(_connection: Db) -> IOracleResult<String> {
 
     Ok("Ok".to_string())
 }
+
+#[catch(404)]
+pub fn not_found() -> Redirect {
+    Redirect::to("/")
+}
+
+#[catch(500)]
+pub fn internal_error() -> Redirect {
+    Redirect::to("/")
+}

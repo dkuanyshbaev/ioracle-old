@@ -78,47 +78,6 @@ pub fn render_yang(line_num: i32, controller: &mut Controller, colour: &String) 
     };
 }
 
-pub fn pin_on(pin: u8) {
-    println!("--------> pin {}: on", pin);
-
-    //---------------------------------
-    // const ADDR_DS3231: u16 = 0x20;
-    //
-    // if pin == 2 {
-    //     use rppal::i2c::I2c;
-    //     // if let Ok(mut i2c) = I2c::new() {
-    //     if let Ok(mut i2c) = I2c::with_bus(1) {
-    //         //--------------------------
-    //         if let Ok(res) = i2c.set_slave_address(ADDR_DS3231) {
-    //             //--------------------------
-    //             if let Ok(r) = i2c.write(&[1]) {
-    //                 println!("{:?}", r);
-    //                 //--------------------------
-    //             };
-    //         };
-    //     };
-    // }
-
-    //---------------------------------
-
-    if let Ok(gpio) = Gpio::new() {
-        if let Ok(pin) = gpio.get(pin) {
-            let mut pin = pin.into_output();
-            pin.set_high();
-        }
-    }
-}
-
-pub fn pin_off(pin: u8) {
-    println!("--------> pin {}: off", pin);
-    if let Ok(gpio) = Gpio::new() {
-        if let Ok(pin) = gpio.get(pin) {
-            let mut pin = pin.into_output();
-            pin.set_low();
-        }
-    }
-}
-
 pub fn render_fire(controller: &mut Controller) {
     let mut rng1 = rand::thread_rng();
     let mut rng2 = rand::thread_rng();
@@ -157,42 +116,62 @@ pub fn render_fire(controller: &mut Controller) {
     }
 }
 
-pub fn element_on(pin: u8, colour: String, code: String) {
-    println!(
-        "--------> element pin {}: on, element colour: {}",
-        pin, colour
-    );
-
-    pin_on(pin);
-
-    let full_code = format!("{}{}", code, code);
-    if let Ok(mut controller) = build_controller() {
-        for i in 1..7 {
-            let ch = full_code.chars().nth(i - 1).unwrap();
-            if ch == '1' {
-                render_yang(i as i32, &mut controller, &colour);
-            } else {
-                render_yin(i as i32, &mut controller, &colour);
-            }
+pub fn pin_on(pin: u8) {
+    println!("--------> pin {}: on", pin);
+    if let Ok(gpio) = Gpio::new() {
+        if let Ok(pin) = gpio.get(pin) {
+            let mut pin = pin.into_output();
+            pin.set_high();
         }
-        if code == "101" {
-            render_fire(&mut controller);
-        }
-    };
+    }
 }
 
-pub fn element_off(pin: u8) {
-    println!("--------> element pin {}: off", pin);
-
-    pin_off(pin);
-
-    let colour = "rgb(0, 0, 0)".to_string();
-    if let Ok(mut controller) = build_controller() {
-        for i in 1..7 {
-            render_yang(i, &mut controller, &colour);
+pub fn pin_off(pin: u8) {
+    println!("--------> pin {}: off", pin);
+    if let Ok(gpio) = Gpio::new() {
+        if let Ok(pin) = gpio.get(pin) {
+            let mut pin = pin.into_output();
+            pin.set_low();
         }
-    };
+    }
 }
+
+// pub fn element_on(pin: u8, colour: String, code: String) {
+//     println!(
+//         "--------> element pin {}: on, element colour: {}",
+//         pin, colour
+//     );
+//
+//     pin_on(pin);
+//
+//     let full_code = format!("{}{}", code, code);
+//     if let Ok(mut controller) = build_controller() {
+//         for i in 1..7 {
+//             let ch = full_code.chars().nth(i - 1).unwrap();
+//             if ch == '1' {
+//                 render_yang(i as i32, &mut controller, &colour);
+//             } else {
+//                 render_yin(i as i32, &mut controller, &colour);
+//             }
+//         }
+//         if code == "101" {
+//             render_fire(&mut controller);
+//         }
+//     };
+// }
+//
+// pub fn element_off(pin: u8) {
+//     println!("--------> element pin {}: off", pin);
+//
+//     pin_off(pin);
+//
+//     let colour = "rgb(0, 0, 0)".to_string();
+//     if let Ok(mut controller) = build_controller() {
+//         for i in 1..7 {
+//             render_yang(i, &mut controller, &colour);
+//         }
+//     };
+// }
 
 pub fn colour_on(colour: String, code: String) {
     println!("--------> element colour: {}", colour);
@@ -350,4 +329,69 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     reset_all(&settings, &mut controller);
 
     Ok(())
+}
+
+pub fn reading(settings: Binding) -> IOracleResult<Hexagram> {
+    println!("New reading.");
+    thread::sleep(Duration::from_secs(3));
+
+    let mut controller = build_controller()?;
+
+    let line1 = Line::random();
+    println!("Line 1: {}", line1);
+    line1.render(1, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
+
+    let line2 = Line::random();
+    println!("Line 2: {}", line2);
+    line2.render(2, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
+
+    let line3 = Line::random();
+    println!("Line 3: {}", line3);
+    line3.render(3, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
+
+    let top_trigram = Trigram {
+        top: line1,
+        middle: line2,
+        bottom: line3,
+    };
+    println!("Top Trigram: {}", top_trigram);
+    top_trigram.render(&settings, &mut controller);
+    thread::sleep(Duration::from_secs(1));
+
+    let line4 = Line::random();
+    println!("Line 4: {}", line4);
+    line4.render(4, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
+
+    let line5 = Line::random();
+    println!("Line 5: {}", line5);
+    line5.render(5, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
+
+    let line6 = Line::random();
+    println!("Line 6: {}", line6);
+    line6.render(6, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
+
+    let bottom_trigram = Trigram {
+        top: line4,
+        middle: line5,
+        bottom: line6,
+    };
+    println!("Bottom Trigram: {}", bottom_trigram);
+    bottom_trigram.render(&settings, &mut controller);
+    thread::sleep(Duration::from_secs(1));
+
+    let hexagram = Hexagram {
+        top: top_trigram,
+        bottom: bottom_trigram,
+    };
+    println!("Hexagram: {}", hexagram);
+
+    reset_all(&settings, &mut controller);
+
+    Ok(hexagram)
 }

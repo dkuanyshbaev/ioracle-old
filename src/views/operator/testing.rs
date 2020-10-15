@@ -2,8 +2,7 @@ use crate::errors::IOracleResult;
 use crate::models::binding::Binding;
 use crate::oracle::send;
 use crate::wires::{
-    build_controller, colour_off, colour_on, element_off, element_on, pin_off, pin_on, reset_all,
-    run_simulation,
+    build_controller, colour_off, colour_on, pin_off, pin_on, reset_all, run_simulation,
 };
 use crate::{Config, Db};
 use rocket::State;
@@ -17,15 +16,15 @@ pub struct Test {
     action: u8,
 }
 
-#[post("/element", format = "json", data = "<test>")]
-pub fn element(test: Json<Test>) -> Json<String> {
-    match test.action {
-        1 => element_on(test.pin, test.colour.to_owned(), test.code.to_owned()),
-        _ => element_off(test.pin),
-    }
-
-    Json("ok".to_string())
-}
+// #[post("/element", format = "json", data = "<test>")]
+// pub fn element(test: Json<Test>) -> Json<String> {
+//     match test.action {
+//         1 => element_on(test.pin, test.colour.to_owned(), test.code.to_owned()),
+//         _ => element_off(test.pin),
+//     }
+//
+//     Json("ok".to_string())
+// }
 
 #[post("/pin", format = "json", data = "<test>")]
 pub fn pin(test: Json<Test>) -> Json<String> {
