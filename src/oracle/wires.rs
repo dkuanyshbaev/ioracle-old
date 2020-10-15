@@ -3,7 +3,6 @@ use crate::models::binding::Binding;
 use crate::oracle::iching::{Hexagram, Line, Trigram};
 use rand::distributions::{Distribution, Uniform};
 use rppal::gpio::Gpio;
-use rppal::pwm::Pwm;
 use rs_ws281x::ChannelBuilder;
 use rs_ws281x::Controller;
 use rs_ws281x::ControllerBuilder;
@@ -86,22 +85,22 @@ pub fn pin_on(pin: u8) {
     println!("--------> pin {}: on", pin);
 
     //---------------------------------
-    const ADDR_DS3231: u16 = 0x20;
-
-    if pin == 2 {
-        use rppal::i2c::I2c;
-        // if let Ok(mut i2c) = I2c::new() {
-        if let Ok(mut i2c) = I2c::with_bus(1) {
-            //--------------------------
-            if let Ok(res) = i2c.set_slave_address(ADDR_DS3231) {
-                //--------------------------
-                if let Ok(r) = i2c.write(&[1]) {
-                    println!("{:?}", r);
-                    //--------------------------
-                };
-            };
-        };
-    }
+    // const ADDR_DS3231: u16 = 0x20;
+    //
+    // if pin == 2 {
+    //     use rppal::i2c::I2c;
+    //     // if let Ok(mut i2c) = I2c::new() {
+    //     if let Ok(mut i2c) = I2c::with_bus(1) {
+    //         //--------------------------
+    //         if let Ok(res) = i2c.set_slave_address(ADDR_DS3231) {
+    //             //--------------------------
+    //             if let Ok(r) = i2c.write(&[1]) {
+    //                 println!("{:?}", r);
+    //                 //--------------------------
+    //             };
+    //         };
+    //     };
+    // }
 
     //---------------------------------
 
@@ -227,17 +226,6 @@ pub fn colour_off() {
             render_yang(i, &mut controller, &colour);
         }
     };
-}
-
-pub fn set_pwm(freq: i32, cycles: String) {
-    println!(">>>> set pwm freq: {}, cycles: {}", freq, cycles);
-
-    // Reconfigure the PWM channel for an 8 Hz frequency, 50% duty cycle.
-    // pwm.set_frequency(8.0, 0.5)?;
-
-    // if let Err(e) = pwm.set_frequency(freq as f64, 0.5) {
-    //     println!("Can't set pwm frequency: {}", e);
-    // };
 }
 
 pub fn play_sound(file_name: String) {

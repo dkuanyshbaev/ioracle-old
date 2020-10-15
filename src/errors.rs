@@ -22,6 +22,14 @@ impl From<DieselError> for IOracleError {
     }
 }
 
+impl From<csv::Error> for IOracleError {
+    fn from(error: csv::Error) -> Self {
+        match error {
+            _ => IOracleError::InternalServerError,
+        }
+    }
+}
+
 impl fmt::Display for IOracleError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match *self {

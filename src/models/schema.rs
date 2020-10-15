@@ -39,9 +39,19 @@ table! {
 table! {
     hexagrams (id) {
         id -> Integer,
-        name -> Text,
-        image -> Text,
-        description -> Text,
+        binary -> Text,
+        king_wen_order -> Integer,
+        shao_yong_order -> Integer,
+        gua -> Text,
+        pin_yin -> Text,
+        character -> Text,
+        wilheim -> Text,
+        huang -> Text,
+        hatcher -> Text,
+        no2do -> Text,
+        inner_ba_gua -> Text,
+        outer_ba_gua -> Text,
+        host_yao -> Text,
     }
 }
 

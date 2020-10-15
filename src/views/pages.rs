@@ -1,8 +1,8 @@
 use crate::config::Config;
 use crate::errors::IOracleResult;
 use crate::models::binding::{Binding, UpdatedBinding};
+use crate::models::hexagram::UpdatedHexagram;
 use crate::oracle::utils::{ask_question, get_answer};
-use crate::oracle::wires::set_pwm;
 use crate::views::context::{ItemContext, NoContext};
 use crate::Db;
 use rocket::request::Form;
@@ -10,7 +10,6 @@ use rocket::response::Redirect;
 use rocket::State;
 use rocket_contrib::json::Json;
 use rocket_contrib::templates::Template;
-use rppal::pwm::Pwm;
 
 #[derive(FromForm)]
 pub struct Question {
@@ -75,10 +74,29 @@ pub fn save(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Red
     Ok(Redirect::to("/settings"))
 }
 
-#[post("/pwm", format = "json", data = "<pwm_data>")]
-pub fn pwm(pwm_data: Json<PwmData>) -> Json<String> {
-    set_pwm(pwm_data.led_freq, pwm_data.led_cycles.to_owned());
-    set_pwm(pwm_data.fan_freq, pwm_data.fan_cycles.to_owned());
+#[get("/csv")]
+pub fn csv(_connection: Db) -> IOracleResult<String> {
+    // hexagrams
+    let file_path = "/home/denis/collector/iora/csv/expanded_gua.csv";
+    let mut reader = csv::Reader::from_path(file_path)?;
+    let mut hcount = 0;
+    for result in reader.deserialize() {
+        let record: UpdatedHexagram = result?;
+        println!("{:#?}", record);
+        hcount += 1;
+    }
 
-    Json("ok".to_string())
+    //trigrams
+    // let file_path = "/home/denis/collector/iora/csv/expanded_gua.csv";
+    // let mut reader = csv::Reader::from_path(file_path)?;
+    // let mut tcount = 0;
+    // for result in reader.deserialize() {
+    //     let record: UpdatedTrigram = result?;
+    //     println!("{:#?}", record);
+    //     tcount += 1;
+    // }
+
+    println!("hexagrams count: {}", hcount);
+    // println!("trigrams count: {}", tcount);
+    Ok("Ok".to_string())
 }

@@ -9,7 +9,7 @@ use rocket_contrib::databases::diesel::SqliteConnection;
 
 pub fn ask_question(
     config: State<Config>,
-    connection: &SqliteConnection,
+    _connection: &SqliteConnection,
     email: String,
     question: String,
 ) -> IOracleResult<String> {

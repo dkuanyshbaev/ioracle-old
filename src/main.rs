@@ -41,7 +41,7 @@ fn rocket(config: Config) -> rocket::Rocket {
                 pages::answer,
                 pages::settings,
                 pages::save,
-                pages::pwm
+                pages::csv,
             ],
         )
         .mount(
