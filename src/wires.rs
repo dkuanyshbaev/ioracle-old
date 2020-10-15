@@ -1,12 +1,9 @@
 use crate::errors::{IOracleError, IOracleResult};
+use crate::iching::{Hexagram, Line, Trigram};
 use crate::models::binding::Binding;
-use crate::oracle::iching::{Hexagram, Line, Trigram};
 use rand::distributions::{Distribution, Uniform};
 use rppal::gpio::Gpio;
-use rs_ws281x::ChannelBuilder;
-use rs_ws281x::Controller;
-use rs_ws281x::ControllerBuilder;
-use rs_ws281x::StripType;
+use rs_ws281x::{ChannelBuilder, Controller, ControllerBuilder, StripType};
 use std::process::Command;
 use std::thread;
 use std::time::{Duration, SystemTime};

@@ -56,12 +56,3 @@ impl<'r> Responder<'r> for IOracleError {
         }
     }
 }
-
-// impl<'r> Responder<'r, 'static> for IOracleError {
-//     fn respond_to(self, _: &'r Request<'_>) -> rocket::response::Result<'static> {
-//         match self {
-//             IOracleError::NotFound => Err(Status::NotFound),
-//             _ => Err(Status::InternalServerError),
-//         }
-//     }
-// }

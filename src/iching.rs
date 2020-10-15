@@ -1,5 +1,5 @@
 use crate::models::binding::Binding;
-use crate::oracle::wires::*;
+use crate::wires::*;
 use rand::distributions::{Distribution, Uniform};
 use rs_ws281x::Controller;
 use std::fmt;

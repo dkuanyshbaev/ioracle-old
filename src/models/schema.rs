@@ -56,6 +56,16 @@ table! {
 }
 
 table! {
+    records (id) {
+        id -> Integer,
+        uuid -> Text,
+        email -> Text,
+        question -> Text,
+        answer -> Text,
+    }
+}
+
+table! {
     trigrams (id) {
         id -> Integer,
         name -> Text,
@@ -72,5 +82,6 @@ allow_tables_to_appear_in_same_query!(
     answers,
     bindings,
     hexagrams,
+    records,
     trigrams,
 );

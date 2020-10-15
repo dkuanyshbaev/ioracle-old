@@ -14,9 +14,11 @@ extern crate diesel;
 
 mod config;
 mod errors;
+mod iching;
 mod models;
 mod oracle;
 mod views;
+mod wires;
 
 use config::Config;
 use rocket_contrib::serve::StaticFiles;

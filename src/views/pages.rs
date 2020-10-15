@@ -1,9 +1,9 @@
 use crate::config::Config;
 use crate::errors::IOracleResult;
 use crate::models::binding::{Binding, UpdatedBinding};
-use crate::models::hexagram::{Hexagram, UpdatedHexagram};
-use crate::models::trigram::{Trigram, UpdatedTrigram};
-use crate::oracle::utils::{ask_question, get_answer};
+use crate::models::hexagram::UpdatedHexagram;
+use crate::models::trigram::UpdatedTrigram;
+use crate::oracle::{ask_question, get_answer};
 use crate::views::context::{ItemContext, NoContext};
 use crate::Db;
 use rocket::request::Form;
@@ -16,14 +16,6 @@ use rocket_contrib::templates::Template;
 pub struct Question {
     email: String,
     question: String,
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-pub struct PwmData {
-    led_freq: i32,
-    led_cycles: String,
-    fan_freq: i32,
-    fan_cycles: String,
 }
 
 #[get("/")]
@@ -76,14 +68,14 @@ pub fn save(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Red
 }
 
 #[get("/csv")]
-pub fn csv(connection: Db) -> IOracleResult<String> {
+pub fn csv(_connection: Db) -> IOracleResult<String> {
     // hexagrams
     let file_path = "/home/denis/collector/iora/csv/expanded_gua.csv";
     let mut reader = csv::Reader::from_path(file_path)?;
     for result in reader.deserialize() {
         let record: UpdatedHexagram = result?;
         println!("{:#?}", record);
-        // let _h = Hexagram::insert(&connection, record)?;
+        // let _h = crate::models::hexagram::Hexagram::insert(&connection, record)?;
     }
 
     //trigrams
@@ -92,7 +84,7 @@ pub fn csv(connection: Db) -> IOracleResult<String> {
     for result in reader.deserialize() {
         let record: UpdatedTrigram = result?;
         println!("{:#?}", record);
-        // let _t = Trigram::insert(&connection, record)?;
+        // let _t = crate::models::trigram::Trigram::insert(&connection, record)?;
     }
 
     Ok("Ok".to_string())

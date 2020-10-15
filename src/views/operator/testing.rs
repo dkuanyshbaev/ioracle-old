@@ -1,7 +1,7 @@
 use crate::errors::IOracleResult;
 use crate::models::binding::Binding;
-use crate::oracle::utils::send;
-use crate::oracle::wires::{
+use crate::oracle::send;
+use crate::wires::{
     build_controller, colour_off, colour_on, element_off, element_on, pin_off, pin_on, reset_all,
     run_simulation,
 };
