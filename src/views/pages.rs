@@ -1,7 +1,7 @@
 use crate::config::Config;
 use crate::errors::IOracleResult;
 use crate::models::binding::{Binding, UpdatedBinding};
-use crate::models::hexagram::UpdatedHexagram;
+use crate::models::hexagram::{Hexagram, UpdatedHexagram};
 use crate::oracle::utils::{ask_question, get_answer};
 use crate::views::context::{ItemContext, NoContext};
 use crate::Db;
@@ -75,28 +75,24 @@ pub fn save(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Red
 }
 
 #[get("/csv")]
-pub fn csv(_connection: Db) -> IOracleResult<String> {
+pub fn csv(connection: Db) -> IOracleResult<String> {
     // hexagrams
     let file_path = "/home/denis/collector/iora/csv/expanded_gua.csv";
     let mut reader = csv::Reader::from_path(file_path)?;
-    let mut hcount = 0;
     for result in reader.deserialize() {
         let record: UpdatedHexagram = result?;
         println!("{:#?}", record);
-        hcount += 1;
+        let _h = Hexagram::insert(&connection, record)?;
     }
 
     //trigrams
     // let file_path = "/home/denis/collector/iora/csv/expanded_gua.csv";
     // let mut reader = csv::Reader::from_path(file_path)?;
-    // let mut tcount = 0;
     // for result in reader.deserialize() {
-    //     let record: UpdatedTrigram = result?;
+    //     let record: UpdatedHexagram = result?;
     //     println!("{:#?}", record);
-    //     tcount += 1;
+    //     let _h = Hexagram::insert(&connection, record)?;
     // }
 
-    println!("hexagrams count: {}", hcount);
-    // println!("trigrams count: {}", tcount);
     Ok("Ok".to_string())
 }
