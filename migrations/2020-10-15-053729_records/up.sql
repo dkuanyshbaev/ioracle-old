@@ -3,5 +3,6 @@ create table if not exists records (
     uuid text not null,
     email text not null,
     question text not null,
-    answer text not null
+    answer text not null,
+    hexagram text not null
 )

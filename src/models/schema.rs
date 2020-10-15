@@ -62,6 +62,7 @@ table! {
         email -> Text,
         question -> Text,
         answer -> Text,
+        hexagram -> Text,
     }
 }
 

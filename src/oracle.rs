@@ -20,12 +20,12 @@ pub fn ask(
     let settings = Binding::get(&connection)?;
     let hexagram = reading(settings)?;
 
-    let h = to_binary(&hexagram);
-    let full_h = hexagram::Hexagram::get_by_binary(connection, h)?;
+    let hex_binary = to_binary(&hexagram);
+    let full_h = hexagram::Hexagram::get_by_binary(connection, hex_binary.clone())?;
     println!("{:#?}", full_h);
 
     let answer = generate(question.clone(), hexagram)?;
-    let answer_uuid = save(connection, &email, &question, &answer)?;
+    let answer_uuid = save(connection, &email, &question, &answer, &hex_binary)?;
     send(config, &email, &question, &answer)?;
 
     Ok(answer_uuid)
@@ -36,6 +36,7 @@ pub fn save(
     email: &String,
     question: &String,
     answer: &String,
+    hexagram: &String,
 ) -> IOracleResult<String> {
     let uuid = Uuid::new_v4();
     let uuid = uuid.to_string();
@@ -47,6 +48,7 @@ pub fn save(
             email: email.to_string(),
             question: question.to_string(),
             answer: answer.to_string(),
+            hexagram: hexagram.to_string(),
         },
     )?;
 

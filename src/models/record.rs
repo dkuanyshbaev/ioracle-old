@@ -9,6 +9,7 @@ pub struct Record {
     pub email: String,
     pub question: String,
     pub answer: String,
+    pub hexagram: String,
 }
 
 #[derive(Serialize, Deserialize, Insertable, FromForm, AsChangeset, Debug)]
@@ -18,6 +19,7 @@ pub struct UpdatedRecord {
     pub email: String,
     pub question: String,
     pub answer: String,
+    pub hexagram: String,
 }
 
 impl Record {
