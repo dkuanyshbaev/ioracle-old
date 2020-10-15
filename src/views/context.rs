@@ -10,3 +10,9 @@ pub struct ListContext<T> {
 
 #[derive(Serialize)]
 pub struct NoContext {}
+
+#[derive(Serialize)]
+pub struct AnswerContext<T, U> {
+    pub record: T,
+    pub hexagram: U,
+}

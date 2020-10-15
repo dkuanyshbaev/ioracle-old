@@ -1,11 +1,11 @@
 use crate::config::Config;
 use crate::errors::IOracleResult;
 use crate::models::binding::{Binding, UpdatedBinding};
-use crate::models::hexagram::UpdatedHexagram;
+use crate::models::hexagram::{Hexagram, UpdatedHexagram};
 use crate::models::record::Record;
 use crate::models::trigram::UpdatedTrigram;
 use crate::oracle::ask;
-use crate::views::context::{ItemContext, NoContext};
+use crate::views::context::{AnswerContext, ItemContext, NoContext};
 use crate::Db;
 use rocket::request::Form;
 use rocket::response::Redirect;
@@ -43,11 +43,12 @@ pub fn question(
 
 #[get("/answer/<uuid>")]
 pub fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
+    let record = Record::get_by_uuid(&connection, uuid)?;
+    let hexagram = Hexagram::get_by_binary(&connection, record.hexagram.clone())?;
+
     Ok(Template::render(
         "answer",
-        ItemContext {
-            item: Record::get_by_uuid(&connection, uuid)?,
-        },
+        AnswerContext { record, hexagram },
     ))
 }
 
