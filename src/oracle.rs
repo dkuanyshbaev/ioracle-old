@@ -7,7 +7,15 @@ use rocket::State;
 use rocket_contrib::databases::diesel::SqliteConnection;
 use uuid::Uuid;
 
-pub fn ask_question(
+pub fn ioracle(question: &String) -> IOracleResult<String> {
+    // TODO: question -> answer
+
+    // run_simulation(Binding::get(&connection)?)?;
+
+    Ok(question.to_string())
+}
+
+pub fn ask(
     config: State<Config>,
     connection: &SqliteConnection,
     email: String,
@@ -18,18 +26,6 @@ pub fn ask_question(
     send(config, &email, &question, &answer)?;
 
     Ok(answer_uuid)
-}
-
-pub fn ioracle(question: &String) -> IOracleResult<String> {
-    // TODO: question -> answer
-
-    Ok(question.to_string())
-}
-
-pub fn get_answer(connection: &SqliteConnection, uuid: String) -> IOracleResult<String> {
-    let record = Record::get_by_uuid(&connection, uuid)?;
-
-    Ok(record.answer)
 }
 
 pub fn save(

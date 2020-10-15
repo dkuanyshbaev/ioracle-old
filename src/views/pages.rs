@@ -2,8 +2,9 @@ use crate::config::Config;
 use crate::errors::IOracleResult;
 use crate::models::binding::{Binding, UpdatedBinding};
 use crate::models::hexagram::UpdatedHexagram;
+use crate::models::record::Record;
 use crate::models::trigram::UpdatedTrigram;
-use crate::oracle::{ask_question, get_answer};
+use crate::oracle::ask;
 use crate::views::context::{ItemContext, NoContext};
 use crate::Db;
 use rocket::request::Form;
@@ -31,7 +32,7 @@ pub fn question(
 ) -> IOracleResult<Redirect> {
     Ok(Redirect::to(format!(
         "/answer/{}",
-        ask_question(
+        ask(
             config,
             &connection,
             question.email.to_owned(),
@@ -45,7 +46,7 @@ pub fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
     Ok(Template::render(
         "answer",
         ItemContext {
-            item: get_answer(&connection, uuid)?,
+            item: Record::get_by_uuid(&connection, uuid)?,
         },
     ))
 }
