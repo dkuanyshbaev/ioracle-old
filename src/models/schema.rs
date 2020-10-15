@@ -60,7 +60,11 @@ table! {
         id -> Integer,
         name -> Text,
         image -> Text,
-        description -> Text,
+        binary -> Text,
+        no -> Text,
+        wen -> Text,
+        host -> Text,
+        element -> Text,
     }
 }
 

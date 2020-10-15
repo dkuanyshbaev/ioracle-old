@@ -7,14 +7,24 @@ pub struct Trigram {
     id: i32,
     name: String,
     image: String,
-    description: String,
+    binary: String,
+    no: String,
+    wen: String,
+    host: String,
+    element: String,
 }
 
-#[derive(Serialize, Insertable, FromForm, AsChangeset)]
+#[derive(Serialize, Deserialize, Insertable, FromForm, AsChangeset, Debug)]
 #[table_name = "trigrams"]
+#[serde(rename_all = "PascalCase")]
 pub struct UpdatedTrigram {
-    pub name: String,
-    pub description: String,
+    name: String,
+    image: String,
+    binary: String,
+    no: String,
+    wen: String,
+    host: String,
+    element: String,
 }
 
 impl Trigram {
@@ -24,6 +34,15 @@ impl Trigram {
 
     pub fn get(connection: &SqliteConnection, id: i32) -> QueryResult<Trigram> {
         trigrams::table.find(id).get_result(connection)
+    }
+
+    pub fn insert(
+        connection: &SqliteConnection,
+        new_trigram: UpdatedTrigram,
+    ) -> QueryResult<usize> {
+        diesel::insert_into(trigrams::table)
+            .values(new_trigram)
+            .execute(connection)
     }
 
     pub fn update(
