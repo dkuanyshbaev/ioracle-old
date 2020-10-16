@@ -473,7 +473,7 @@ pub fn read_the_pip(delta: u64) -> Vec<i32> {
 }
 
 fn get_val(buf: &[u8]) -> i32 {
-    let mut output = 42;
+    let mut output = 0;
     let serial_data = std::str::from_utf8(buf).unwrap();
     if let Some(i) = serial_data.find("PiPVal: ") {
         let s = &serial_data[i + 8..];
