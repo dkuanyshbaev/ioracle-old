@@ -52,7 +52,10 @@ impl Line {
 
         for i in n_data.windows(3) {
             if i[1] > i[0] && i[1] > i[2] && i[1] > t {
-                println!("local extremum = {:?}", i[1]);
+                println!("local max extremum = {:?}", i[1]);
+            }
+            if i[1] < i[0] && i[1] < i[2] && abs(i[1]) > t {
+                println!("local min extremum = {:?}", i[1]);
             }
             println!("windows iter = {:?}", i);
         }
