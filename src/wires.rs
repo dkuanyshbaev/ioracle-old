@@ -334,17 +334,17 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     Ok(())
 }
 
-pub fn reading(settings: Binding) -> IOracleResult<Hexagram> {
+pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     println!("New reading.");
     let mut controller = build_controller()?;
     thread::sleep(Duration::from_secs(3));
 
+    // let line1 = Line::random();
     let line1 = Line::read(2, settings.multiply, settings.bias, settings.threshold);
     println!("Line 1: {}", line1);
     line1.render(1, &mut controller, &settings.default_colour);
     thread::sleep(Duration::from_secs(1));
 
-    // let line2 = Line::random();
     let line2 = Line::read(2, settings.multiply, settings.bias, settings.threshold);
     println!("Line 2: {}", line2);
     line2.render(2, &mut controller, &settings.default_colour);
@@ -355,16 +355,50 @@ pub fn reading(settings: Binding) -> IOracleResult<Hexagram> {
     line3.render(3, &mut controller, &settings.default_colour);
     thread::sleep(Duration::from_secs(1));
 
-    let top_trigram = Trigram {
+    let first_trigram = Trigram {
         top: line1,
         middle: line2,
         bottom: line3,
     };
-    println!("Top Trigram: {}", top_trigram);
-    top_trigram.render(&settings, &mut controller);
-    // TODO read 3 sec from plant
-    // each reading gives the "related" line
-    // + boolean some logic
+    println!("first_trigram: {}", first_trigram);
+    first_trigram.render(&settings, &mut controller);
+
+    let line_related1 = Line::read(1, settings.multiply, settings.bias, settings.threshold);
+    let line_related2 = Line::read(1, settings.multiply, settings.bias, settings.threshold);
+    let line_related3 = Line::read(1, settings.multiply, settings.bias, settings.threshold);
+    let first_related = Trigram {
+        top: match line_related1 {
+            Line::Yin => match first_trigram.top {
+                Line::Yin => Line::Yang,
+                Line::Yang => Line::Yin,
+            },
+            Line::Yang => match first_trigram.top {
+                Line::Yang => Line::Yin,
+                Line::Yin => Line::Yang,
+            },
+        },
+        middle: match line_related2 {
+            Line::Yin => match first_trigram.middle {
+                Line::Yin => Line::Yang,
+                Line::Yang => Line::Yin,
+            },
+            Line::Yang => match first_trigram.middle {
+                Line::Yang => Line::Yin,
+                Line::Yin => Line::Yang,
+            },
+        },
+        bottom: match line_related3 {
+            Line::Yin => match first_trigram.bottom {
+                Line::Yin => Line::Yang,
+                Line::Yang => Line::Yin,
+            },
+            Line::Yang => match first_trigram.bottom {
+                Line::Yang => Line::Yin,
+                Line::Yin => Line::Yang,
+            },
+        },
+    };
+    println!("first_related: {}", first_related);
     thread::sleep(Duration::from_secs(1));
 
     let line4 = Line::read(2, settings.multiply, settings.bias, settings.threshold);
@@ -382,26 +416,63 @@ pub fn reading(settings: Binding) -> IOracleResult<Hexagram> {
     line6.render(6, &mut controller, &settings.default_colour);
     thread::sleep(Duration::from_secs(1));
 
-    let bottom_trigram = Trigram {
+    let second_trigram = Trigram {
         top: line4,
         middle: line5,
         bottom: line6,
     };
-    println!("Bottom Trigram: {}", bottom_trigram);
-    bottom_trigram.render(&settings, &mut controller);
-    // TODO read 3 sec from plant
-    // each reading gives the "related" line
-    // + boolean some logic
+    println!("second_trigram: {}", second_trigram);
+    second_trigram.render(&settings, &mut controller);
+
+    let line_related4 = Line::read(1, settings.multiply, settings.bias, settings.threshold);
+    let line_related5 = Line::read(1, settings.multiply, settings.bias, settings.threshold);
+    let line_related6 = Line::read(1, settings.multiply, settings.bias, settings.threshold);
+    let second_related = Trigram {
+        top: match line_related4 {
+            Line::Yin => match second_trigram.top {
+                Line::Yin => Line::Yang,
+                Line::Yang => Line::Yin,
+            },
+            Line::Yang => match second_trigram.top {
+                Line::Yang => Line::Yin,
+                Line::Yin => Line::Yang,
+            },
+        },
+        middle: match line_related5 {
+            Line::Yin => match second_trigram.middle {
+                Line::Yin => Line::Yang,
+                Line::Yang => Line::Yin,
+            },
+            Line::Yang => match second_trigram.middle {
+                Line::Yang => Line::Yin,
+                Line::Yin => Line::Yang,
+            },
+        },
+        bottom: match line_related6 {
+            Line::Yin => match second_trigram.bottom {
+                Line::Yin => Line::Yang,
+                Line::Yang => Line::Yin,
+            },
+            Line::Yang => match second_trigram.bottom {
+                Line::Yang => Line::Yin,
+                Line::Yin => Line::Yang,
+            },
+        },
+    };
+    println!("second_related: {}", second_related);
     thread::sleep(Duration::from_secs(1));
 
     let hexagram = Hexagram {
-        top: top_trigram,
-        bottom: bottom_trigram,
+        top: second_trigram,
+        bottom: first_trigram,
     };
-
+    let related = Hexagram {
+        top: second_related,
+        bottom: first_related,
+    };
     reset_all(&settings, &mut controller);
 
-    Ok(hexagram)
+    Ok((hexagram, related))
 }
 
 pub fn to_binary(h: &Hexagram) -> String {

@@ -18,11 +18,14 @@ pub fn ask(
     question: String,
 ) -> IOracleResult<String> {
     let settings = Binding::get(&connection)?;
-    let hexagram = reading(settings)?;
+    let (hexagram, related) = reading(settings)?;
 
     let hex_binary = to_binary(&hexagram);
+    let rel_binary = to_binary(&related);
     let full_h = hexagram::Hexagram::get_by_binary(connection, hex_binary.clone())?;
+    let full_r = hexagram::Hexagram::get_by_binary(connection, rel_binary.clone())?;
     println!("{:#?}", full_h);
+    println!("{:#?}", full_r);
 
     let answer = generate(question.clone(), hexagram)?;
     let answer_uuid = save(connection, &email, &question, &answer, &hex_binary)?;
