@@ -54,7 +54,7 @@ impl Line {
             if i[1] > i[0] && i[1] > i[2] && i[1] > t {
                 println!("local max extremum = {:?}", i[1]);
             }
-            if i[1] < i[0] && i[1] < i[2] && abs(i[1]) > t {
+            if i[1] < i[0] && i[1] < i[2] && i[1].abs() > t {
                 println!("local min extremum = {:?}", i[1]);
             }
             println!("windows iter = {:?}", i);
