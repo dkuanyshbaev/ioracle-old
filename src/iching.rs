@@ -48,10 +48,17 @@ impl Line {
         println!("min: {}", min);
         println!("max: {}", max);
 
-        let normilized_data = data.iter().map(|&i| i as f32 * m - b).collect::<Vec<f32>>();
+        let normilized_data: Vec<f32> = vec![];
+        if m != 0.0 {
+            println!("with m");
+            let normilized_data = data.iter().map(|&i| i as f32 * m - b).collect::<Vec<f32>>();
+        } else {
+            println!("no m");
+            let normilized_data = data.iter().map(|&i| i as f32 - b).collect::<Vec<f32>>();
+        }
 
         // -------------------------------------------------
-        let mut iter = normilized_data.windows(3);
+        // let mut iter = normilized_data.windows(3);
         // assert_eq!(iter.next().unwrap(), &['r', 'u']);
         // assert_eq!(iter.next().unwrap(), &['u', 's']);
         // assert_eq!(iter.next().unwrap(), &['s', 't']);
@@ -67,7 +74,7 @@ impl Line {
         for i in normilized_data.iter() {
             println!("i = {}", i);
 
-            if i > &t {
+            if *i as f32 > t {
                 println!("i > t: {}", i);
             }
 
