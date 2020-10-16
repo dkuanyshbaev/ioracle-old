@@ -39,48 +39,22 @@ impl Line {
         if let Some(m) = data.iter().min() {
             min = *m;
         };
+        println!("min: {}", min);
 
         let mut max = 0;
         if let Some(m) = data.iter().max() {
             max = *m;
         };
-
-        println!("min: {}", min);
         println!("max: {}", max);
 
-        let normilized_data: Vec<f32> = vec![];
-        if m != 0.0 {
-            println!("with m");
-            let normilized_data = data.iter().map(|&i| i as f32 * m - b).collect::<Vec<f32>>();
-        } else {
-            println!("no m");
-            let normilized_data = data.iter().map(|&i| i as f32 - b).collect::<Vec<f32>>();
-        }
+        let n_data = data.iter().map(|&i| i as f32 - b).collect::<Vec<f32>>();
+        println!("n_data = {:?}", n_data);
 
-        // -------------------------------------------------
-        // let mut iter = normilized_data.windows(3);
-        // assert_eq!(iter.next().unwrap(), &['r', 'u']);
-        // assert_eq!(iter.next().unwrap(), &['u', 's']);
-        // assert_eq!(iter.next().unwrap(), &['s', 't']);
-        // assert!(iter.next().is_none());
-        // -------------------------------------------------
-
-        for i in normilized_data.windows(3) {
-            println!("windows iter = {:?}", i);
-        }
-
-        // let xp: f32 = 0.0;
-        // let xn: f32 = 0.0;
-        for i in normilized_data.iter() {
-            println!("i = {}", i);
-
-            if *i as f32 > t {
-                println!("i > t: {}", i);
+        for i in n_data.windows(3) {
+            if i[1] > i[0] && i[1] > i[2] && i[1] > t {
+                println!("local extremum = {:?}", i[1]);
             }
-
-            // if i > &xp && i > &xn && i > &t {
-            //     println!("i > t: {}", i);
-            // }
+            println!("windows iter = {:?}", i);
         }
 
         Line::Yang
