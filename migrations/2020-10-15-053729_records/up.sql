@@ -4,5 +4,6 @@ create table if not exists records (
     email text not null,
     question text not null,
     answer text not null,
-    hexagram text not null
+    hexagram text not null,
+    related text not null
 )

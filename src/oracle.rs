@@ -28,7 +28,14 @@ pub fn ask(
     println!("{:#?}", full_r);
 
     let answer = generate(question.clone(), hexagram)?;
-    let answer_uuid = save(connection, &email, &question, &answer, &hex_binary)?;
+    let answer_uuid = save(
+        connection,
+        &email,
+        &question,
+        &answer,
+        &hex_binary,
+        &rel_binary,
+    )?;
     send(config, &email, &question, &answer)?;
 
     Ok(answer_uuid)
@@ -40,6 +47,7 @@ pub fn save(
     question: &String,
     answer: &String,
     hexagram: &String,
+    related: &String,
 ) -> IOracleResult<String> {
     let uuid = Uuid::new_v4();
     let uuid = uuid.to_string();
@@ -52,6 +60,7 @@ pub fn save(
             question: question.to_string(),
             answer: answer.to_string(),
             hexagram: hexagram.to_string(),
+            related: related.to_string(),
         },
     )?;
 

@@ -59,6 +59,7 @@ table! {
         question -> Text,
         answer -> Text,
         hexagram -> Text,
+        related -> Text,
     }
 }
 
