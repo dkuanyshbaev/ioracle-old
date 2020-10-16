@@ -31,7 +31,11 @@ impl Line {
         line
     }
 
-    pub fn read(delta: u64, m: f32, b: f32, t: f32) -> Line {
+    pub fn read(delta: u64, m: String, b: String, t: String) -> Line {
+        let _m: f32 = m.parse().unwrap_or_else(|_| 1.0);
+        let b: f32 = b.parse().unwrap_or_else(|_| 0.0);
+        let t: f32 = t.parse().unwrap_or_else(|_| 0.0);
+
         let data = read_the_pip(delta);
         println!("data: {:?}", data);
 

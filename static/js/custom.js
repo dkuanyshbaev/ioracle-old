@@ -39,9 +39,9 @@ function save(){
         "water_colour": water_colour,
         "mountain_pin": parseInt(mountain_pin),
         "mountain_colour": mountain_colour,
-        "multiply": parseFloat(multiply),
-        "bias": parseFloat(bias),
-        "threshold": parseFloat(threshold),
+        "multiply": multiply,
+        "bias": bias,
+        "threshold": threshold,
     });
 
     var xhr = new XMLHttpRequest();

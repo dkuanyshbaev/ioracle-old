@@ -19,9 +19,9 @@ pub struct Binding {
     pub water_colour: String,
     pub mountain_pin: i32,
     pub mountain_colour: String,
-    pub multiply: f32,
-    pub bias: f32,
-    pub threshold: f32,
+    pub multiply: String,
+    pub bias: String,
+    pub threshold: String,
 }
 
 #[derive(Serialize, Deserialize, Insertable, FromForm, AsChangeset, Debug)]
@@ -41,9 +41,9 @@ pub struct UpdatedBinding {
     pub water_colour: String,
     pub mountain_pin: i32,
     pub mountain_colour: String,
-    pub multiply: f32,
-    pub bias: f32,
-    pub threshold: f32,
+    pub multiply: String,
+    pub bias: String,
+    pub threshold: String,
 }
 
 impl Binding {
