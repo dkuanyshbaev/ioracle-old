@@ -50,17 +50,30 @@ impl Line {
         let n_data = data.iter().map(|&i| i as f32 - b).collect::<Vec<f32>>();
         println!("n_data = {:?}", n_data);
 
+        let mut mins: Vec<f32> = vec![];
+        let mut maxs: Vec<f32> = vec![];
         for i in n_data.windows(3) {
             if i[1] > i[0] && i[1] > i[2] && i[1] > t {
                 println!("local max extremum = {:?}", i[1]);
+                maxs.push(i[1]);
             }
             if i[1] < i[0] && i[1] < i[2] && i[1].abs() > t {
                 println!("local min extremum = {:?}", i[1]);
+                mins.push(i[1]);
             }
             println!("windows iter = {:?}", i);
         }
 
-        Line::Yang
+        println!("mins = {:?}", mins);
+        println!("mins len = {:?}", mins.len());
+        println!("maxs = {:?}", maxs);
+        println!("maxs len = {:?}", maxs.len());
+
+        if maxs.len() > mins.len() {
+            Line::Yang
+        } else {
+            Line::Yin
+        }
     }
 
     pub fn render(&self, line_num: i32, controller: &mut Controller, colour: &String) {

@@ -344,12 +344,13 @@ pub fn reading(settings: Binding) -> IOracleResult<Hexagram> {
     line1.render(1, &mut controller, &settings.default_colour);
     thread::sleep(Duration::from_secs(1));
 
-    let line2 = Line::random();
+    // let line2 = Line::random();
+    let line2 = Line::read(2, settings.multiply, settings.bias, settings.threshold);
     println!("Line 2: {}", line2);
     line2.render(2, &mut controller, &settings.default_colour);
     thread::sleep(Duration::from_secs(1));
 
-    let line3 = Line::random();
+    let line3 = Line::read(2, settings.multiply, settings.bias, settings.threshold);
     println!("Line 3: {}", line3);
     line3.render(3, &mut controller, &settings.default_colour);
     thread::sleep(Duration::from_secs(1));
@@ -366,17 +367,17 @@ pub fn reading(settings: Binding) -> IOracleResult<Hexagram> {
     // + boolean some logic
     thread::sleep(Duration::from_secs(1));
 
-    let line4 = Line::random();
+    let line4 = Line::read(2, settings.multiply, settings.bias, settings.threshold);
     println!("Line 4: {}", line4);
     line4.render(4, &mut controller, &settings.default_colour);
     thread::sleep(Duration::from_secs(1));
 
-    let line5 = Line::random();
+    let line5 = Line::read(2, settings.multiply, settings.bias, settings.threshold);
     println!("Line 5: {}", line5);
     line5.render(5, &mut controller, &settings.default_colour);
     thread::sleep(Duration::from_secs(1));
 
-    let line6 = Line::random();
+    let line6 = Line::read(2, settings.multiply, settings.bias, settings.threshold);
     println!("Line 6: {}", line6);
     line6.render(6, &mut controller, &settings.default_colour);
     thread::sleep(Duration::from_secs(1));
