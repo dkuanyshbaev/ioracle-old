@@ -26,9 +26,9 @@ table! {
         water_colour -> Text,
         mountain_pin -> Integer,
         mountain_colour -> Text,
-        multiply -> Text,
-        bias -> Text,
-        threshold -> Text,
+        multiply -> Float,
+        bias -> Float,
+        threshold -> Float,
     }
 }
 

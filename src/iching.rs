@@ -31,6 +31,54 @@ impl Line {
         line
     }
 
+    pub fn read(delta: u64, m: f32, b: f32, t: f32) -> Line {
+        let data = read_the_pip(delta);
+        println!("data: {:?}", data);
+
+        let mut min = 0;
+        if let Some(m) = data.iter().min() {
+            min = *m;
+        };
+
+        let mut max = 0;
+        if let Some(m) = data.iter().max() {
+            max = *m;
+        };
+
+        println!("min: {}", min);
+        println!("max: {}", max);
+
+        let normilized_data = data.iter().map(|&i| i as f32 * m - b).collect::<Vec<f32>>();
+
+        // -------------------------------------------------
+        let mut iter = normilized_data.windows(3);
+        // assert_eq!(iter.next().unwrap(), &['r', 'u']);
+        // assert_eq!(iter.next().unwrap(), &['u', 's']);
+        // assert_eq!(iter.next().unwrap(), &['s', 't']);
+        // assert!(iter.next().is_none());
+        // -------------------------------------------------
+
+        for i in normilized_data.windows(3) {
+            println!("windows iter = {:?}", i);
+        }
+
+        // let xp: f32 = 0.0;
+        // let xn: f32 = 0.0;
+        for i in normilized_data.iter() {
+            println!("i = {}", i);
+
+            if i > &t {
+                println!("i > t: {}", i);
+            }
+
+            // if i > &xp && i > &xn && i > &t {
+            //     println!("i > t: {}", i);
+            // }
+        }
+
+        Line::Yang
+    }
+
     pub fn render(&self, line_num: i32, controller: &mut Controller, colour: &String) {
         match self {
             Line::Yin => render_yin(line_num, controller, colour),

@@ -4,6 +4,7 @@ use crate::models::binding::Binding;
 use rand::distributions::{Distribution, Uniform};
 use rppal::gpio::Gpio;
 use rs_ws281x::{ChannelBuilder, Controller, ControllerBuilder, StripType};
+use serialport::prelude::*;
 use std::process::Command;
 use std::thread;
 use std::time::{Duration, SystemTime};
@@ -335,11 +336,10 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
 
 pub fn reading(settings: Binding) -> IOracleResult<Hexagram> {
     println!("New reading.");
+    let mut controller = build_controller()?;
     thread::sleep(Duration::from_secs(3));
 
-    let mut controller = build_controller()?;
-
-    let line1 = Line::random();
+    let line1 = Line::read(2, settings.multiply, settings.bias, settings.threshold);
     println!("Line 1: {}", line1);
     line1.render(1, &mut controller, &settings.default_colour);
     thread::sleep(Duration::from_secs(1));
@@ -361,6 +361,9 @@ pub fn reading(settings: Binding) -> IOracleResult<Hexagram> {
     };
     println!("Top Trigram: {}", top_trigram);
     top_trigram.render(&settings, &mut controller);
+    // TODO read 3 sec from plant
+    // each reading gives the "related" line
+    // + boolean some logic
     thread::sleep(Duration::from_secs(1));
 
     let line4 = Line::random();
@@ -385,14 +388,15 @@ pub fn reading(settings: Binding) -> IOracleResult<Hexagram> {
     };
     println!("Bottom Trigram: {}", bottom_trigram);
     bottom_trigram.render(&settings, &mut controller);
+    // TODO read 3 sec from plant
+    // each reading gives the "related" line
+    // + boolean some logic
     thread::sleep(Duration::from_secs(1));
 
     let hexagram = Hexagram {
         top: top_trigram,
         bottom: bottom_trigram,
     };
-
-    println!("Hexagram: {}", hexagram);
 
     reset_all(&settings, &mut controller);
 
@@ -433,4 +437,53 @@ pub fn to_binary(h: &Hexagram) -> String {
     }
 
     r
+}
+
+pub fn read_the_pip(delta: u64) -> Vec<i32> {
+    let s = SerialPortSettings {
+        baud_rate: 9600,
+        data_bits: DataBits::Eight,
+        flow_control: FlowControl::None,
+        parity: Parity::None,
+        stop_bits: StopBits::One,
+        timeout: Duration::from_secs(1),
+    };
+
+    let mut data: Vec<i32> = vec![];
+    if let Ok(mut port) = serialport::open_with_settings("/dev/ttyACM0", &s) {
+        let mut serial_buf: Vec<u8> = vec![0; 512];
+        let start = SystemTime::now();
+        loop {
+            if let Ok(d) = start.elapsed() {
+                if d > Duration::from_secs(delta) {
+                    break;
+                };
+            }
+            match port.read(serial_buf.as_mut_slice()) {
+                Ok(t) => {
+                    println!("Pip val: {}", get_val(&serial_buf[..t]));
+                    data.push(get_val(&serial_buf[..t]));
+                }
+                Err(e) => eprintln!("{:?}", e),
+            }
+        }
+    }
+
+    data
+}
+
+fn get_val(buf: &[u8]) -> i32 {
+    let mut output = 42;
+    let serial_data = std::str::from_utf8(buf).unwrap();
+    if let Some(i) = serial_data.find("PiPVal: ") {
+        let s = &serial_data[i + 8..];
+        if let Some(j) = s.find("\r") {
+            let str_value = &s[..j];
+            if let Ok(value) = str_value.parse::<i32>() {
+                output = value;
+            }
+        }
+    }
+
+    output
 }

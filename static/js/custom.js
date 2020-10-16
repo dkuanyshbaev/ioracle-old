@@ -23,10 +23,6 @@ function save(){
     var multiply = $("#multiply").val();
     var bias = $("#bias").val();
     var threshold = $("#threshold").val();
-    var led_freq = $("#led_freq").val();
-    var led_cycles = $("#led_cycles").val();
-    var fan_freq = $("#fan_freq").val();
-    var fan_cycles = $("#fan_cycles").val();
 
     var data = JSON.stringify({
         "default_colour": default_colour,
@@ -43,13 +39,9 @@ function save(){
         "water_colour": water_colour,
         "mountain_pin": parseInt(mountain_pin),
         "mountain_colour": mountain_colour,
-        "multiply": multiply,
-        "bias": bias,
-        "threshold": threshold,
-        "led_freq": parseInt(led_freq),
-        "led_cycles": led_cycles,
-        "fan_freq": parseInt(fan_freq),
-        "fan_cycles": fan_cycles,
+        "multiply": parseFloat(multiply),
+        "bias": parseFloat(bias),
+        "threshold": parseFloat(threshold),
     });
 
     var xhr = new XMLHttpRequest();
@@ -58,51 +50,51 @@ function save(){
     xhr.send(data);
 };
 
-function element_on(pin, colour, code){
-    $.ajaxSetup({
-        async: false
-    });
-
-    var data = JSON.stringify({
-        "pin" : pin,
-        "colour" : colour,
-        "code" : code,
-        "action" : 1,
-    });
-
-    $.ajax({
-        url: "testing/element",
-        type: "POST",
-        data: data,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(){
-        }
-    });
-};
-
-function element_off(pin){
-    $.ajaxSetup({
-        async: false
-    });
-
-    var data = JSON.stringify({
-        "pin" : pin,
-        "colour" : "",
-        "code" : "",
-        "action" : 0,
-    });
-
-    $.ajax({
-        url: "testing/element",
-        type: "POST",
-        data: data,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(){
-        }
-    });
-};
+// function element_on(pin, colour, code){
+//     $.ajaxSetup({
+//         async: false
+//     });
+//
+//     var data = JSON.stringify({
+//         "pin" : pin,
+//         "colour" : colour,
+//         "code" : code,
+//         "action" : 1,
+//     });
+//
+//     $.ajax({
+//         url: "testing/element",
+//         type: "POST",
+//         data: data,
+//         contentType: "application/json; charset=utf-8",
+//         dataType: "json",
+//         success: function(){
+//         }
+//     });
+// };
+//
+// function element_off(pin){
+//     $.ajaxSetup({
+//         async: false
+//     });
+//
+//     var data = JSON.stringify({
+//         "pin" : pin,
+//         "colour" : "",
+//         "code" : "",
+//         "action" : 0,
+//     });
+//
+//     $.ajax({
+//         url: "testing/element",
+//         type: "POST",
+//         data: data,
+//         contentType: "application/json; charset=utf-8",
+//         dataType: "json",
+//         success: function(){
+//         }
+//     });
+// };
 
 function heaven_test(element) {
     $.ajaxSetup({
