@@ -3,7 +3,7 @@ use crate::iching::Hexagram;
 use crate::models::binding::Binding;
 use crate::models::hexagram;
 use crate::models::record::{Record, UpdatedRecord};
-use crate::wires::{reading, to_binary};
+use crate::wires::reading;
 use crate::Config;
 use lettre::transport::smtp::authentication::Credentials;
 use lettre::{Message, SmtpTransport, Transport};
@@ -18,10 +18,8 @@ pub fn ask(
     question: String,
 ) -> IOracleResult<String> {
     let settings = Binding::get(&connection)?;
-    let (hexagram, related) = reading(settings)?;
+    let (hexagram, _related, hex_binary, rel_binary) = reading(settings)?;
 
-    let hex_binary = to_binary(&hexagram);
-    let rel_binary = to_binary(&related);
     let full_h = hexagram::Hexagram::get_by_binary(connection, hex_binary.clone())?;
     let full_r = hexagram::Hexagram::get_by_binary(connection, rel_binary.clone())?;
     println!("{:#?}", full_h);

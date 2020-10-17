@@ -219,11 +219,13 @@ pub fn reset_all(settings: &Binding, controller: &mut Controller) {
     // all leds to resting_colour
     let (a, b, c) = parse_colour(&settings.resting_colour);
     let yao_leds = controller.leds_mut(0);
-    for num in 0..yao_leds.len() - 1 {
+    // for num in 0..yao_leds.len() - 1 {
+    for num in 0..yao_leds.len() {
         yao_leds[num as usize] = [c, a, b, 0];
     }
     let li_leds = controller.leds_mut(1);
-    for num in 0..li_leds.len() - 1 {
+    // for num in 0..li_leds.len() - 1 {
+    for num in 0..li_leds.len() {
         li_leds[num as usize] = [c, a, b, 0];
     }
 
@@ -231,6 +233,17 @@ pub fn reset_all(settings: &Binding, controller: &mut Controller) {
         Ok(_) => println!("reset"),
         Err(e) => println!("{:?}", e),
     };
+}
+
+pub fn reset_pins(settings: &Binding) {
+    println!("--------> reset pins");
+
+    // all pins off
+    pin_off(settings.heaven_pin as u8);
+    pin_off(settings.cloud_pin as u8);
+    pin_off(settings.wind_pin as u8);
+    pin_off(settings.water_pin as u8);
+    pin_off(settings.mountain_pin as u8);
 }
 
 pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
@@ -436,20 +449,20 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     Ok(())
 }
 
-pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
+pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram, String, String)> {
     println!("New reading.");
     let mut controller = build_controller()?;
     thread::sleep(Duration::from_secs(3));
 
     let line1 = Line::read(
-        2,
+        1,
         settings.multiply.clone(),
         settings.bias.clone(),
         settings.threshold.clone(),
     );
     println!("Line 1: {}", line1);
     line1.render(1, &mut controller, &settings.default_colour);
-    thread::sleep(Duration::from_secs(1));
+    thread::sleep(Duration::from_secs(3));
 
     let line2 = Line::read(
         2,
@@ -459,7 +472,7 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     );
     println!("Line 2: {}", line2);
     line2.render(2, &mut controller, &settings.default_colour);
-    thread::sleep(Duration::from_secs(1));
+    thread::sleep(Duration::from_secs(3));
 
     let line3 = Line::read(
         2,
@@ -469,7 +482,7 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     );
     println!("Line 3: {}", line3);
     line3.render(3, &mut controller, &settings.default_colour);
-    thread::sleep(Duration::from_secs(1));
+    thread::sleep(Duration::from_secs(3));
 
     let first_trigram = Trigram {
         top: line1,
@@ -530,7 +543,7 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
         },
     };
     println!("first_related: {}", first_related);
-    thread::sleep(Duration::from_secs(1));
+    reset_pins(&settings);
 
     let line4 = Line::read(
         2,
@@ -540,7 +553,7 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     );
     println!("Line 4: {}", line4);
     line4.render(4, &mut controller, &settings.default_colour);
-    thread::sleep(Duration::from_secs(1));
+    thread::sleep(Duration::from_secs(3));
 
     let line5 = Line::read(
         2,
@@ -550,7 +563,7 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     );
     println!("Line 5: {}", line5);
     line5.render(5, &mut controller, &settings.default_colour);
-    thread::sleep(Duration::from_secs(1));
+    thread::sleep(Duration::from_secs(3));
 
     let line6 = Line::read(
         2,
@@ -560,7 +573,7 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     );
     println!("Line 6: {}", line6);
     line6.render(6, &mut controller, &settings.default_colour);
-    thread::sleep(Duration::from_secs(1));
+    thread::sleep(Duration::from_secs(3));
 
     let second_trigram = Trigram {
         top: line4,
@@ -621,7 +634,6 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
         },
     };
     println!("second_related: {}", second_related);
-    thread::sleep(Duration::from_secs(1));
 
     let hexagram = Hexagram {
         top: second_trigram,
@@ -631,9 +643,40 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
         top: second_related,
         bottom: first_related,
     };
+    thread::sleep(Duration::from_secs(1));
     reset_all(&settings, &mut controller);
 
-    Ok((hexagram, related))
+    let hex_binary = to_binary(&hexagram);
+    let rel_binary = to_binary(&related);
+
+    // keep result on LED
+    let h = hex_binary.clone();
+    let r = rel_binary.clone();
+    std::thread::spawn(move || {
+        show_result(h, r, settings);
+    });
+
+    Ok((hexagram, related, hex_binary, rel_binary))
+}
+
+pub fn show_result(h: String, _r: String, settings: Binding) {
+    if let Ok(mut controller) = build_controller() {
+        let mut n = 1;
+        for i in h.chars() {
+            match i {
+                '1' => render_yang(n, &mut controller, &settings.heaven_colour),
+                _ => render_yin(n, &mut controller, &settings.heaven_colour),
+            }
+            n += 1;
+            println!("{}", i);
+        }
+        thread::sleep(Duration::from_secs(120));
+    };
+
+    // render_yang(1, controller, &settings.heaven_colour);
+    // render_yang(2, controller, &settings.heaven_colour);
+    // render_yang(3, controller, &settings.heaven_colour);
+    // line1.render(1, &mut controller, &settings.default_colour);
 }
 
 pub fn to_binary(h: &Hexagram) -> String {
