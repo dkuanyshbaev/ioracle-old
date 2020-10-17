@@ -58,20 +58,20 @@ impl Line {
         let mut maxs: Vec<f32> = vec![];
         for i in n_data.windows(3) {
             if i[1] > i[0] && i[1] > i[2] && i[1] > t {
-                println!("local max extremum = {:?}", i[1]);
+                // println!("local max extremum = {:?}", i[1]);
                 maxs.push(i[1]);
             }
             if i[1] < i[0] && i[1] < i[2] && i[1].abs() > t {
-                println!("local min extremum = {:?}", i[1]);
+                // println!("local min extremum = {:?}", i[1]);
                 mins.push(i[1]);
             }
-            println!("windows iter = {:?}", i);
+            // println!("windows iter = {:?}", i);
         }
 
         println!("mins = {:?}", mins);
-        println!("mins len = {:?}", mins.len());
+        // println!("mins len = {:?}", mins.len());
         println!("maxs = {:?}", maxs);
-        println!("maxs len = {:?}", maxs.len());
+        // println!("maxs len = {:?}", maxs.len());
 
         if maxs.len() > mins.len() {
             Line::Yang

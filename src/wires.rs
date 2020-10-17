@@ -59,9 +59,8 @@ pub fn render_yin(line_num: i32, controller: &mut Controller, colour: &String) {
         }
     }
 
-    match controller.render() {
-        Ok(_) => println!("yin"),
-        Err(e) => println!("{:?}", e),
+    if let Err(e) = controller.render() {
+        println!("{:?}", e);
     };
 }
 
@@ -75,9 +74,8 @@ pub fn render_yang(line_num: i32, controller: &mut Controller, colour: &String) 
         leds[num as usize] = [c, a, b, 0];
     }
 
-    match controller.render() {
-        Ok(_) => println!("yang"),
-        Err(e) => println!("{:?}", e),
+    if let Err(e) = controller.render() {
+        println!("{:?}", e);
     };
 }
 
@@ -740,7 +738,7 @@ pub fn read_the_pip(delta: u64) -> Vec<i32> {
             }
             match port.read(serial_buf.as_mut_slice()) {
                 Ok(t) => {
-                    println!("Pip val: {}", get_val(&serial_buf[..t]));
+                    // println!("Pip val: {}", get_val(&serial_buf[..t]));
                     data.push(get_val(&serial_buf[..t]));
                 }
                 Err(e) => eprintln!("{:?}", e),
