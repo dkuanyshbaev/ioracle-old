@@ -24,8 +24,8 @@ pub fn ask(
     let rel_binary = to_binary(&related);
     let full_h = hexagram::Hexagram::get_by_binary(connection, hex_binary.clone())?;
     let full_r = hexagram::Hexagram::get_by_binary(connection, rel_binary.clone())?;
-    println!("{:#?}", full_h);
-    println!("{:#?}", full_r);
+    println!("hex: {:#?}", full_h);
+    println!("rel: {:#?}", full_r);
 
     let answer = generate(question.clone(), hexagram)?;
     let answer_uuid = save(
