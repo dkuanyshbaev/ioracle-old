@@ -1,6 +1,6 @@
 use crate::models::binding::Binding;
 use crate::wires::*;
-use rand::distributions::{Distribution, Uniform};
+// use rand::distributions::{Distribution, Uniform};
 use rs_ws281x::Controller;
 use std::fmt;
 
@@ -19,17 +19,17 @@ impl fmt::Display for Line {
 }
 
 impl Line {
-    pub fn random() -> Line {
-        let mut rng = rand::thread_rng();
-        let line_range = Uniform::from(0..2);
-        let line = if line_range.sample(&mut rng) == 0 {
-            Line::Yin
-        } else {
-            Line::Yang
-        };
-
-        line
-    }
+    // pub fn random() -> Line {
+    //     let mut rng = rand::thread_rng();
+    //     let line_range = Uniform::from(0..2);
+    //     let line = if line_range.sample(&mut rng) == 0 {
+    //         Line::Yin
+    //     } else {
+    //         Line::Yang
+    //     };
+    //
+    //     line
+    // }
 
     pub fn read(delta: u64, m: String, b: String, t: String) -> Line {
         let _m: f32 = m.parse().unwrap_or_else(|_| 1.0);
