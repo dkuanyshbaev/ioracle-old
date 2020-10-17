@@ -456,7 +456,7 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     Ok(())
 }
 
-pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram, String, String)> {
+pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     println!("New reading.");
     let mut controller = build_controller()?;
     thread::sleep(Duration::from_secs(3));
@@ -650,12 +650,11 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram, String, 
         top: second_related,
         bottom: first_related,
     };
-    thread::sleep(Duration::from_secs(1));
+    // reset_all(&settings, &mut controller);
+    reset_pins(&settings);
 
-    reset_all(&settings, &mut controller);
-
-    let hex_binary = to_binary(&hexagram);
-    let rel_binary = to_binary(&related);
+    // let hex_binary = to_binary(&hexagram);
+    // let rel_binary = to_binary(&related);
 
     // keep result on LED
     // let h = hex_binary.clone();
@@ -664,24 +663,24 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram, String, 
     //     show_result(h, r, settings);
     // });
 
-    Ok((hexagram, related, hex_binary, rel_binary))
+    Ok((hexagram, related))
 }
 
-pub fn show_result(h: String, _r: String, settings: Binding) {
-    println!("{}", h);
-    if let Ok(mut controller) = build_controller() {
-        let mut n = 1;
-        for i in h.chars() {
-            match i {
-                '1' => render_yang(n, &mut controller, &settings.default_colour),
-                _ => render_yin(n, &mut controller, &settings.default_colour),
-            }
-            n += 1;
-            println!("{}", i);
-        }
-        thread::sleep(Duration::from_secs(120));
-    };
-}
+// pub fn show_result(h: String, _r: String, settings: Binding) {
+//     println!("{}", h);
+//     if let Ok(mut controller) = build_controller() {
+//         let mut n = 1;
+//         for i in h.chars() {
+//             match i {
+//                 '1' => render_yang(n, &mut controller, &settings.default_colour),
+//                 _ => render_yin(n, &mut controller, &settings.default_colour),
+//             }
+//             n += 1;
+//             println!("{}", i);
+//         }
+//         thread::sleep(Duration::from_secs(120));
+//     };
+// }
 
 pub fn to_binary(h: &Hexagram) -> String {
     let mut r = "".to_string();
