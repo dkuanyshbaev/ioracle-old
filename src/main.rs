@@ -23,8 +23,7 @@ mod wires;
 use config::Config;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
-use views::operator::{hexagrams, testing, trigrams};
-use views::pages;
+use views::{hexagrams, pages, testing, trigrams};
 
 #[database("ioracle")]
 pub struct Db(diesel::SqliteConnection);
