@@ -206,6 +206,13 @@ fn parse_colour(colour: &String) -> (u8, u8, u8) {
     rgb
 }
 
+pub fn reset(settings: Binding) {
+    println!("Reset");
+    if let Ok(mut controller) = build_controller() {
+        reset_all(&settings, &mut controller);
+    };
+}
+
 pub fn reset_all(settings: &Binding, controller: &mut Controller) {
     println!("--------> reset all");
 
@@ -644,39 +651,36 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram, String, 
         bottom: first_related,
     };
     thread::sleep(Duration::from_secs(1));
+
     reset_all(&settings, &mut controller);
 
     let hex_binary = to_binary(&hexagram);
     let rel_binary = to_binary(&related);
 
     // keep result on LED
-    let h = hex_binary.clone();
-    let r = rel_binary.clone();
-    std::thread::spawn(move || {
-        show_result(h, r, settings);
-    });
+    // let h = hex_binary.clone();
+    // let r = rel_binary.clone();
+    // std::thread::spawn(move || {
+    //     show_result(h, r, settings);
+    // });
 
     Ok((hexagram, related, hex_binary, rel_binary))
 }
 
 pub fn show_result(h: String, _r: String, settings: Binding) {
+    println!("{}", h);
     if let Ok(mut controller) = build_controller() {
         let mut n = 1;
         for i in h.chars() {
             match i {
-                '1' => render_yang(n, &mut controller, &settings.heaven_colour),
-                _ => render_yin(n, &mut controller, &settings.heaven_colour),
+                '1' => render_yang(n, &mut controller, &settings.default_colour),
+                _ => render_yin(n, &mut controller, &settings.default_colour),
             }
             n += 1;
             println!("{}", i);
         }
         thread::sleep(Duration::from_secs(120));
     };
-
-    // render_yang(1, controller, &settings.heaven_colour);
-    // render_yang(2, controller, &settings.heaven_colour);
-    // render_yang(3, controller, &settings.heaven_colour);
-    // line1.render(1, &mut controller, &settings.default_colour);
 }
 
 pub fn to_binary(h: &Hexagram) -> String {

@@ -6,6 +6,7 @@ use crate::models::record::Record;
 use crate::models::trigram::UpdatedTrigram;
 use crate::oracle::ask;
 use crate::views::context::{AnswerContext, ItemContext, NoContext};
+use crate::wires::reset;
 use crate::Db;
 use rocket::request::Form;
 use rocket::response::Redirect;
@@ -20,7 +21,10 @@ pub struct Question {
 }
 
 #[get("/")]
-pub fn index() -> Template {
+pub fn index(connection: Db) -> Template {
+    if let Ok(settings) = Binding::get(&connection) {
+        reset(settings);
+    };
     Template::render("index", NoContext {})
 }
 
