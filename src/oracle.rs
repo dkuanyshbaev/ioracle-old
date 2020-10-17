@@ -89,7 +89,6 @@ pub fn send(
         .credentials(creds)
         .build();
 
-    //TODO: return result
     match mailer.send(&email) {
         Ok(_) => println!("Email sent successfully!"),
         Err(e) => println!("Could not send email: {:?}", e),

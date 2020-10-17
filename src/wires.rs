@@ -302,7 +302,6 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     let mut controller = build_controller()?;
     thread::sleep(Duration::from_secs(3));
 
-    // let line1 = Line::random();
     let line1 = Line::read(
         2,
         settings.multiply.clone(),

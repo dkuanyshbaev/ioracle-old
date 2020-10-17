@@ -68,18 +68,17 @@
             </div>
             <div class="col-md-6">
                 <h1 class="cover-heading">Related</h1>
-                <p>{{hexagram.binary}}</p>
-                <p>{{hexagram.king_wen_order}}</p>
-                <p>{{hexagram.shao_yong_order}}</p>
-                <p>{{hexagram.gua}}</p>
-                <p>{{hexagram.pin_yin}}</p>
-                <p>{{hexagram.character}}</p>
+                <p>{{related.binary}}</p>
+                <p>{{related.king_wen_order}}</p>
+                <p>{{related.shao_yong_order}}</p>
+                <p>{{related.gua}}</p>
+                <p>{{related.pin_yin}}</p>
+                <p>{{related.character}}</p>
             </div>
         </div>
         <hr>
         <p>{{record.question}}</p>
         <p>{{record.answer}}</p>
-        <p>{{record.hexagram}}</p>
     </div>
 
   </main>

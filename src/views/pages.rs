@@ -45,10 +45,15 @@ pub fn question(
 pub fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
     let record = Record::get_by_uuid(&connection, uuid)?;
     let hexagram = Hexagram::get_by_binary(&connection, record.hexagram.clone())?;
+    let related = Hexagram::get_by_binary(&connection, record.related.clone())?;
 
     Ok(Template::render(
         "answer",
-        AnswerContext { record, hexagram },
+        AnswerContext {
+            record,
+            hexagram,
+            related,
+        },
     ))
 }
 

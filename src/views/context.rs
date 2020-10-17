@@ -15,4 +15,5 @@ pub struct NoContext {}
 pub struct AnswerContext<T, U> {
     pub record: T,
     pub hexagram: U,
+    pub related: U,
 }
