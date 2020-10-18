@@ -50,6 +50,14 @@
                     <h1>{{hexagram.gua}}</h1>
                     <p>{{hexagram.pin_yin}}</p>
                     <h1>{{hexagram.character}}</h1>
+
+                    <hr>
+
+                    <p>{{second_trigram.name}}</p>
+                    <i>over</i>
+                    <p>{{first_trigram.name}}</p>
+
+                    <p>{{hexagram.shao_yong_order}}</p>
                 </div>
                 <div class="col-md-6">
                     <h1 class="cover-heading">Related</h1>
@@ -65,10 +73,70 @@
                     <h1>{{related.gua}}</h1>
                     <p>{{related.pin_yin}}</p>
                     <h1>{{related.character}}</h1>
+
+                    <hr>
+
+                    <p>{{second_related.name}}</p>
+                    <i>over</i>
+                    <p>{{first_related.name}}</p>
+
+                    <p>{{related.shao_yong_order}}</p>
                 </div>
             </div>
             <hr>
             <p>{{record.answer}}</p>
+
+            <h4>TRANSFORMATIONS</h4>
+            <hr>
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="cover-heading">Primary</h1>
+                    <p>{{hexagram.king_wen_order}}</p>
+                    <p>{{hexagram.hatcher}}</p>
+                    <p>{{hexagram.binary}}</p>
+
+                    <h1>{{second_trigram.image}}</h1>
+                    <p>{{second_trigram.name}}</p>
+                    <h1>{{first_trigram.image}}</h1>
+                    <p>{{first_trigram.name}}</p>
+
+                    <h1>{{hexagram.gua}}</h1>
+                    <p>{{hexagram.pin_yin}}</p>
+                    <h1>{{hexagram.character}}</h1>
+
+                    <hr>
+
+                    <p>{{second_trigram.name}}</p>
+                    <i>over</i>
+                    <p>{{first_trigram.name}}</p>
+
+                    <p>{{hexagram.shao_yong_order}}</p>
+                </div>
+                <div class="col-md-6">
+                    <h1 class="cover-heading">Related</h1>
+                    <p>{{related.king_wen_order}}</p>
+                    <p>{{related.hatcher}}</p>
+                    <p>{{related.binary}}</p>
+
+                    <h1>{{second_related.image}}</h1>
+                    <p>{{second_related.name}}</p>
+                    <h1>{{first_related.image}}</h1>
+                    <p>{{first_related.name}}</p>
+
+                    <h1>{{related.gua}}</h1>
+                    <p>{{related.pin_yin}}</p>
+                    <h1>{{related.character}}</h1>
+
+                    <hr>
+
+                    <p>{{second_related.name}}</p>
+                    <i>over</i>
+                    <p>{{first_related.name}}</p>
+
+                    <p>{{related.shao_yong_order}}</p>
+                </div>
+            </div>
+
         </div>
     </main>
 
