@@ -42,23 +42,29 @@
                     <p>{{hexagram.hatcher}}</p>
                     <p>{{hexagram.binary}}</p>
 
-                    <p>{{first_trigram.image}}</p>
-                    <p>{{first_trigram.name}}</p>
-                    <p>{{second_trigram.image}}</p>
+                    <h1>{{second_trigram.image}}</h1>
                     <p>{{second_trigram.name}}</p>
+                    <h1>{{first_trigram.image}}</h1>
+                    <p>{{first_trigram.name}}</p>
 
-                    <p>{{hexagram.gua}}</p>
+                    <h1>{{hexagram.gua}}</h1>
                     <p>{{hexagram.pin_yin}}</p>
-                    <p>{{hexagram.character}}</p>
+                    <h1>{{hexagram.character}}</h1>
                 </div>
                 <div class="col-md-6">
                     <h1 class="cover-heading">Related</h1>
-                    <p>{{related.binary}}</p>
                     <p>{{related.king_wen_order}}</p>
-                    <p>{{related.shao_yong_order}}</p>
-                    <p>{{related.gua}}</p>
+                    <p>{{related.hatcher}}</p>
+                    <p>{{related.binary}}</p>
+
+                    <h1>{{second_related.image}}</h1>
+                    <p>{{second_related.name}}</p>
+                    <h1>{{first_related.image}}</h1>
+                    <p>{{first_related.name}}</p>
+
+                    <h1>{{related.gua}}</h1>
                     <p>{{related.pin_yin}}</p>
-                    <p>{{related.character}}</p>
+                    <h1>{{related.character}}</h1>
                 </div>
             </div>
             <hr>
