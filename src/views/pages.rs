@@ -1,7 +1,7 @@
 use crate::config::Config;
 use crate::errors::IOracleResult;
 use crate::models::binding::{Binding, UpdatedBinding};
-use crate::models::hexagram::{Hexagram, UpdatedHexagram};
+use crate::models::hexagram::{Hexagram, SheetsHexagram, UpdatedHexagram};
 use crate::models::record::Record;
 use crate::models::trigram::{Trigram, UpdatedTrigram};
 use crate::oracle::ask;
@@ -37,10 +37,16 @@ pub struct AnswerContext<R, T, H> {
     pub record: R,
     pub hexagram: H,
     pub related: H,
+    pub core_primary: H,
+    pub core_related: H,
     pub first_trigram: T,
     pub second_trigram: T,
     pub first_related: T,
     pub second_related: T,
+    pub core_primary_first: T,
+    pub core_primary_second: T,
+    pub core_related_first: T,
+    pub core_related_second: T,
 }
 
 #[get("/")]
@@ -83,6 +89,16 @@ pub fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
     let first_related = Trigram::get_by_binary(&connection, &(&r_binary[..3]).to_string())?;
     let second_related = Trigram::get_by_binary(&connection, &(&r_binary[3..]).to_string())?;
 
+    let core_primary_first = Trigram::get_by_binary(&connection, &(&h_binary[2..5]).to_string())?;
+    let core_primary_second = Trigram::get_by_binary(&connection, &(&h_binary[3..6]).to_string())?;
+    let core_related_first = Trigram::get_by_binary(&connection, &(&r_binary[2..5]).to_string())?;
+    let core_related_second = Trigram::get_by_binary(&connection, &(&r_binary[3..6]).to_string())?;
+
+    let core_p_binary = format!("{}{}", &h_binary[2..5], &h_binary[3..6]);
+    let core_r_binary = format!("{}{}", &r_binary[2..5], &r_binary[3..6]);
+    let core_primary = Hexagram::get_by_binary(&connection, core_p_binary)?;
+    let core_related = Hexagram::get_by_binary(&connection, core_r_binary)?;
+
     Ok(Template::render(
         "answer",
         AnswerContext {
@@ -93,6 +109,12 @@ pub fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
             second_trigram,
             first_related,
             second_related,
+            core_primary,
+            core_related,
+            core_primary_first,
+            core_primary_second,
+            core_related_first,
+            core_related_second,
         },
     ))
 }
@@ -132,7 +154,25 @@ pub fn csv(connection: Db) -> IOracleResult<String> {
         let file_path = "/home/denis/collector/iora/csv/expanded_gua.csv";
         let mut reader = csv::Reader::from_path(file_path)?;
         for result in reader.deserialize() {
-            let record: UpdatedHexagram = result?;
+            let record: SheetsHexagram = result?;
+            let record = UpdatedHexagram {
+                binary: record.binary,
+                king_wen_order: record.king_wen_order,
+                shao_yong_order: record.shao_yong_order,
+                gua: record.gua,
+                pin_yin: record.pin_yin,
+                character: record.character,
+                wilheim: record.wilheim,
+                huang: record.huang,
+                hatcher: record.hatcher,
+                no2do: record.no2do,
+                inner_ba_gua: record.inner_ba_gua,
+                outer_ba_gua: record.outer_ba_gua,
+                host_yao: record.host_yao,
+                judgment: "".to_string(),
+                image: "".to_string(),
+                lines: "".to_string(),
+            };
             let _h = Hexagram::insert(&connection, record)?;
         }
     }

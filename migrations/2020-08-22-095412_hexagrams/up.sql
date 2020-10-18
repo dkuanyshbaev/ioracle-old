@@ -12,5 +12,8 @@ create table if not exists hexagrams (
     no2do text not null,
     inner_ba_gua text not null,
     outer_ba_gua text not null,
-    host_yao text not null
+    host_yao text not null,
+    judgment text not null,
+    image text not null,
+    lines text not null
 );

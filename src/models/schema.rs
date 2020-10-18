@@ -48,6 +48,9 @@ table! {
         inner_ba_gua -> Text,
         outer_ba_gua -> Text,
         host_yao -> Text,
+        judgment -> Text,
+        image -> Text,
+        lines -> Text,
     }
 }
 
