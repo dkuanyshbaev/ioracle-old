@@ -38,9 +38,15 @@
             <div class="row">
                 <div class="col-md-6">
                     <h1 class="cover-heading">Primary</h1>
-                    <p>{{hexagram.binary}}</p>
                     <p>{{hexagram.king_wen_order}}</p>
-                    <p>{{hexagram.shao_yong_order}}</p>
+                    <p>{{hexagram.hatcher}}</p>
+                    <p>{{hexagram.binary}}</p>
+
+                    <p>{{first_trigram.image}}</p>
+                    <p>{{first_trigram.name}}</p>
+                    <p>{{second_trigram.image}}</p>
+                    <p>{{second_trigram.name}}</p>
+
                     <p>{{hexagram.gua}}</p>
                     <p>{{hexagram.pin_yin}}</p>
                     <p>{{hexagram.character}}</p>
@@ -56,10 +62,8 @@
                 </div>
             </div>
             <hr>
-            <p>{{record.question}}</p>
             <p>{{record.answer}}</p>
         </div>
-
     </main>
 
     <footer class="mastfoot mt-auto">

@@ -33,10 +33,14 @@ pub struct ListContext<T> {
 pub struct NoContext {}
 
 #[derive(Serialize)]
-pub struct AnswerContext<T, U> {
-    pub record: T,
-    pub hexagram: U,
-    pub related: U,
+pub struct AnswerContext<R, T, H> {
+    pub record: R,
+    pub hexagram: H,
+    pub related: H,
+    pub first_trigram: T,
+    pub second_trigram: T,
+    pub first_related: T,
+    pub second_related: T,
 }
 
 #[get("/")]
@@ -67,8 +71,17 @@ pub fn question(
 #[get("/answer/<uuid>")]
 pub fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
     let record = Record::get_by_uuid(&connection, uuid)?;
-    let hexagram = Hexagram::get_by_binary(&connection, record.hexagram.clone())?;
-    let related = Hexagram::get_by_binary(&connection, record.related.clone())?;
+
+    let h_binary = record.hexagram.clone();
+    let r_binary = record.related.clone();
+
+    let hexagram = Hexagram::get_by_binary(&connection, h_binary.clone())?;
+    let related = Hexagram::get_by_binary(&connection, r_binary.clone())?;
+
+    let first_trigram = Trigram::get_by_binary(&connection, &(&h_binary[..3]).to_string())?;
+    let second_trigram = Trigram::get_by_binary(&connection, &(&h_binary[3..]).to_string())?;
+    let first_related = Trigram::get_by_binary(&connection, &(&r_binary[..3]).to_string())?;
+    let second_related = Trigram::get_by_binary(&connection, &(&r_binary[3..]).to_string())?;
 
     Ok(Template::render(
         "answer",
@@ -76,6 +89,10 @@ pub fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
             record,
             hexagram,
             related,
+            first_trigram,
+            second_trigram,
+            first_related,
+            second_related,
         },
     ))
 }

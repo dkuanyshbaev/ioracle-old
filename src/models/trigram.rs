@@ -36,6 +36,12 @@ impl Trigram {
         trigrams::table.find(id).get_result(connection)
     }
 
+    pub fn get_by_binary(connection: &SqliteConnection, binary: &String) -> QueryResult<Trigram> {
+        trigrams::table
+            .filter(trigrams::binary.eq(binary))
+            .first(connection)
+    }
+
     pub fn insert(
         connection: &SqliteConnection,
         new_trigram: UpdatedTrigram,

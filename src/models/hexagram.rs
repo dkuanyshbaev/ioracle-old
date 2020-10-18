@@ -15,8 +15,8 @@ pub struct Hexagram {
     huang: String,
     hatcher: String,
     no2do: String,
-    inner_ba_gua: String,
-    outer_ba_gua: String,
+    inner_ba_gua: String, // first_trigram
+    outer_ba_gua: String, // second_trigram
     host_yao: String,
 }
 
