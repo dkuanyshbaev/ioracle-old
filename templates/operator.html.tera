@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Operator</title>
         <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/css/bootstrap-colorpicker.min.css">
     </head>
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -303,6 +304,7 @@
         <script src="/static/js/jquery-3.5.1.min.js"></script>
         <script src="/static/js/bootstrap.bundle.min.js"></script>
         <script src="/static/js/bootstrap-colorpicker.min.js"></script>
+        <script src="/static/js/bs-custom-file-input.min.js"></script>
         <script src="/static/js/custom.js"></script>
     </body>
 </html>
