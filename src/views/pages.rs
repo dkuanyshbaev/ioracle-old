@@ -89,13 +89,13 @@ pub fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
     let first_related = Trigram::get_by_binary(&connection, &(&r_binary[..3]).to_string())?;
     let second_related = Trigram::get_by_binary(&connection, &(&r_binary[3..]).to_string())?;
 
-    let core_primary_first = Trigram::get_by_binary(&connection, &(&h_binary[2..5]).to_string())?;
-    let core_primary_second = Trigram::get_by_binary(&connection, &(&h_binary[3..6]).to_string())?;
-    let core_related_first = Trigram::get_by_binary(&connection, &(&r_binary[2..5]).to_string())?;
-    let core_related_second = Trigram::get_by_binary(&connection, &(&r_binary[3..6]).to_string())?;
+    let core_primary_first = Trigram::get_by_binary(&connection, &(&h_binary[1..4]).to_string())?;
+    let core_primary_second = Trigram::get_by_binary(&connection, &(&h_binary[2..5]).to_string())?;
+    let core_related_first = Trigram::get_by_binary(&connection, &(&r_binary[1..4]).to_string())?;
+    let core_related_second = Trigram::get_by_binary(&connection, &(&r_binary[2..5]).to_string())?;
 
-    let core_p_binary = format!("{}{}", &h_binary[2..5], &h_binary[3..6]);
-    let core_r_binary = format!("{}{}", &r_binary[2..5], &r_binary[3..6]);
+    let core_p_binary = format!("{}{}", &h_binary[1..4], &h_binary[2..5]);
+    let core_r_binary = format!("{}{}", &r_binary[1..4], &r_binary[2..5]);
     let core_primary = Hexagram::get_by_binary(&connection, core_p_binary)?;
     let core_related = Hexagram::get_by_binary(&connection, core_r_binary)?;
 

@@ -39,70 +39,51 @@
                 <div class="col-md-6">
                     <h1 class="cover-heading">Primary</h1>
                     <p>{{hexagram.king_wen_order}}</p>
-                    <p>{{hexagram.hatcher}}</p>
+                    <p>{{hexagram.hatcher | replace(from="_", to=" ")}}</p>
                     <p>{{hexagram.binary}}</p>
 
                     <h1>{{second_trigram.image}}</h1>
-                    <p>{{second_trigram.name}}</p>
+                    <p>{{second_trigram.name | replace(from="_", to=" ")}}</p>
                     <h1>{{first_trigram.image}}</h1>
-                    <p>{{first_trigram.name}}</p>
+                    <p>{{first_trigram.name | replace(from="_", to=" ")}}</p>
 
                     <h1>{{hexagram.gua}}</h1>
-                    <p>{{hexagram.pin_yin}}</p>
+                    <p>{{hexagram.pin_yin | replace(from="_", to=" ")}}</p>
                     <h1>{{hexagram.character}}</h1>
 
                     <hr>
 
-                    <p>{{second_trigram.name}}</p>
+                    <p>{{second_trigram.name | replace(from="_", to=" ")}}</p>
                     <p>over</p>
-                    <p>{{first_trigram.name}}</p>
+                    <p>{{first_trigram.name | replace(from="_", to=" ")}}</p>
 
                     <p>{{hexagram.shao_yong_order}}</p>
                 </div>
                 <div class="col-md-6">
                     <h1 class="cover-heading">Related</h1>
                     <p>{{related.king_wen_order}}</p>
-                    <p>{{related.hatcher}}</p>
+                    <p>{{related.hatcher | replace(from="_", to=" ")}}</p>
                     <p>{{related.binary}}</p>
 
                     <h1>{{second_related.image}}</h1>
-                    <p>{{second_related.name}}</p>
+                    <p>{{second_related.name | replace(from="_", to=" ")}}</p>
                     <h1>{{first_related.image}}</h1>
-                    <p>{{first_related.name}}</p>
+                    <p>{{first_related.name | replace(from="_", to=" ")}}</p>
 
                     <h1>{{related.gua}}</h1>
-                    <p>{{related.pin_yin}}</p>
+                    <p>{{related.pin_yin | replace(from="_", to=" ")}}</p>
                     <h1>{{related.character}}</h1>
 
                     <hr>
 
-                    <p>{{second_related.name}}</p>
+                    <p>{{second_related.name | replace(from="_", to=" ")}}</p>
                     <p>over</p>
-                    <p>{{first_related.name}}</p>
+                    <p>{{first_related.name | replace(from="_", to=" ")}}</p>
 
                     <p>{{related.shao_yong_order}}</p>
                 </div>
             </div>
-            <hr>
-            <p>{{record.answer}}</p><br><br>
-
-            <h4>Traditional Interpretations</h4>
-
-            <h4>King Wen's Decision</h4>
-            {{hexagram.judgment}}
             <br>
-            <br>
-
-            <h4>The Image</h4>
-            {{hexagram.image}}
-            <br>
-            <br>
-
-            <h4>Duke of Zhou</h4>
-            {{hexagram.lines}}
-            <br>
-            <br>
-
             <h4>TRANSFORMATIONS</h4>
             <hr>
             <div class="row">
@@ -153,6 +134,24 @@
                     <p>{{core_related.shao_yong_order}}</p>
                 </div>
             </div>
+            <br>
+            <hr>
+            <p>{{record.answer}}</p><br><br>
+
+            <h4>Traditional Interpretations</h4>
+
+            <h4>King Wen's Decision</h4>
+            {{hexagram.judgment}}
+            <br>
+            <br>
+
+            <h4>The Image</h4>
+            {{hexagram.image}}
+            <br>
+            <br>
+
+            <h4>Duke of Zhou</h4>
+            {{hexagram.lines}}
             <br>
             <br>
         </div>
