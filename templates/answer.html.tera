@@ -90,12 +90,18 @@
 
             <h4>King Wen's Decision</h4>
             {{hexagram.judgment}}
+            <br>
+            <br>
 
             <h4>The Image</h4>
             {{hexagram.image}}
+            <br>
+            <br>
 
             <h4>Duke of Zhou</h4>
             {{hexagram.lines}}
+            <br>
+            <br>
 
             <h4>TRANSFORMATIONS</h4>
             <hr>
@@ -147,7 +153,8 @@
                     <p>{{core_related.shao_yong_order}}</p>
                 </div>
             </div>
-
+            <br>
+            <br>
         </div>
     </main>
 
