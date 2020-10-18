@@ -5,7 +5,6 @@ use crate::models::hexagram::{Hexagram, UpdatedHexagram};
 use crate::models::record::Record;
 use crate::models::trigram::UpdatedTrigram;
 use crate::oracle::ask;
-use crate::views::context::{AnswerContext, ItemContext, NoContext};
 use crate::wires::reset;
 use crate::Db;
 use rocket::request::Form;
@@ -18,6 +17,26 @@ use rocket_contrib::templates::Template;
 pub struct Question {
     email: String,
     question: String,
+}
+
+#[derive(Serialize)]
+pub struct ItemContext<T> {
+    pub item: T,
+}
+
+#[derive(Serialize)]
+pub struct ListContext<T> {
+    pub items: Vec<T>,
+}
+
+#[derive(Serialize)]
+pub struct NoContext {}
+
+#[derive(Serialize)]
+pub struct AnswerContext<T, U> {
+    pub record: T,
+    pub hexagram: U,
+    pub related: U,
 }
 
 #[get("/")]
@@ -57,6 +76,16 @@ pub fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
             record,
             hexagram,
             related,
+        },
+    ))
+}
+
+#[get("/operator")]
+pub fn operator(connection: Db) -> IOracleResult<Template> {
+    Ok(Template::render(
+        "operator",
+        ItemContext {
+            item: Binding::get(&connection)?,
         },
     ))
 }

@@ -1,94 +1,73 @@
 {% extends "layout" %}
 
-{% block head %}
-<style>
-.bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-@media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-    }
-}
-</style>
-<link rel="stylesheet" href="/static/css/custom.css">
-<link rel="stylesheet" href="/static/css/cover.css">
-{% endblock head %}
-
 {% block content %}
 <div class="text-center cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-  <header class="masthead mb-auto">
-      <!--
-    <div class="inner">
-      <h3 class="masthead-brand">iOracle</h3>
-      <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link active" href="#">Home</a>
-        <a class="nav-link" href="#">Features</a>
-        <a class="nav-link" href="#">Contact</a>
-      </nav>
-    </div>
-      -->
-  </header>
+    <header class="masthead mb-auto">
+        <!--
+            <div class="inner">
+            <h3 class="masthead-brand">iOracle</h3>
+            <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link active" href="#">Home</a>
+            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Contact</a>
+            </nav>
+            </div>
+        -->
+    </header>
 
-  <main role="main" class="inner cover">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                <h1>☰</h1>
-            </div>
-            <div class="col-md-8">
-                <h1 class="cover-heading">I ORACLE</h1>
-            </div>
-            <div class="col-md-2">
-                <h1>☷</h1>
+    <main role="main" class="inner cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <h1>☰</h1>
+                </div>
+                <div class="col-md-8">
+                    <h1 class="cover-heading">I ORACLE</h1>
+                </div>
+                <div class="col-md-2">
+                    <h1>☷</h1>
+                </div>
             </div>
         </div>
-    </div>
 
-    <h4>HYBRID I CHING DIVINATION SYSTEM</h4>
-    <h4>PERSONAL READING INTERFACE</h4>
-    <hr>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h1 class="cover-heading">Primary</h1>
-                <p>{{hexagram.binary}}</p>
-                <p>{{hexagram.king_wen_order}}</p>
-                <p>{{hexagram.shao_yong_order}}</p>
-                <p>{{hexagram.gua}}</p>
-                <p>{{hexagram.pin_yin}}</p>
-                <p>{{hexagram.character}}</p>
-            </div>
-            <div class="col-md-6">
-                <h1 class="cover-heading">Related</h1>
-                <p>{{related.binary}}</p>
-                <p>{{related.king_wen_order}}</p>
-                <p>{{related.shao_yong_order}}</p>
-                <p>{{related.gua}}</p>
-                <p>{{related.pin_yin}}</p>
-                <p>{{related.character}}</p>
-            </div>
-        </div>
+        <h4>HYBRID I CHING DIVINATION SYSTEM</h4>
+        <h4>PERSONAL READING INTERFACE</h4>
         <hr>
-        <p>{{record.question}}</p>
-        <p>{{record.answer}}</p>
-    </div>
 
-  </main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="cover-heading">Primary</h1>
+                    <p>{{hexagram.binary}}</p>
+                    <p>{{hexagram.king_wen_order}}</p>
+                    <p>{{hexagram.shao_yong_order}}</p>
+                    <p>{{hexagram.gua}}</p>
+                    <p>{{hexagram.pin_yin}}</p>
+                    <p>{{hexagram.character}}</p>
+                </div>
+                <div class="col-md-6">
+                    <h1 class="cover-heading">Related</h1>
+                    <p>{{related.binary}}</p>
+                    <p>{{related.king_wen_order}}</p>
+                    <p>{{related.shao_yong_order}}</p>
+                    <p>{{related.gua}}</p>
+                    <p>{{related.pin_yin}}</p>
+                    <p>{{related.character}}</p>
+                </div>
+            </div>
+            <hr>
+            <p>{{record.question}}</p>
+            <p>{{record.answer}}</p>
+        </div>
 
-  <footer class="mastfoot mt-auto">
-    <div class="inner">
-    <br>
-      <p><a href="/">Back to I Oracle</a></p>
-    </div>
-  </footer>
+    </main>
+
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+            <br>
+            <p><a href="/">Back to I Oracle</a></p>
+        </div>
+    </footer>
 </div>
 {% endblock content %}
 

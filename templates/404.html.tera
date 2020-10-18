@@ -1,5 +1,0 @@
-{% extends "layout" %}
-
-{% block content %}
-<h4>404 nothing here!</h4>
-{% endblock content %}

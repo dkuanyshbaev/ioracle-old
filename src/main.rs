@@ -23,7 +23,7 @@ mod wires;
 use config::Config;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
-use views::{hexagrams, pages, testing, trigrams};
+use views::{operator, pages};
 
 #[database("ioracle")]
 pub struct Db(diesel::SqliteConnection);
@@ -41,25 +41,18 @@ fn rocket(config: Config) -> rocket::Rocket {
                 pages::question,
                 pages::answer,
                 pages::settings,
+                pages::operator,
                 pages::save,
                 pages::csv,
             ],
         )
         .mount(
-            "/trigrams",
-            routes![trigrams::all, trigrams::edit, trigrams::update],
-        )
-        .mount(
-            "/hexagrams",
-            routes![hexagrams::all, hexagrams::edit, hexagrams::update],
-        )
-        .mount(
-            "/testing",
+            "/operator",
             routes![
-                testing::pin,
-                testing::colour,
-                testing::simulation,
-                testing::reset
+                operator::pin,
+                operator::colour,
+                operator::simulation,
+                operator::reset
             ],
         )
         .register(catchers![pages::not_found, pages::internal_error])

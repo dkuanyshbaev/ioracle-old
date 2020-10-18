@@ -1,86 +1,65 @@
 {% extends "layout" %}
 
-{% block head %}
-<style>
-.bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-@media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-    }
-}
-</style>
-<link rel="stylesheet" href="/static/css/custom.css">
-<link rel="stylesheet" href="/static/css/cover.css">
-{% endblock head %}
-
 {% block content %}
 <div class="text-center cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-  <header class="masthead mb-auto">
-      <!--
-    <div class="inner">
-      <h3 class="masthead-brand">iOracle</h3>
-      <nav class="nav nav-masthead justify-content-center">
-        <a class="nav-link active" href="#">Home</a>
-        <a class="nav-link" href="#">Features</a>
-        <a class="nav-link" href="#">Contact</a>
-      </nav>
-    </div>
-      -->
-  </header>
+    <header class="masthead mb-auto">
+        <!--
+            <div class="inner">
+            <h3 class="masthead-brand">iOracle</h3>
+            <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link active" href="#">Home</a>
+            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Contact</a>
+            </nav>
+            </div>
+        -->
+    </header>
 
-  <main role="main" class="inner cover">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-2">
-                <h1>☰</h1>
-            </div>
-            <div class="col-md-8">
-                <h1 class="cover-heading">I ORACLE</h1>
-            </div>
-            <div class="col-md-2">
-                <h1>☷</h1>
+    <main role="main" class="inner cover">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <h1>☰</h1>
+                </div>
+                <div class="col-md-8">
+                    <h1 class="cover-heading">I ORACLE</h1>
+                </div>
+                <div class="col-md-2">
+                    <h1>☷</h1>
+                </div>
             </div>
         </div>
-    </div>
 
-    <h4>HYBRID I CHING DIVINATION SYSTEM</h4>
-    <h4>PERSONAL READING INTERFACE</h4>
-    <hr>
-    <p class="lead">The I Oracle is a hybrid human/plant/machine driven divination system based on the I Ching.
-    <br>After you and the bonsai deliver your energy to the I Oracle a natural language processor interprets the data to form a response that draws on the ancient texts of the I Ching.
-    <br><br>Each reading if performs is logged into a recursive machine learning system that is designed to teach itself and the Bonsai how to communicate.
-    <br><br>To perform your reading, formulate a question you might have that you have been unable to resolve through conventional means. Make it as specific and as clear as possible, asking 'if i were to solve the problem in this particular way' or 'if this were to be the outcome' rather than 'how should something happen.'</p>
-    <br>
+        <h4>HYBRID I CHING DIVINATION SYSTEM</h4>
+        <h4>PERSONAL READING INTERFACE</h4>
+        <hr>
+        <p class="lead">The I Oracle is a hybrid human/plant/machine driven divination system based on the I Ching.
+        <br>After you and the bonsai deliver your energy to the I Oracle a natural language processor interprets the data to form a response that draws on the ancient texts of the I Ching.
+        <br><br>Each reading if performs is logged into a recursive machine learning system that is designed to teach itself and the Bonsai how to communicate.
+        <br><br>To perform your reading, formulate a question you might have that you have been unable to resolve through conventional means. Make it as specific and as clear as possible, asking 'if i were to solve the problem in this particular way' or 'if this were to be the outcome' rather than 'how should something happen.'</p>
+        <br>
 
-    <form action="/question" method="post" accept-charset="utf-8" class="question-form">
-        <input type="hidden" name="_method" value="post" />
+        <form action="/question" method="post" accept-charset="utf-8" class="question-form">
+            <input type="hidden" name="_method" value="post" />
 
-        <input type="text" class="form-control" name="email" placeholder="Your email" required
-        oninvalid="this.setCustomValidity('Please enter email')"
-        oninput="setCustomValidity('')"></input>
+            <input type="text" class="form-control" name="email" placeholder="Your email" required
+                                                                 oninvalid="this.setCustomValidity('Please enter email')"
+                                                                 oninput="setCustomValidity('')"></input>
 
-        <textarea class="form-control" rows="4" cols="45" name="question" placeholder="Your question" required
-        oninvalid="this.setCustomValidity('Please enter question')"
-        oninput="setCustomValidity('')"></textarea>
+            <textarea class="form-control" rows="4" cols="45" name="question" placeholder="Your question" required
+                                                                              oninvalid="this.setCustomValidity('Please enter question')"
+                                                                              oninput="setCustomValidity('')"></textarea>
 
-        <button class="btn btn-lg btn-secondary" type="submit">Commit</button>
-    </form>
-  </main>
+            <button class="btn btn-lg btn-secondary" type="submit">Commit</button>
+        </form>
+    </main>
 
-  <footer class="mastfoot mt-auto">
-    <div class="inner">
-    <br>
-      <p><a href="/">How might iOracle be benefical?</a></p>
-    </div>
-  </footer>
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+            <br>
+            <p><a href="/">How might iOracle be benefical?</a></p>
+        </div>
+    </footer>
 </div>
 {% endblock content %}
 
