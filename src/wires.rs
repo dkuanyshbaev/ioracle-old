@@ -171,7 +171,10 @@ pub fn colour_off() {
 pub fn play_sound(file_name: String) {
     println!("--------> play: {}", file_name);
 
-    let command = format!("omxplayer -o local --no-keys ./sounds/{} &", file_name);
+    let command = format!(
+        "omxplayer -o local --no-keys /iching/sounds/{} &",
+        file_name
+    );
     if let Ok(output) = Command::new(command).output() {
         if !output.status.success() {
             println!("exectution error");

@@ -172,6 +172,7 @@ impl Trigram {
                 middle: Line::Yin,
                 bottom: Line::Yang,
             } => {
+                render_fire(controller);
                 render_yang(1, controller, &settings.sun_colour);
                 render_yin(2, controller, &settings.sun_colour);
                 render_yang(3, controller, &settings.sun_colour);
