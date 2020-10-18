@@ -260,209 +260,6 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     thread::sleep(Duration::from_secs(3));
 
     let line1 = Line::read(
-        2,
-        settings.multiply.clone(),
-        settings.bias.clone(),
-        settings.threshold.clone(),
-    );
-    println!("Line 1: {}", line1);
-    line1.render(1, &mut controller, &settings.default_colour);
-    thread::sleep(Duration::from_secs(1));
-
-    let line2 = Line::read(
-        2,
-        settings.multiply.clone(),
-        settings.bias.clone(),
-        settings.threshold.clone(),
-    );
-    println!("Line 2: {}", line2);
-    line2.render(2, &mut controller, &settings.default_colour);
-    thread::sleep(Duration::from_secs(1));
-
-    let line3 = Line::read(
-        2,
-        settings.multiply.clone(),
-        settings.bias.clone(),
-        settings.threshold.clone(),
-    );
-    println!("Line 3: {}", line3);
-    line3.render(3, &mut controller, &settings.default_colour);
-    thread::sleep(Duration::from_secs(1));
-
-    let first_trigram = Trigram {
-        top: line1,
-        middle: line2,
-        bottom: line3,
-    };
-    println!("first_trigram: {}", first_trigram);
-    first_trigram.render_first(&settings, &mut controller);
-
-    let line_related1 = Line::read(
-        1,
-        settings.multiply.clone(),
-        settings.bias.clone(),
-        settings.threshold.clone(),
-    );
-    let line_related2 = Line::read(
-        1,
-        settings.multiply.clone(),
-        settings.bias.clone(),
-        settings.threshold.clone(),
-    );
-    let line_related3 = Line::read(
-        1,
-        settings.multiply.clone(),
-        settings.bias.clone(),
-        settings.threshold.clone(),
-    );
-    let first_related = Trigram {
-        top: match line_related1 {
-            Line::Yin => match first_trigram.top {
-                Line::Yin => Line::Yang,
-                Line::Yang => Line::Yin,
-            },
-            Line::Yang => match first_trigram.top {
-                Line::Yang => Line::Yin,
-                Line::Yin => Line::Yang,
-            },
-        },
-        middle: match line_related2 {
-            Line::Yin => match first_trigram.middle {
-                Line::Yin => Line::Yang,
-                Line::Yang => Line::Yin,
-            },
-            Line::Yang => match first_trigram.middle {
-                Line::Yang => Line::Yin,
-                Line::Yin => Line::Yang,
-            },
-        },
-        bottom: match line_related3 {
-            Line::Yin => match first_trigram.bottom {
-                Line::Yin => Line::Yang,
-                Line::Yang => Line::Yin,
-            },
-            Line::Yang => match first_trigram.bottom {
-                Line::Yang => Line::Yin,
-                Line::Yin => Line::Yang,
-            },
-        },
-    };
-    println!("first_related: {}", first_related);
-    thread::sleep(Duration::from_secs(1));
-
-    let line4 = Line::read(
-        2,
-        settings.multiply.clone(),
-        settings.bias.clone(),
-        settings.threshold.clone(),
-    );
-    println!("Line 4: {}", line4);
-    line4.render(4, &mut controller, &settings.default_colour);
-    thread::sleep(Duration::from_secs(1));
-
-    let line5 = Line::read(
-        2,
-        settings.multiply.clone(),
-        settings.bias.clone(),
-        settings.threshold.clone(),
-    );
-    println!("Line 5: {}", line5);
-    line5.render(5, &mut controller, &settings.default_colour);
-    thread::sleep(Duration::from_secs(1));
-
-    let line6 = Line::read(
-        2,
-        settings.multiply.clone(),
-        settings.bias.clone(),
-        settings.threshold.clone(),
-    );
-    println!("Line 6: {}", line6);
-    line6.render(6, &mut controller, &settings.default_colour);
-    thread::sleep(Duration::from_secs(1));
-
-    let second_trigram = Trigram {
-        top: line4,
-        middle: line5,
-        bottom: line6,
-    };
-    println!("second_trigram: {}", second_trigram);
-    second_trigram.render_second(&settings, &mut controller);
-
-    let line_related4 = Line::read(
-        1,
-        settings.multiply.clone(),
-        settings.bias.clone(),
-        settings.threshold.clone(),
-    );
-    let line_related5 = Line::read(
-        1,
-        settings.multiply.clone(),
-        settings.bias.clone(),
-        settings.threshold.clone(),
-    );
-    let line_related6 = Line::read(
-        1,
-        settings.multiply.clone(),
-        settings.bias.clone(),
-        settings.threshold.clone(),
-    );
-    let second_related = Trigram {
-        top: match line_related4 {
-            Line::Yin => match second_trigram.top {
-                Line::Yin => Line::Yang,
-                Line::Yang => Line::Yin,
-            },
-            Line::Yang => match second_trigram.top {
-                Line::Yang => Line::Yin,
-                Line::Yin => Line::Yang,
-            },
-        },
-        middle: match line_related5 {
-            Line::Yin => match second_trigram.middle {
-                Line::Yin => Line::Yang,
-                Line::Yang => Line::Yin,
-            },
-            Line::Yang => match second_trigram.middle {
-                Line::Yang => Line::Yin,
-                Line::Yin => Line::Yang,
-            },
-        },
-        bottom: match line_related6 {
-            Line::Yin => match second_trigram.bottom {
-                Line::Yin => Line::Yang,
-                Line::Yang => Line::Yin,
-            },
-            Line::Yang => match second_trigram.bottom {
-                Line::Yang => Line::Yin,
-                Line::Yin => Line::Yang,
-            },
-        },
-    };
-    println!("second_related: {}", second_related);
-    thread::sleep(Duration::from_secs(1));
-
-    let hexagram = Hexagram {
-        top: second_trigram,
-        bottom: first_trigram,
-    };
-    let related = Hexagram {
-        top: second_related,
-        bottom: first_related,
-    };
-    reset_all(&settings, &mut controller);
-
-    println!("hexagram: {:?}", to_binary(&hexagram));
-    println!("related: {:?}", to_binary(&related));
-
-    Ok(())
-}
-
-pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
-    println!("New reading.");
-    let mut controller = build_controller()?;
-    thread::sleep(Duration::from_secs(3));
-
-    let line1 = Line::read(
         1,
         settings.multiply.clone(),
         settings.bias.clone(),
@@ -490,7 +287,6 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     );
     println!("Line 3: {}", line3);
     line3.render(3, &mut controller, &settings.default_colour);
-    thread::sleep(Duration::from_secs(3));
 
     let first_trigram = Trigram {
         top: line1,
@@ -581,7 +377,6 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     );
     println!("Line 6: {}", line6);
     line6.render(6, &mut controller, &settings.default_colour);
-    thread::sleep(Duration::from_secs(3));
 
     let second_trigram = Trigram {
         top: line4,
@@ -651,6 +446,208 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
         top: second_related,
         bottom: first_related,
     };
+
+    reset_pins(&settings);
+
+    println!("hexagram: {:?}", to_binary(&hexagram));
+    println!("related: {:?}", to_binary(&related));
+
+    Ok(())
+}
+
+pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
+    println!("New reading.");
+    let mut controller = build_controller()?;
+    thread::sleep(Duration::from_secs(3));
+
+    let line1 = Line::read(
+        1,
+        settings.multiply.clone(),
+        settings.bias.clone(),
+        settings.threshold.clone(),
+    );
+    println!("Line 1: {}", line1);
+    line1.render(1, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(3));
+
+    let line2 = Line::read(
+        2,
+        settings.multiply.clone(),
+        settings.bias.clone(),
+        settings.threshold.clone(),
+    );
+    println!("Line 2: {}", line2);
+    line2.render(2, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(3));
+
+    let line3 = Line::read(
+        2,
+        settings.multiply.clone(),
+        settings.bias.clone(),
+        settings.threshold.clone(),
+    );
+    println!("Line 3: {}", line3);
+    line3.render(3, &mut controller, &settings.default_colour);
+
+    let first_trigram = Trigram {
+        top: line1,
+        middle: line2,
+        bottom: line3,
+    };
+    println!("first_trigram: {}", first_trigram);
+    first_trigram.render_first(&settings, &mut controller);
+
+    let line_related1 = Line::read(
+        1,
+        settings.multiply.clone(),
+        settings.bias.clone(),
+        settings.threshold.clone(),
+    );
+    let line_related2 = Line::read(
+        1,
+        settings.multiply.clone(),
+        settings.bias.clone(),
+        settings.threshold.clone(),
+    );
+    let line_related3 = Line::read(
+        1,
+        settings.multiply.clone(),
+        settings.bias.clone(),
+        settings.threshold.clone(),
+    );
+    let first_related = Trigram {
+        top: match line_related1 {
+            Line::Yin => match first_trigram.top {
+                Line::Yin => Line::Yang,
+                Line::Yang => Line::Yin,
+            },
+            Line::Yang => match first_trigram.top {
+                Line::Yang => Line::Yin,
+                Line::Yin => Line::Yang,
+            },
+        },
+        middle: match line_related2 {
+            Line::Yin => match first_trigram.middle {
+                Line::Yin => Line::Yang,
+                Line::Yang => Line::Yin,
+            },
+            Line::Yang => match first_trigram.middle {
+                Line::Yang => Line::Yin,
+                Line::Yin => Line::Yang,
+            },
+        },
+        bottom: match line_related3 {
+            Line::Yin => match first_trigram.bottom {
+                Line::Yin => Line::Yang,
+                Line::Yang => Line::Yin,
+            },
+            Line::Yang => match first_trigram.bottom {
+                Line::Yang => Line::Yin,
+                Line::Yin => Line::Yang,
+            },
+        },
+    };
+    println!("first_related: {}", first_related);
+    reset_pins(&settings);
+
+    let line4 = Line::read(
+        2,
+        settings.multiply.clone(),
+        settings.bias.clone(),
+        settings.threshold.clone(),
+    );
+    println!("Line 4: {}", line4);
+    line4.render(4, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(3));
+
+    let line5 = Line::read(
+        2,
+        settings.multiply.clone(),
+        settings.bias.clone(),
+        settings.threshold.clone(),
+    );
+    println!("Line 5: {}", line5);
+    line5.render(5, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(3));
+
+    let line6 = Line::read(
+        2,
+        settings.multiply.clone(),
+        settings.bias.clone(),
+        settings.threshold.clone(),
+    );
+    println!("Line 6: {}", line6);
+    line6.render(6, &mut controller, &settings.default_colour);
+
+    let second_trigram = Trigram {
+        top: line4,
+        middle: line5,
+        bottom: line6,
+    };
+    println!("second_trigram: {}", second_trigram);
+    second_trigram.render_second(&settings, &mut controller);
+
+    let line_related4 = Line::read(
+        1,
+        settings.multiply.clone(),
+        settings.bias.clone(),
+        settings.threshold.clone(),
+    );
+    let line_related5 = Line::read(
+        1,
+        settings.multiply.clone(),
+        settings.bias.clone(),
+        settings.threshold.clone(),
+    );
+    let line_related6 = Line::read(
+        1,
+        settings.multiply.clone(),
+        settings.bias.clone(),
+        settings.threshold.clone(),
+    );
+    let second_related = Trigram {
+        top: match line_related4 {
+            Line::Yin => match second_trigram.top {
+                Line::Yin => Line::Yang,
+                Line::Yang => Line::Yin,
+            },
+            Line::Yang => match second_trigram.top {
+                Line::Yang => Line::Yin,
+                Line::Yin => Line::Yang,
+            },
+        },
+        middle: match line_related5 {
+            Line::Yin => match second_trigram.middle {
+                Line::Yin => Line::Yang,
+                Line::Yang => Line::Yin,
+            },
+            Line::Yang => match second_trigram.middle {
+                Line::Yang => Line::Yin,
+                Line::Yin => Line::Yang,
+            },
+        },
+        bottom: match line_related6 {
+            Line::Yin => match second_trigram.bottom {
+                Line::Yin => Line::Yang,
+                Line::Yang => Line::Yin,
+            },
+            Line::Yang => match second_trigram.bottom {
+                Line::Yang => Line::Yin,
+                Line::Yin => Line::Yang,
+            },
+        },
+    };
+    println!("second_related: {}", second_related);
+
+    let hexagram = Hexagram {
+        top: second_trigram,
+        bottom: first_trigram,
+    };
+    let related = Hexagram {
+        top: second_related,
+        bottom: first_related,
+    };
+
     reset_pins(&settings);
 
     Ok((hexagram, related))
