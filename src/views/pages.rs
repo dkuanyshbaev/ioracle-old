@@ -3,7 +3,7 @@ use crate::errors::IOracleResult;
 use crate::models::binding::{Binding, UpdatedBinding};
 use crate::models::hexagram::{Hexagram, UpdatedHexagram};
 use crate::models::record::Record;
-use crate::models::trigram::UpdatedTrigram;
+use crate::models::trigram::{Trigram, UpdatedTrigram};
 use crate::oracle::ask;
 use crate::wires::reset;
 use crate::Db;
@@ -108,23 +108,27 @@ pub fn save(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Red
 }
 
 #[get("/csv")]
-pub fn csv(_connection: Db) -> IOracleResult<String> {
+pub fn csv(connection: Db) -> IOracleResult<String> {
     // hexagrams
-    let file_path = "/home/denis/collector/iora/csv/expanded_gua.csv";
-    let mut reader = csv::Reader::from_path(file_path)?;
-    for result in reader.deserialize() {
-        let record: UpdatedHexagram = result?;
-        println!("{:#?}", record);
-        // let _h = crate::models::hexagram::Hexagram::insert(&connection, record)?;
+    let hs = Hexagram::all(&connection)?;
+    if hs.len() == 0 {
+        let file_path = "/home/denis/collector/iora/csv/expanded_gua.csv";
+        let mut reader = csv::Reader::from_path(file_path)?;
+        for result in reader.deserialize() {
+            let record: UpdatedHexagram = result?;
+            let _h = Hexagram::insert(&connection, record)?;
+        }
     }
 
     //trigrams
-    let file_path = "/home/denis/collector/iora/csv/trigrams.csv";
-    let mut reader = csv::Reader::from_path(file_path)?;
-    for result in reader.deserialize() {
-        let record: UpdatedTrigram = result?;
-        println!("{:#?}", record);
-        // let _t = crate::models::trigram::Trigram::insert(&connection, record)?;
+    let ts = Trigram::all(&connection)?;
+    if ts.len() == 0 {
+        let file_path = "/home/denis/collector/iora/csv/trigrams.csv";
+        let mut reader = csv::Reader::from_path(file_path)?;
+        for result in reader.deserialize() {
+            let record: UpdatedTrigram = result?;
+            let _t = Trigram::insert(&connection, record)?;
+        }
     }
 
     Ok("Ok".to_string())
