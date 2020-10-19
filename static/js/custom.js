@@ -21,6 +21,7 @@ function save(){
     var mountain_pin = $("#mountain_pin").val();
     var mountain_colour = $("#mountain_colour").val();
     var earth_colour = $("#earth_colour").val();
+    var reading = $("#reading").val();
     var multiply = $("#multiply").val();
     var bias = $("#bias").val();
     var threshold = $("#threshold").val();
@@ -41,6 +42,7 @@ function save(){
         "mountain_pin": parseInt(mountain_pin),
         "mountain_colour": mountain_colour,
         "earth_colour": earth_colour,
+        "reading": parseInt(reading),
         "multiply": multiply,
         "bias": bias,
         "threshold": threshold,
@@ -234,6 +236,20 @@ function earth_colour(element) {
     }
 };
 
+function default_colour(element) {
+    $.ajaxSetup({
+        async: false
+    });
+
+    var default_colour = $("#default_colour").val();
+
+    if (element.checked) {
+        colour_on(default_colour, "111");
+    } else {
+        colour_off();
+    }
+};
+
 function run_simulation(){
     $.ajaxSetup({
         async: false
@@ -376,3 +392,20 @@ function li_test(element){
         colour_on("", "fire");
     }
 };
+
+function resting_colour(element) {
+    $.ajaxSetup({
+        async: false
+    });
+
+    console.log("resting colour");
+
+    // var resting_colour = $("#resting_colour").val();
+    //
+    // if (element.checked) {
+    //     colour_on(resting_colour, "111");
+    // } else {
+    //     colour_off();
+    // }
+};
+

@@ -27,6 +27,7 @@ table! {
         mountain_pin -> Integer,
         mountain_colour -> Text,
         earth_colour -> Text,
+        reading -> Integer,
         multiply -> Text,
         bias -> Text,
         threshold -> Text,
