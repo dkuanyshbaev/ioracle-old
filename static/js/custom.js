@@ -398,7 +398,9 @@ function resting_colour(element) {
         async: false
     });
 
-    console.log("resting colour");
+    if (element.checked) {
+        colour_on("", "shim");
+    }
 
     // var resting_colour = $("#resting_colour").val();
     //

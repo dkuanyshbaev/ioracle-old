@@ -86,7 +86,7 @@ pub fn render_fire(controller: &mut Controller) {
 
     loop {
         if let Ok(d) = start.elapsed() {
-            if d > Duration::from_secs(5) {
+            if d > Duration::from_secs(6) {
                 break;
             };
         }
@@ -106,6 +106,44 @@ pub fn render_fire(controller: &mut Controller) {
                 let green_range = Uniform::from(0..r / 4);
                 let g = green_range.sample(&mut rng2);
                 li[j as usize] = [0, g, r, 0];
+            }
+        }
+
+        std::thread::sleep(Duration::from_millis(70));
+
+        if let Err(e) = controller.render() {
+            println!("Fire error: {:?}", e);
+        };
+    }
+}
+
+pub fn render_shimmer(controller: &mut Controller) {
+    let mut rng1 = rand::thread_rng();
+    let mut rng2 = rand::thread_rng();
+    let start = SystemTime::now();
+
+    loop {
+        if let Ok(d) = start.elapsed() {
+            if d > Duration::from_secs(6) {
+                break;
+            };
+        }
+
+        let yao = controller.leds_mut(0);
+        let red_range = Uniform::from(54..255);
+
+        let mut k;
+        for i in 0..yao.len() - 1 {
+            k = i * 9;
+            // !!!???
+            if k > yao.len() - 9 {
+                k = yao.len() - 9;
+            }
+            for j in k..k + 9 {
+                let r = red_range.sample(&mut rng1);
+                let green_range = Uniform::from(0..r / 4);
+                let g = green_range.sample(&mut rng2);
+                yao[j as usize] = [0, g, r, 0];
             }
         }
 
@@ -169,6 +207,15 @@ pub fn fire_on() {
 
     if let Ok(mut controller) = build_controller() {
         render_fire(&mut controller);
+        reset_colours(&mut controller);
+    };
+}
+
+pub fn shimmering_on() {
+    println!("--------> shimmering on");
+
+    if let Ok(mut controller) = build_controller() {
+        render_shimmer(&mut controller);
         reset_colours(&mut controller);
     };
 }

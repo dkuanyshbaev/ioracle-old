@@ -2,7 +2,7 @@ use crate::errors::IOracleResult;
 use crate::models::binding::Binding;
 use crate::wires::{
     build_controller, colour_off, colour_on, fire_on, open_pip, pin_off, pin_on, play_sound,
-    reset_all, run_simulation,
+    reset_all, run_simulation, shimmering_on,
 };
 use crate::Db;
 use rocket_contrib::json::Json;
@@ -41,6 +41,8 @@ pub fn pin(test: Json<Test>) -> Json<String> {
 pub fn colour(test: Json<Test>) -> Json<String> {
     if test.code == "fire" {
         fire_on();
+    } else if test.code == "shim" {
+        shimmering_on();
     } else {
         match test.action {
             1 => colour_on(test.colour.to_owned(), test.code.to_owned()),
