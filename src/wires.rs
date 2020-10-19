@@ -10,7 +10,7 @@ use std::thread;
 use std::time::{Duration, SystemTime};
 
 const LEDS_IN_LINE: i32 = 144;
-const LI_SEGMENTS_NUM: i32 = 1;
+const LI_SEGMENTS_NUM: i32 = 3;
 const YAO_SEGMENTS_NUM: i32 = 6;
 const YAO_PIN: i32 = 12;
 const LI_PIN: i32 = 13;
