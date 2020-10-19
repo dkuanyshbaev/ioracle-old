@@ -318,6 +318,8 @@
                 </div>
             </div>
             <br>
+            <button onclick="open_pip()" class="btn btn-outline-info">Open PiP</button>
+            <br>
             <br>
         </div>
 

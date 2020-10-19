@@ -1,8 +1,8 @@
 use crate::errors::IOracleResult;
 use crate::models::binding::Binding;
 use crate::wires::{
-    build_controller, colour_off, colour_on, fire_on, pin_off, pin_on, play_sound, reset_all,
-    run_simulation,
+    build_controller, colour_off, colour_on, fire_on, open_pip, pin_off, pin_on, play_sound,
+    reset_all, run_simulation,
 };
 use crate::Db;
 use rocket_contrib::json::Json;
@@ -18,6 +18,13 @@ pub struct Test {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Sound {
     file_name: String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Pip {
+    multiply: String,
+    bias: String,
+    threshold: String,
 }
 
 #[post("/pin", format = "json", data = "<test>")]
@@ -47,6 +54,17 @@ pub fn colour(test: Json<Test>) -> Json<String> {
 #[post("/sound", format = "json", data = "<sound>")]
 pub fn sound(sound: Json<Sound>) -> Json<String> {
     play_sound(sound.file_name.to_owned());
+
+    Json("ok".to_string())
+}
+
+#[post("/pip", format = "json", data = "<pip>")]
+pub fn pip(pip: Json<Pip>) -> Json<String> {
+    open_pip(
+        pip.multiply.to_owned(),
+        pip.bias.to_owned(),
+        pip.threshold.to_owned(),
+    );
 
     Json("ok".to_string())
 }

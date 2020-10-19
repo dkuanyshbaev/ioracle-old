@@ -264,7 +264,7 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     thread::sleep(Duration::from_secs(3));
 
     let line1 = Line::read(
-        settings.reading,
+        settings.reading as u64,
         settings.multiply.clone(),
         settings.bias.clone(),
         settings.threshold.clone(),
@@ -274,7 +274,7 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     thread::sleep(Duration::from_secs(3));
 
     let line2 = Line::read(
-        settings.reading,
+        settings.reading as u64,
         settings.multiply.clone(),
         settings.bias.clone(),
         settings.threshold.clone(),
@@ -284,7 +284,7 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     thread::sleep(Duration::from_secs(3));
 
     let line3 = Line::read(
-        settings.reading,
+        settings.reading as u64,
         settings.multiply.clone(),
         settings.bias.clone(),
         settings.threshold.clone(),
@@ -354,7 +354,7 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     reset_pins(&settings);
 
     let line4 = Line::read(
-        settings.reading,
+        settings.reading as u64,
         settings.multiply.clone(),
         settings.bias.clone(),
         settings.threshold.clone(),
@@ -364,7 +364,7 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     thread::sleep(Duration::from_secs(3));
 
     let line5 = Line::read(
-        settings.reading,
+        settings.reading as u64,
         settings.multiply.clone(),
         settings.bias.clone(),
         settings.threshold.clone(),
@@ -374,7 +374,7 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     thread::sleep(Duration::from_secs(3));
 
     let line6 = Line::read(
-        settings.reading,
+        settings.reading as u64,
         settings.multiply.clone(),
         settings.bias.clone(),
         settings.threshold.clone(),
@@ -465,7 +465,7 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     thread::sleep(Duration::from_secs(3));
 
     let line1 = Line::read(
-        settings.reading,
+        settings.reading as u64,
         settings.multiply.clone(),
         settings.bias.clone(),
         settings.threshold.clone(),
@@ -475,7 +475,7 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     thread::sleep(Duration::from_secs(3));
 
     let line2 = Line::read(
-        settings.reading,
+        settings.reading as u64,
         settings.multiply.clone(),
         settings.bias.clone(),
         settings.threshold.clone(),
@@ -485,7 +485,7 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     thread::sleep(Duration::from_secs(3));
 
     let line3 = Line::read(
-        settings.reading,
+        settings.reading as u64,
         settings.multiply.clone(),
         settings.bias.clone(),
         settings.threshold.clone(),
@@ -555,7 +555,7 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     reset_pins(&settings);
 
     let line4 = Line::read(
-        settings.reading,
+        settings.reading as u64,
         settings.multiply.clone(),
         settings.bias.clone(),
         settings.threshold.clone(),
@@ -565,7 +565,7 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     thread::sleep(Duration::from_secs(3));
 
     let line5 = Line::read(
-        settings.reading,
+        settings.reading as u64,
         settings.multiply.clone(),
         settings.bias.clone(),
         settings.threshold.clone(),
@@ -575,7 +575,7 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     thread::sleep(Duration::from_secs(3));
 
     let line6 = Line::read(
-        settings.reading,
+        settings.reading as u64,
         settings.multiply.clone(),
         settings.bias.clone(),
         settings.threshold.clone(),
@@ -740,4 +740,22 @@ fn get_val(buf: &[u8]) -> i32 {
     }
 
     output
+}
+
+pub fn open_pip(m: String, b: String, t: String) {
+    println!("--------> open pip");
+
+    let command = format!(
+        "/ioracle/sensor/sensor | /usr/bin/python3 /ioracle/sensor/main.py {} {} {} &",
+        m, b, t
+    );
+    if let Ok(output) = Command::new(command).output() {
+        if !output.status.success() {
+            println!("pip start error");
+        } else {
+            println!("all good");
+        }
+    } else {
+        println!("command error");
+    }
 }

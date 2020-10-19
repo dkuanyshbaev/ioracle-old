@@ -409,3 +409,19 @@ function resting_colour(element) {
     // }
 };
 
+function open_pip(){
+    var multiply = $("#multiply").val();
+    var bias = $("#bias").val();
+    var threshold = $("#threshold").val();
+
+    var data = JSON.stringify({
+        "multiply": multiply,
+        "bias": bias,
+        "threshold": threshold,
+    });
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "operator/pip", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(data);
+};

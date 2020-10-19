@@ -51,6 +51,7 @@ fn rocket(config: Config) -> rocket::Rocket {
                 operator::pin,
                 operator::colour,
                 operator::sound,
+                operator::pip,
                 operator::simulation,
                 operator::reset
             ],
