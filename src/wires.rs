@@ -358,6 +358,7 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     );
     println!("Line 3: {}", line3);
     line3.render(3, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
 
     let first_trigram = Trigram {
         top: line1,
@@ -448,6 +449,7 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     );
     println!("Line 6: {}", line6);
     line6.render(6, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
 
     let second_trigram = Trigram {
         top: line4,
@@ -559,6 +561,7 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     );
     println!("Line 3: {}", line3);
     line3.render(3, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
 
     let first_trigram = Trigram {
         top: line1,
@@ -649,6 +652,7 @@ pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     );
     println!("Line 6: {}", line6);
     line6.render(6, &mut controller, &settings.default_colour);
+    thread::sleep(Duration::from_secs(1));
 
     let second_trigram = Trigram {
         top: line4,

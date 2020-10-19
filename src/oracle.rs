@@ -36,7 +36,7 @@ pub fn ask(
         &hex_binary,
         &rel_binary,
     )?;
-    send(config, &email, &question, &answer)?;
+    send(config, &email, &question, &answer, &full_h, &full_r)?;
 
     Ok(answer_uuid)
 }
@@ -72,8 +72,14 @@ pub fn send(
     email: &String,
     _question: &String,
     answer: &String,
+    hexagram: &hexagram::Hexagram,
+    related: &hexagram::Hexagram,
 ) -> IOracleResult<()> {
-    let body_text = format!("Your answer: {}", answer);
+    let body_text = format!("I ORACLE: {}", answer);
+
+    //             <h1 class="cover-heading">I ORACLE</h1>
+    // <h4 id="head1">HYBRID I CHING DIVINATION SYSTEM</h4>
+    // <h4 id="head2">PERSONAL READING INTERFACE</h4>
 
     let email = Message::builder()
         .from(config.email.parse().unwrap())
