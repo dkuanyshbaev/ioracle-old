@@ -169,6 +169,7 @@ pub fn fire_on() {
 
     if let Ok(mut controller) = build_controller() {
         render_fire(&mut controller);
+        reset_colours(&mut controller);
     };
 }
 
@@ -239,6 +240,25 @@ pub fn reset_all(settings: &Binding, controller: &mut Controller) {
     // for num in 0..li_leds.len() - 1 {
     for num in 0..li_leds.len() {
         li_leds[num as usize] = [c, a, b, 0];
+    }
+
+    match controller.render() {
+        Ok(_) => println!("reset"),
+        Err(e) => println!("{:?}", e),
+    };
+}
+
+pub fn reset_colours(controller: &mut Controller) {
+    println!("--------> reset colours");
+
+    // all leds to blac
+    let yao_leds = controller.leds_mut(0);
+    for num in 0..yao_leds.len() {
+        yao_leds[num as usize] = [0, 0, 0, 0];
+    }
+    let li_leds = controller.leds_mut(1);
+    for num in 0..li_leds.len() {
+        li_leds[num as usize] = [0, 0, 0, 0];
     }
 
     match controller.render() {
