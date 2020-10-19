@@ -19,13 +19,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-2">
+                    <img src="/static/solid-fwd.gif" id="loader" width=42px>
+                    <!--
                     <h1>☰</h1>
+                    -->
                 </div>
                 <div class="col-md-8">
                     <h1 class="cover-heading">I ORACLE</h1>
                 </div>
                 <div class="col-md-2">
+                    <img src="/static/solid-bwd.gif" id="loader" width=42px>
+                    <!--
                     <h1>☷</h1>
+                    -->
                 </div>
             </div>
         </div>
@@ -37,7 +43,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="cover-heading">Primary</h1>
+                    <h4 class="cover-heading">PRIMARY</h4>
                     <p>{{hexagram.king_wen_order}}</p>
                     <p>{{hexagram.hatcher | replace(from="_", to=" ")}}</p>
                     <p>{{hexagram.binary}}</p>
@@ -60,7 +66,7 @@
                     <p>{{hexagram.shao_yong_order}}</p>
                 </div>
                 <div class="col-md-6">
-                    <h1 class="cover-heading">Related</h1>
+                    <h4 class="cover-heading">RELATED</h4>
                     <p>{{related.king_wen_order}}</p>
                     <p>{{related.hatcher | replace(from="_", to=" ")}}</p>
                     <p>{{related.binary}}</p>
@@ -84,11 +90,11 @@
                 </div>
             </div>
             <br>
-            <h4>TRANSFORMATIONS</h4>
             <hr>
+            <br>
             <div class="row">
                 <div class="col-md-6">
-                    <h1 class="cover-heading">Core Primary</h1>
+                    <h4 class="cover-heading">CORE PRIMARY</h4>
                     <p>{{core_primary.king_wen_order}}</p>
                     <p>{{core_primary.hatcher}}</p>
                     <p>{{core_primary.binary}}</p>
@@ -98,7 +104,7 @@
                     <h1>{{core_primary_first.image}}</h1>
                     <p>{{core_primary_first.name}}</p>
 
-                    <h1>{{core_primary.gua}}</h1>
+                    <h1 class="gua_size">{{core_primary.gua}}</h1>
                     <p>{{core_primary.pin_yin}}</p>
                     <h1>{{core_primary.character}}</h1>
 
@@ -139,19 +145,44 @@
             <p>{{record.answer}}</p><br><br>
 
             <h4>Traditional Interpretations</h4>
+            <br>
+            <br>
 
             <h4>King Wen's Decision</h4>
+            <br>
             {{hexagram.judgment}}
             <br>
             <br>
 
             <h4>The Image</h4>
+            <br>
             {{hexagram.image}}
             <br>
             <br>
 
             <h4>Duke of Zhou</h4>
+            <br>
             {{hexagram.lines}}
+            <br>
+            <br>
+
+            <hr>
+
+            <h4>King Wen's Decision Related</h4>
+            <br>
+            {{related.judgment}}
+            <br>
+            <br>
+
+            <h4>The Image Related</h4>
+            <br>
+            {{related.image}}
+            <br>
+            <br>
+
+            <h4>Duke of Zhou Related</h4>
+            <br>
+            {{related.lines}}
             <br>
             <br>
         </div>
@@ -160,7 +191,7 @@
     <footer class="mastfoot mt-auto">
         <div class="inner">
             <br>
-            <p><a href="/">Back to I Oracle</a></p>
+            <p><a href="/">Back to I ORACLE</a></p>
         </div>
     </footer>
 </div>
