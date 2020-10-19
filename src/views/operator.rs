@@ -1,7 +1,8 @@
 use crate::errors::IOracleResult;
 use crate::models::binding::Binding;
 use crate::wires::{
-    build_controller, colour_off, colour_on, pin_off, pin_on, reset_all, run_simulation,
+    build_controller, colour_off, colour_on, fire_on, pin_off, pin_on, play_sound, reset_all,
+    run_simulation,
 };
 use crate::Db;
 use rocket_contrib::json::Json;
@@ -12,6 +13,11 @@ pub struct Test {
     colour: String,
     code: String,
     action: u8,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Sound {
+    file_name: String,
 }
 
 #[post("/pin", format = "json", data = "<test>")]
@@ -26,10 +32,21 @@ pub fn pin(test: Json<Test>) -> Json<String> {
 
 #[post("/colour", format = "json", data = "<test>")]
 pub fn colour(test: Json<Test>) -> Json<String> {
-    match test.action {
-        1 => colour_on(test.colour.to_owned(), test.code.to_owned()),
-        _ => colour_off(),
-    }
+    if test.code == "fire" {
+        fire_on();
+    } else {
+        match test.action {
+            1 => colour_on(test.colour.to_owned(), test.code.to_owned()),
+            _ => colour_off(),
+        }
+    };
+
+    Json("ok".to_string())
+}
+
+#[post("/sound", format = "json", data = "<sound>")]
+pub fn sound(sound: Json<Sound>) -> Json<String> {
+    play_sound(sound.file_name.to_owned());
 
     Json("ok".to_string())
 }

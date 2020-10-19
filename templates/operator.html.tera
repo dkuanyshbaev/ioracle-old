@@ -14,7 +14,7 @@
                 <button onclick="run_simulation()" class="btn btn-outline-info">Simulation</button>
                 <button onclick="reset()" class="btn btn-outline-info">Reset</button>
             </div>
-            <a onclick="save()" class="ml-auto btn btn-outline-success" href="#">Save</a>
+            <button onclick="save()" class="ml-auto btn btn-outline-success">Save</button>
         </nav>
 
         <div class="container">
@@ -114,9 +114,11 @@
                         <td class="align-middle">
                             <input type="checkbox" onclick="sun_colour(this)">
                         </td>
-                        <td>
+                        <td class="align-middle text-center">
+                            <p>Fire</p>
                         </td>
                         <td class="align-middle">
+                            <input type="checkbox" onclick="li_test(this)">
                         </td>
                     </tr>
 
@@ -137,9 +139,11 @@
                         <td class="align-middle">
                             <input type="checkbox" onclick="thunder_colour(this)">
                         </td>
-                        <td>
+                        <td class="align-middle text-center">
+                            <p>Play sound</p>
                         </td>
                         <td class="align-middle">
+                            <input type="checkbox" onclick="play_sound(this, 'Thunder.wav')">
                         </td>
                     </tr>
 
@@ -247,13 +251,23 @@
                             <img src="/static/trigrams/8.png" width="80px;">
                         </td>
                         <td class="align-middle">Earth (Kun)</td>
-                        <td class="align-middle">NO LEDS</td>
-                        <td>
+                        <td class="align-middle">Sound & Dark</td>
+                        <td class="align-middle" style="width:240px;">
+                            <div id="c8" class="input-group">
+                                <input type="text" class="form-control input-lg" id="earth_colour" value="{{item.earth_colour}}"/>
+                                <span class="input-group-append">
+                                    <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                                </span>
+                            </div>
                         </td>
                         <td class="align-middle">
                             <input type="checkbox" onclick="earth_colour(this)">
                         </td>
-                        <td>
+                        <td class="align-middle text-center">
+                            <p>Play sound</p>
+                        </td>
+                        <td class="align-middle">
+                            <input type="checkbox" onclick="play_sound(this, 'EarthMountain.wav')">
                         </td>
                     </tr>
                 </tbody>

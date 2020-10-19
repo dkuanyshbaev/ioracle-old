@@ -20,6 +20,7 @@ function save(){
     var water_colour = $("#water_colour").val();
     var mountain_pin = $("#mountain_pin").val();
     var mountain_colour = $("#mountain_colour").val();
+    var earth_colour = $("#earth_colour").val();
     var multiply = $("#multiply").val();
     var bias = $("#bias").val();
     var threshold = $("#threshold").val();
@@ -39,6 +40,7 @@ function save(){
         "water_colour": water_colour,
         "mountain_pin": parseInt(mountain_pin),
         "mountain_colour": mountain_colour,
+        "earth_colour": earth_colour,
         "multiply": multiply,
         "bias": bias,
         "threshold": threshold,
@@ -223,8 +225,10 @@ function earth_colour(element) {
         async: false
     });
 
+    var earth_colour = $("#earth_colour").val();
+
     if (element.checked) {
-        colour_on("rgb(0, 0, 0)", "000");
+        colour_on(earth_colour, "000");
     } else {
         colour_off();
     }
@@ -338,4 +342,37 @@ function pin_off(pin){
         success: function(){
         }
     });
+};
+
+function play_sound(element, file_name){
+    $.ajaxSetup({
+        async: false
+    });
+
+
+    if (element.checked) {
+        var data = JSON.stringify({
+            "file_name" : file_name,
+        });
+
+        $.ajax({
+            url: "operator/sound",
+            type: "POST",
+            data: data,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(){
+            }
+        });
+    }
+};
+
+function li_test(element){
+    $.ajaxSetup({
+        async: false
+    });
+
+    if (element.checked) {
+        colour_on("", "fire");
+    }
 };

@@ -150,10 +150,6 @@ pub fn colour_on(colour: String, code: String) {
                 render_yin(i as i32, &mut controller, &colour);
             }
         }
-        if code == "101" {
-            println!("fire!!!");
-            render_fire(&mut controller);
-        }
     };
 }
 
@@ -165,6 +161,14 @@ pub fn colour_off() {
         for i in 1..7 {
             render_yang(i, &mut controller, &colour);
         }
+    };
+}
+
+pub fn fire_on() {
+    println!("--------> fire on");
+
+    if let Ok(mut controller) = build_controller() {
+        render_fire(&mut controller);
     };
 }
 

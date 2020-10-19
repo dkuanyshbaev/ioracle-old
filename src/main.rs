@@ -40,7 +40,6 @@ fn rocket(config: Config) -> rocket::Rocket {
                 pages::index,
                 pages::question,
                 pages::answer,
-                pages::settings,
                 pages::operator,
                 pages::save,
                 pages::csv,
@@ -51,6 +50,7 @@ fn rocket(config: Config) -> rocket::Rocket {
             routes![
                 operator::pin,
                 operator::colour,
+                operator::sound,
                 operator::simulation,
                 operator::reset
             ],

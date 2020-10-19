@@ -35,6 +35,7 @@ insert or ignore into bindings (
     water_colour,
     mountain_pin,
     mountain_colour,
+    earth_colour,
     multiply,
     bias,
     threshold
@@ -54,6 +55,7 @@ insert or ignore into bindings (
     "#FFFFFF", -- water_colour
     0, -- mountain_pin
     "#FFFFFF", -- mountain_colour
+    "#FFFFFF", -- earth_colour
     "0.0", -- multiply
     "0.0", -- bias
     "0.0" -- threshold

@@ -26,6 +26,7 @@ table! {
         water_colour -> Text,
         mountain_pin -> Integer,
         mountain_colour -> Text,
+        earth_colour -> Text,
         multiply -> Text,
         bias -> Text,
         threshold -> Text,
@@ -79,10 +80,4 @@ table! {
     }
 }
 
-allow_tables_to_appear_in_same_query!(
-    answers,
-    bindings,
-    hexagrams,
-    records,
-    trigrams,
-);
+allow_tables_to_appear_in_same_query!(answers, bindings, hexagrams, records, trigrams,);

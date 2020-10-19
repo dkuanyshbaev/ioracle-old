@@ -129,21 +129,11 @@ pub fn operator(connection: Db) -> IOracleResult<Template> {
     ))
 }
 
-#[get("/settings")]
-pub fn settings(connection: Db) -> IOracleResult<Template> {
-    Ok(Template::render(
-        "settings",
-        ItemContext {
-            item: Binding::get(&connection)?,
-        },
-    ))
-}
-
 #[post("/save", format = "json", data = "<bindings>")]
 pub fn save(connection: Db, bindings: Json<UpdatedBinding>) -> IOracleResult<Redirect> {
     Binding::update(&connection, bindings.into_inner())?;
 
-    Ok(Redirect::to("/settings"))
+    Ok(Redirect::to("/operator"))
 }
 
 #[get("/csv")]
