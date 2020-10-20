@@ -142,7 +142,7 @@ pub fn send(
     let core_related = hexagram::Hexagram::get_by_binary(&connection, core_r_binary)?;
 
     let head_text =
-        "I ORACLE<br>HYBRID I CHING DIVINATION SYSTEM<br>PERSONAL READING INTERFACE<br>"
+        "<h1>I ORACLE<br>HYBRID I CHING DIVINATION SYSTEM<br>PERSONAL READING INTERFACE</h1>"
             .to_string();
 
     let hexagram_text = format!(
@@ -158,7 +158,6 @@ pub fn send(
         <h1>{}</h1>
         <p>{}</p>
         <h1>{}</h1>
-        <hr>
         <p>{}</p>
         <p>over</p>
         <p>{}</p>
@@ -192,7 +191,6 @@ pub fn send(
         <h1>{}</h1>
         <p>{}</p>
         <h1>{}</h1>
-        <hr>
         <p>{}</p>
         <p>over</p>
         <p>{}</p>
@@ -226,7 +224,6 @@ pub fn send(
         <h1>{}</h1>
         <p>{}</p>
         <h1>{}</h1>
-        <hr>
         <p>{}</p>
         <p>over</p>
         <p>{}</p>
@@ -260,7 +257,6 @@ pub fn send(
         <h1>{}</h1>
         <p>{}</p>
         <h1>{}</h1>
-        <hr>
         <p>{}</p>
         <p>over</p>
         <p>{}</p>
@@ -285,7 +281,6 @@ pub fn send(
         "
         <h4>TRADITIONAL INTERPRETATIONS:</h4>
         <br>
-        <br>
         <h4>King Wen's Decision</h4>
         <br>
         {}
@@ -301,14 +296,12 @@ pub fn send(
         {}
         <br>
         <br>
-        <hr>
         ",
         hexagram.judgment, hexagram.image, hexagram.lines,
     );
 
     let traditional_related_text = format!(
         "
-        <hr>
         <h4>King Wen's Decision Related</h4>
         <br>
         {}
@@ -322,15 +315,12 @@ pub fn send(
         <h4>Duke of Zhou Related</h4>
         <br>
         {}
-        <br>
-        <br>
-        <hr>
         ",
         related.judgment, related.image, related.lines,
     );
 
     let body_text = format!(
-        "{}<br>{}<br>{}<br>{}<br>{}<hr><p>{}<p>{}<br>{}",
+        "{}<br>{}<br>{}<br>{}<br>{}<hr><p>{}<p>{}{}",
         head_text,
         hexagram_text,
         related_text,
