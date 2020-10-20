@@ -99,8 +99,8 @@
                     <p>{{core_primary.hatcher}}</p>
                     <p>{{core_primary.binary}}</p>
 
-                    <h1>{{core_related_second.image}}</h1>
-                    <p>{{core_related_second.name}}</p>
+                    <h1>{{core_primary_second.image}}</h1>
+                    <p>{{core_primary_second.name}}</p>
                     <h1>{{core_primary_first.image}}</h1>
                     <p>{{core_primary_first.name}}</p>
 
@@ -117,7 +117,7 @@
                     <p>{{core_primary.shao_yong_order}}</p>
                 </div>
                 <div class="col-md-6">
-                    <h1 class="cover-heading">Core Related</h1>
+                    <h1 class="cover-heading">CORE RELATED</h1>
                     <p>{{core_related.king_wen_order}}</p>
                     <p>{{core_related.hatcher}}</p>
                     <p>{{core_related.binary}}</p>

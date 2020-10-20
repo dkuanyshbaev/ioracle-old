@@ -4,23 +4,23 @@ use rocket_contrib::databases::diesel::SqliteConnection;
 
 #[derive(Serialize, Queryable, Identifiable, Debug)]
 pub struct Hexagram {
-    id: i32,
-    binary: String,
-    king_wen_order: i32,
-    shao_yong_order: i32,
-    gua: String,
-    pin_yin: String,
-    character: String,
-    wilheim: String,
-    huang: String,
-    hatcher: String,
-    no2do: String,
-    inner_ba_gua: String, // first_trigram
-    outer_ba_gua: String, // second_trigram
-    host_yao: String,
-    judgment: String,
-    image: String,
-    lines: String,
+    pub id: i32,
+    pub binary: String,
+    pub king_wen_order: i32,
+    pub shao_yong_order: i32,
+    pub gua: String,
+    pub pin_yin: String,
+    pub character: String,
+    pub wilheim: String,
+    pub huang: String,
+    pub hatcher: String,
+    pub no2do: String,
+    pub inner_ba_gua: String, // first_trigram
+    pub outer_ba_gua: String, // second_trigram
+    pub host_yao: String,
+    pub judgment: String,
+    pub image: String,
+    pub lines: String,
 }
 
 #[derive(Serialize, Deserialize, Insertable, FromForm, AsChangeset, Debug)]

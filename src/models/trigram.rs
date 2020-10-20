@@ -4,14 +4,14 @@ use rocket_contrib::databases::diesel::SqliteConnection;
 
 #[derive(Serialize, Queryable, Identifiable, Debug)]
 pub struct Trigram {
-    id: i32,
-    name: String,
-    image: String,
-    binary: String,
-    no: String,
-    wen: String,
-    host: String,
-    element: String,
+    pub id: i32,
+    pub name: String,
+    pub image: String,
+    pub binary: String,
+    pub no: String,
+    pub wen: String,
+    pub host: String,
+    pub element: String,
 }
 
 #[derive(Serialize, Deserialize, Insertable, FromForm, AsChangeset, Debug)]
