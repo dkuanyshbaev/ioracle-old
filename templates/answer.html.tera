@@ -48,12 +48,12 @@
                     <p>{{hexagram.hatcher | replace(from="_", to=" ")}}</p>
                     <p>{{hexagram.binary}}</p>
 
-                    <h1>{{second_trigram.image}}</h1>
+                    <h1 class="big_font">{{second_trigram.image}}</h1>
                     <p>{{second_trigram.name | replace(from="_", to=" ")}}</p>
-                    <h1>{{first_trigram.image}}</h1>
+                    <h1 class="big_font">{{first_trigram.image}}</h1>
                     <p>{{first_trigram.name | replace(from="_", to=" ")}}</p>
 
-                    <h1>{{hexagram.gua}}</h1>
+                    <h1 class="big_font">{{hexagram.gua}}</h1>
                     <p>{{hexagram.pin_yin | replace(from="_", to=" ")}}</p>
                     <h1>{{hexagram.character}}</h1>
 
@@ -71,12 +71,12 @@
                     <p>{{related.hatcher | replace(from="_", to=" ")}}</p>
                     <p>{{related.binary}}</p>
 
-                    <h1>{{second_related.image}}</h1>
+                    <h1 class="big_font">{{second_related.image}}</h1>
                     <p>{{second_related.name | replace(from="_", to=" ")}}</p>
-                    <h1>{{first_related.image}}</h1>
+                    <h1 class="big_font">{{first_related.image}}</h1>
                     <p>{{first_related.name | replace(from="_", to=" ")}}</p>
 
-                    <h1>{{related.gua}}</h1>
+                    <h1 class="big_font">{{related.gua}}</h1>
                     <p>{{related.pin_yin | replace(from="_", to=" ")}}</p>
                     <h1>{{related.character}}</h1>
 
@@ -99,12 +99,12 @@
                     <p>{{core_primary.hatcher}}</p>
                     <p>{{core_primary.binary}}</p>
 
-                    <h1>{{core_primary_second.image}}</h1>
+                    <h1 class="big_font">{{core_primary_second.image}}</h1>
                     <p>{{core_primary_second.name}}</p>
-                    <h1>{{core_primary_first.image}}</h1>
+                    <h1 class="big_font">{{core_primary_first.image}}</h1>
                     <p>{{core_primary_first.name}}</p>
 
-                    <h1 class="gua_size">{{core_primary.gua}}</h1>
+                    <h1 class="big_font">{{core_primary.gua}}</h1>
                     <p>{{core_primary.pin_yin}}</p>
                     <h1>{{core_primary.character}}</h1>
 
@@ -122,12 +122,12 @@
                     <p>{{core_related.hatcher}}</p>
                     <p>{{core_related.binary}}</p>
 
-                    <h1>{{core_related_second.image}}</h1>
+                    <h1 class="big_font">{{core_related_second.image}}</h1>
                     <p>{{core_related_second.name}}</p>
-                    <h1>{{core_related_first.image}}</h1>
+                    <h1 class="big_font">{{core_related_first.image}}</h1>
                     <p>{{core_related_first.name}}</p>
 
-                    <h1>{{core_related.gua}}</h1>
+                    <h1 class="big_font">{{core_related.gua}}</h1>
                     <p>{{core_related.pin_yin}}</p>
                     <h1>{{core_related.character}}</h1>
 
