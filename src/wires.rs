@@ -830,3 +830,11 @@ pub fn open_pip(m: String, b: String, t: String) {
         println!("command error");
     }
 }
+
+pub fn shell_fire() {
+    println!("--------> shell fire");
+
+    let _output = std::process::Command::new("/ioracle/scripts/fire.sh")
+        .output()
+        .expect("failed to execute process");
+}

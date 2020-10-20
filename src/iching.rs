@@ -200,7 +200,7 @@ impl Trigram {
                 middle: Line::Yang,
                 bottom: Line::Yin,
             } => {
-                play_sound("thunder.wav".to_string());
+                play_sound("Thunder.wav".to_string());
                 // render_yang(1, controller, &settings.thunder_colour);
                 // render_yang(2, controller, &settings.thunder_colour);
                 // render_yin(3, controller, &settings.thunder_colour);
@@ -226,7 +226,7 @@ impl Trigram {
                 bottom: Line::Yin,
             } => {
                 pin_on(settings.mountain_pin as u8);
-                play_sound("mountain.wav".to_string());
+                play_sound("EarthMountain.wav".to_string());
                 // render_yang(1, controller, &settings.mountain_colour);
                 // render_yin(2, controller, &settings.mountain_colour);
                 // render_yin(3, controller, &settings.mountain_colour);
