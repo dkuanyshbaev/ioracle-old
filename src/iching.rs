@@ -162,9 +162,12 @@ impl Trigram {
                 bottom: Line::Yang,
             } => {
                 pin_on(settings.cloud_pin as u8);
-                render_yin(1, controller, &settings.cloud_colour);
+                // render_yin(1, controller, &settings.cloud_colour);
+                // render_yang(2, controller, &settings.cloud_colour);
+                // render_yang(3, controller, &settings.cloud_colour);
+                render_yang(1, controller, &settings.cloud_colour);
                 render_yang(2, controller, &settings.cloud_colour);
-                render_yang(3, controller, &settings.cloud_colour);
+                render_yin(3, controller, &settings.cloud_colour);
             }
             // Sun
             Trigram {
@@ -184,9 +187,12 @@ impl Trigram {
                 bottom: Line::Yang,
             } => {
                 pin_on(settings.wind_pin as u8);
-                render_yin(1, controller, &settings.wind_colour);
+                // render_yin(1, controller, &settings.wind_colour);
+                // render_yin(2, controller, &settings.wind_colour);
+                // render_yang(3, controller, &settings.wind_colour);
+                render_yang(1, controller, &settings.wind_colour);
                 render_yin(2, controller, &settings.wind_colour);
-                render_yang(3, controller, &settings.wind_colour);
+                render_yin(3, controller, &settings.wind_colour);
             }
             // Thunder
             Trigram {
@@ -195,9 +201,12 @@ impl Trigram {
                 bottom: Line::Yin,
             } => {
                 play_sound("thunder.wav".to_string());
-                render_yang(1, controller, &settings.thunder_colour);
+                // render_yang(1, controller, &settings.thunder_colour);
+                // render_yang(2, controller, &settings.thunder_colour);
+                // render_yin(3, controller, &settings.thunder_colour);
+                render_yin(1, controller, &settings.thunder_colour);
                 render_yang(2, controller, &settings.thunder_colour);
-                render_yin(3, controller, &settings.thunder_colour);
+                render_yang(3, controller, &settings.thunder_colour);
             }
             // Water
             Trigram {
@@ -218,9 +227,12 @@ impl Trigram {
             } => {
                 pin_on(settings.mountain_pin as u8);
                 play_sound("mountain.wav".to_string());
-                render_yang(1, controller, &settings.mountain_colour);
+                // render_yang(1, controller, &settings.mountain_colour);
+                // render_yin(2, controller, &settings.mountain_colour);
+                // render_yin(3, controller, &settings.mountain_colour);
+                render_yin(1, controller, &settings.mountain_colour);
                 render_yin(2, controller, &settings.mountain_colour);
-                render_yin(3, controller, &settings.mountain_colour);
+                render_yang(3, controller, &settings.mountain_colour);
             }
             // Earth
             Trigram {
