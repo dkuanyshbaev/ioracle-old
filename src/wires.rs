@@ -850,10 +850,40 @@ pub fn shell_fire() {
 pub fn show_hexagram(settings: &Binding, h: &String, r: &String) {
     println!("--------> final hexagram");
 
+    let mut result = "".to_string();
+    for i in 0..6 {
+        let a = h.chars().nth(i);
+        let b = r.chars().nth(i);
+        if a == b {
+            if let Some(a) = a {
+                result = format!("{}{}", result, a);
+            }
+        } else {
+            result = format!("{}*", result);
+        }
+    }
+    println!("--------> hexagram: {}", h);
+    println!("--------> related: {}", r);
+    println!("--------> result: {}", result);
+
     let output = std::process::Command::new("/ioracle/scripts/result.sh")
-        .arg("test")
+        .arg(result)
         .output()
         .expect("failed to execute process");
 
     println!("--------> out: {:?}", output);
+}
+
+pub fn get_changing_lines(h: &String, r: &String) -> String {
+    let mut result = "".to_string();
+
+    for i in 0..6 {
+        if h.chars().nth(i) == r.chars().nth(i) {
+            result = format!("{}1", result);
+        } else {
+            result = format!("{}0", result);
+        }
+    }
+
+    result
 }
