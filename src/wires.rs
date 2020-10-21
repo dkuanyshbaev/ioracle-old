@@ -850,8 +850,10 @@ pub fn shell_fire() {
 pub fn show_hexagram(settings: &Binding, h: &String, r: &String) {
     println!("--------> final hexagram");
 
-    let _output = std::process::Command::new("/ioracle/scripts/result.sh")
+    let output = std::process::Command::new("/ioracle/scripts/result.sh")
         .arg("test")
         .output()
         .expect("failed to execute process");
+
+    println!("--------> out: {:?}", output);
 }
