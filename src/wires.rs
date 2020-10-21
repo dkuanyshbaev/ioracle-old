@@ -847,7 +847,7 @@ pub fn shell_fire() {
         .expect("failed to execute process");
 }
 
-pub fn show_hexagram(settings: &Binding, h: &String, r: &String) {
+pub fn show_hexagram(h: &String, r: &String, first_colour: &String, second_colour: &String) {
     println!("--------> final hexagram");
 
     let mut result = "".to_string();
@@ -865,10 +865,13 @@ pub fn show_hexagram(settings: &Binding, h: &String, r: &String) {
     println!("--------> hexagram: {}", h);
     println!("--------> related: {}", r);
     println!("--------> result: {}", result);
+    println!("--------> fc: {}", first_colour);
+    println!("--------> sc: {}", second_colour);
 
     let output = std::process::Command::new("/ioracle/scripts/result.sh")
-        .arg(h)
         .arg(result)
+        .arg(first_colour)
+        .arg(second_colour)
         .output()
         .expect("failed to execute process");
 
@@ -887,4 +890,14 @@ pub fn get_changing_lines(h: &String, r: &String) -> String {
     }
 
     result
+}
+
+pub fn get_colours(h: &Hexagram, s: &Binding) -> (String, String) {
+    let first_trigram = &h.top;
+    let second_trigram = &h.bottom;
+
+    let first_colour = first_trigram.get_colour(&s);
+    let second_colour = second_trigram.get_colour(&s);
+
+    (first_colour, second_colour)
 }

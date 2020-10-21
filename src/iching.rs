@@ -338,6 +338,59 @@ impl Trigram {
             }
         }
     }
+
+    pub fn get_colour(&self, settings: &Binding) -> String {
+        match self {
+            // Heaven
+            Trigram {
+                top: Line::Yang,
+                middle: Line::Yang,
+                bottom: Line::Yang,
+            } => settings.heaven_colour.clone(),
+            // Cloud
+            Trigram {
+                top: Line::Yin,
+                middle: Line::Yang,
+                bottom: Line::Yang,
+            } => settings.cloud_colour.clone(),
+            // Sun
+            Trigram {
+                top: Line::Yang,
+                middle: Line::Yin,
+                bottom: Line::Yang,
+            } => settings.sun_colour.clone(),
+            // Wind
+            Trigram {
+                top: Line::Yin,
+                middle: Line::Yin,
+                bottom: Line::Yang,
+            } => settings.wind_colour.clone(),
+            // Thunder
+            Trigram {
+                top: Line::Yang,
+                middle: Line::Yang,
+                bottom: Line::Yin,
+            } => settings.thunder_colour.clone(),
+            // Water
+            Trigram {
+                top: Line::Yin,
+                middle: Line::Yang,
+                bottom: Line::Yin,
+            } => settings.water_colour.clone(),
+            // Mountain
+            Trigram {
+                top: Line::Yang,
+                middle: Line::Yin,
+                bottom: Line::Yin,
+            } => settings.mountain_colour.clone(),
+            // Earth
+            Trigram {
+                top: Line::Yin,
+                middle: Line::Yin,
+                bottom: Line::Yin,
+            } => settings.earth_colour.clone(),
+        }
+    }
 }
 
 pub struct Hexagram {

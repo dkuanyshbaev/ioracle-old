@@ -4,7 +4,7 @@ use crate::models::binding::Binding;
 use crate::models::hexagram;
 use crate::models::record::{Record, UpdatedRecord};
 use crate::models::trigram;
-use crate::wires::{reading, show_hexagram, to_binary};
+use crate::wires::{get_colours, reading, show_hexagram, to_binary};
 use crate::Config;
 use lettre::smtp::authentication::IntoCredentials;
 use lettre::{SmtpClient, Transport};
@@ -27,8 +27,8 @@ pub fn ask(
     let hex_binary = to_binary(&hexagram);
     let rel_binary = to_binary(&related);
 
-    // let ch_lines = get_changing_lines(&hex_binary, &rel_binary);
-    show_hexagram(&settings, &hex_binary, &rel_binary);
+    let (first_colour, second_colour) = get_colours(&hexagram, &settings);
+    show_hexagram(&hex_binary, &rel_binary, &first_colour, &second_colour);
 
     let full_h = hexagram::Hexagram::get_by_binary(connection, hex_binary.clone())?;
     let full_r = hexagram::Hexagram::get_by_binary(connection, rel_binary.clone())?;
@@ -365,6 +365,15 @@ pub fn generate(question: String, _hexagram: Hexagram) -> IOracleResult<String> 
 }
 
 pub fn get_changing_lines(h: &String, r: &String) -> String {
+    let mut result = "".to_string();
+
+    for i in 0..6 {
+        if h.chars().nth(i) == r.chars().nth(i) {
+            result = format!("{}1", result);
+        } else {
+            result = format!("{}0", result);
+        }
+    }
     let mut result = "".to_string();
 
     for i in 0..6 {
