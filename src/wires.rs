@@ -528,7 +528,7 @@ pub fn run_simulation(settings: Binding) -> IOracleResult<()> {
     Ok(())
 }
 
-pub fn reading(settings: Binding) -> IOracleResult<(Hexagram, Hexagram)> {
+pub fn reading(settings: &Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     println!("New reading.");
     let mut controller = build_controller()?;
     thread::sleep(Duration::from_secs(3));
@@ -816,25 +816,42 @@ fn get_val(buf: &[u8]) -> i32 {
 pub fn open_pip(m: String, b: String, t: String) {
     println!("--------> open pip");
 
-    let command = format!(
-        "/ioracle/sensor/sensor | /usr/bin/python3 /ioracle/sensor/main.py {} {} {} &",
-        m, b, t
-    );
-    if let Ok(output) = Command::new(command).output() {
-        if !output.status.success() {
-            println!("pip start error");
-        } else {
-            println!("all good");
-        }
-    } else {
-        println!("command error");
-    }
+    // let command = format!(
+    //     "/ioracle/sensor/sensor | /usr/bin/python3 /ioracle/sensor/main.py {} {} {} &",
+    //     m, b, t
+    // );
+
+    let _output = std::process::Command::new("/ioracle/scripts/pip.sh")
+        .arg(m)
+        .arg(b)
+        .arg(t)
+        .output()
+        .expect("failed to execute process");
+
+    // if let Ok(output) = Command::new(command).output() {
+    //     if !output.status.success() {
+    //         println!("pip start error");
+    //     } else {
+    //         println!("all good");
+    //     }
+    // } else {
+    //     println!("command error");
+    // }
 }
 
 pub fn shell_fire() {
     println!("--------> shell fire");
 
     let _output = std::process::Command::new("/ioracle/scripts/fire.sh")
+        .output()
+        .expect("failed to execute process");
+}
+
+pub fn show_hexagram(settings: &Binding, h: &String, r: &String) {
+    println!("--------> final hexagram");
+
+    let _output = std::process::Command::new("/ioracle/scripts/result.sh")
+        .arg("test")
         .output()
         .expect("failed to execute process");
 }
