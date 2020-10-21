@@ -859,7 +859,7 @@ pub fn show_hexagram(settings: &Binding, h: &String, r: &String) {
                 result = format!("{}{}", result, a);
             }
         } else {
-            result = format!("{}*", result);
+            result = format!("{}@", result);
         }
     }
     println!("--------> hexagram: {}", h);
@@ -867,6 +867,7 @@ pub fn show_hexagram(settings: &Binding, h: &String, r: &String) {
     println!("--------> result: {}", result);
 
     let output = std::process::Command::new("/ioracle/scripts/result.sh")
+        .arg(h)
         .arg(result)
         .output()
         .expect("failed to execute process");
