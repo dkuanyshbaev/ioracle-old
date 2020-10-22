@@ -847,7 +847,13 @@ pub fn shell_fire() {
         .expect("failed to execute process");
 }
 
-pub fn show_hexagram(h: &String, r: &String, first_colour: &String, second_colour: &String) {
+pub fn show_hexagram(
+    h: &String,
+    r: &String,
+    first_colour: &String,
+    second_colour: &String,
+    resting_colour: &String,
+) {
     println!("--------> final hexagram");
 
     let mut result = "".to_string();
@@ -867,11 +873,13 @@ pub fn show_hexagram(h: &String, r: &String, first_colour: &String, second_colou
     println!("--------> result: {}", result);
     println!("--------> fc: {}", first_colour);
     println!("--------> sc: {}", second_colour);
+    println!("--------> sc: {}", resting_colour);
 
     let output = std::process::Command::new("/ioracle/scripts/result.sh")
         .arg(result)
         .arg(first_colour)
         .arg(second_colour)
+        .arg(resting_colour)
         .output()
         .expect("failed to execute process");
 

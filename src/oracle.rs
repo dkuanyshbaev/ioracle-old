@@ -28,7 +28,13 @@ pub fn ask(
     let rel_binary = to_binary(&related);
 
     let (first_colour, second_colour) = get_colours(&hexagram, &settings);
-    show_hexagram(&hex_binary, &rel_binary, &first_colour, &second_colour);
+    show_hexagram(
+        &hex_binary,
+        &rel_binary,
+        &first_colour,
+        &second_colour,
+        &settings.resting_colour,
+    );
 
     let full_h = hexagram::Hexagram::get_by_binary(connection, hex_binary.clone())?;
     let full_r = hexagram::Hexagram::get_by_binary(connection, rel_binary.clone())?;
