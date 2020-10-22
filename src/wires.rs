@@ -223,10 +223,11 @@ pub fn shimmering_on() {
 pub fn play_sound(file_name: String) {
     println!("--------> play: {}", file_name);
 
-    let command = format!(
-        "omxplayer -o local --no-keys /ioracle/sounds/{} &",
-        file_name
-    );
+    // let command = format!(
+    //     "omxplayer -o local --no-keys /ioracle/sounds/{} &",
+    //     file_name
+    // );
+    let command = format!("ffplay /ioracle/sounds/{} &", file_name);
     if let Ok(output) = Command::new(command).output() {
         if !output.status.success() {
             println!("exectution error");
