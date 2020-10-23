@@ -5,7 +5,6 @@ use rand::distributions::{Distribution, Uniform};
 use rppal::gpio::Gpio;
 use rs_ws281x::{ChannelBuilder, Controller, ControllerBuilder, StripType};
 use serialport::prelude::*;
-use std::process::Command;
 use std::thread;
 use std::time::{Duration, SystemTime};
 
@@ -227,13 +226,24 @@ pub fn play_sound(file_name: String) {
     //     "omxplayer -o local --no-keys /ioracle/sounds/{} &",
     //     file_name
     // );
-    let command = format!("ffplay /ioracle/sounds/{} &", file_name);
-    if let Ok(output) = Command::new(command).output() {
-        if !output.status.success() {
-            println!("exectution error");
-        } else {
-            println!("all good");
-        }
+    // let command = format!("ffplay /ioracle/sounds/{} &", file_name);
+    // if let Ok(output) = Command::new(command).output() {
+    //     println!("output: {:?}", output);
+    //     if !output.status.success() {
+    //         println!("exectution error");
+    //     } else {
+    //         println!("all good");
+    //     }
+    // }
+
+    match std::process::Command::new("/usr/bin/ffplay")
+        .arg(format!("/ioracle/sounds/{}", file_name))
+        .arg("-autoexit")
+        .arg("-nodisp")
+        .output()
+    {
+        Ok(output) => println!("{:?}", output),
+        Err(error) => println!("{:?}", error),
     }
 }
 
