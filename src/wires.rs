@@ -156,10 +156,26 @@ pub fn render_shimmer(controller: &mut Controller) {
 
 pub fn pin_on(pin: u8) {
     println!("--------> pin {}: on", pin);
-    if let Ok(gpio) = Gpio::new() {
-        if let Ok(pin) = gpio.get(pin) {
-            let mut pin = pin.into_output();
-            pin.set_high();
+    if pin != 8 {
+        if let Ok(gpio) = Gpio::new() {
+            if let Ok(pin) = gpio.get(pin) {
+                let mut pin = pin.into_output();
+                pin.set_high();
+            }
+        }
+    } else {
+        // ??!!!
+        if let Ok(gpio) = Gpio::new() {
+            if let Ok(pin8) = gpio.get(pin) {
+                if let Ok(pin7) = gpio.get(7) {
+                    let mut pin7 = pin7.into_output();
+                    pin7.set_high();
+                    thread::sleep(Duration::from_secs(1));
+                }
+
+                let mut pin8 = pin8.into_output();
+                pin8.set_high();
+            }
         }
     }
 }
@@ -235,6 +251,7 @@ pub fn play_sound(file_name: String) {
     //         println!("all good");
     //     }
     // }
+    //omxplayer -o local --no-keys /ioracle/sounds/Thunder.wav
 
     if file_name == "Thunder.wav" {
         match std::process::Command::new("/ioracle/scripts/thunder_sound.sh").output() {
