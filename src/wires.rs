@@ -236,10 +236,6 @@ pub fn play_sound(file_name: String) {
     //     }
     // }
 
-    let _output = std::process::Command::new("/ioracle/scripts/fire.sh")
-        .output()
-        .expect("failed to execute process");
-
     if file_name == "Thunder.wav" {
         match std::process::Command::new("/ioracle/scripts/thunder_sound.sh").output() {
             Ok(output) => println!("{:?}", output),
@@ -906,17 +902,24 @@ pub fn show_hexagram(
     println!("--------> result: {}", result);
     println!("--------> fc: {}", first_colour);
     println!("--------> sc: {}", second_colour);
-    println!("--------> sc: {}", resting_colour);
+    println!("--------> rc: {}", resting_colour);
 
-    let output = std::process::Command::new("/ioracle/scripts/result.sh")
+    // -------------------
+    // match std::process::Command::new("/ioracle/scripts/earth_mountain.sh").output() {
+    //     Ok(output) => println!("{:?}", output),
+    //     Err(error) => println!("{:?}", error),
+    // }
+
+    match std::process::Command::new("/ioracle/scripts/result.sh")
         .arg(result)
         .arg(first_colour)
         .arg(second_colour)
         .arg(resting_colour)
         .output()
-        .expect("failed to execute process");
-
-    println!("--------> out: {:?}", output);
+    {
+        Ok(output) => println!("{:?}", output),
+        Err(error) => println!("{:?}", error),
+    }
 }
 
 pub fn get_changing_lines(h: &String, r: &String) -> String {
