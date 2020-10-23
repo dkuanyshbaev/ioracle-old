@@ -575,9 +575,12 @@ pub fn reading(settings: &Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     thread::sleep(Duration::from_secs(1));
 
     let first_trigram = Trigram {
-        top: line1,
+        // top: line1,
+        // middle: line2,
+        // bottom: line3,
+        top: line3,
         middle: line2,
-        bottom: line3,
+        bottom: line1,
     };
     println!("first_trigram: {}", first_trigram);
     first_trigram.render_first(&settings, &mut controller);
@@ -666,9 +669,12 @@ pub fn reading(settings: &Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     thread::sleep(Duration::from_secs(1));
 
     let second_trigram = Trigram {
-        top: line4,
+        // top: line4,
+        // middle: line5,
+        // bottom: line6,
+        top: line6,
         middle: line5,
-        bottom: line6,
+        bottom: line4,
     };
     println!("second_trigram: {}", second_trigram);
     second_trigram.render_second(&settings, &mut controller);

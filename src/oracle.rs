@@ -152,7 +152,7 @@ pub fn send(
     let core_related = hexagram::Hexagram::get_by_binary(&connection, core_r_binary)?;
 
     let head_text =
-        "<h1>I ORACLE<br>HYBRID I CHING DIVINATION SYSTEM<br>PERSONAL READING INTERFACE RESULT:</h1>"
+        "<h1>I ORACLE<br>NATURE BASED ETHICAL GUIDANCE SYSTEM<br>FOR MAN AND MACHINE</h1>"
             .to_string();
 
     let hexagram_text = format!(
