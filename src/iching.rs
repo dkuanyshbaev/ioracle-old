@@ -228,6 +228,7 @@ impl Trigram {
                 middle: Line::Yin,
                 bottom: Line::Yin,
             } => {
+                play_sound("EarthMountain.wav".to_string());
                 render_yin(6, controller, &settings.earth_colour);
                 render_yin(1, controller, &settings.earth_colour);
                 render_yin(2, controller, &settings.earth_colour);

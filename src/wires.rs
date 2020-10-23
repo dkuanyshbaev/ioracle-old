@@ -236,15 +236,31 @@ pub fn play_sound(file_name: String) {
     //     }
     // }
 
-    match std::process::Command::new("/usr/bin/ffplay")
-        .arg(format!("/ioracle/sounds/{}", file_name))
-        .arg("-autoexit")
-        .arg("-nodisp")
+    let _output = std::process::Command::new("/ioracle/scripts/fire.sh")
         .output()
-    {
-        Ok(output) => println!("{:?}", output),
-        Err(error) => println!("{:?}", error),
+        .expect("failed to execute process");
+
+    if file_name == "Thunder.wav" {
+        match std::process::Command::new("/ioracle/scripts/thunder_sound.sh").output() {
+            Ok(output) => println!("{:?}", output),
+            Err(error) => println!("{:?}", error),
+        }
+    } else {
+        match std::process::Command::new("/ioracle/scripts/earth_mountain.sh").output() {
+            Ok(output) => println!("{:?}", output),
+            Err(error) => println!("{:?}", error),
+        }
     }
+
+    // match std::process::Command::new("/usr/bin/ffplay")
+    //     .arg(format!("/ioracle/sounds/{}", file_name))
+    //     .arg("-autoexit")
+    //     .arg("-nodisp")
+    //     .output()
+    // {
+    //     Ok(output) => println!("{:?}", output),
+    //     Err(error) => println!("{:?}", error),
+    // }
 }
 
 fn parse_colour(colour: &String) -> (u8, u8, u8) {
