@@ -171,6 +171,7 @@ pub fn pin_on(pin: u8) {
                     let mut pin7 = pin7.into_output();
                     pin7.set_high();
                     thread::sleep(Duration::from_secs(1));
+                    pin7.set_low();
                 }
 
                 let mut pin8 = pin8.into_output();
@@ -253,17 +254,17 @@ pub fn play_sound(file_name: String) {
     // }
     //omxplayer -o local --no-keys /ioracle/sounds/Thunder.wav
 
-    if file_name == "Thunder.wav" {
-        match std::process::Command::new("/ioracle/scripts/thunder_sound.sh").output() {
-            Ok(output) => println!("{:?}", output),
-            Err(error) => println!("{:?}", error),
-        }
-    } else {
-        match std::process::Command::new("/ioracle/scripts/earth_mountain.sh").output() {
-            Ok(output) => println!("{:?}", output),
-            Err(error) => println!("{:?}", error),
-        }
-    }
+    // if file_name == "Thunder.wav" {
+    //     match std::process::Command::new("/ioracle/scripts/thunder_sound.sh").output() {
+    //         Ok(output) => println!("{:?}", output),
+    //         Err(error) => println!("{:?}", error),
+    //     }
+    // } else {
+    //     match std::process::Command::new("/ioracle/scripts/earth_mountain.sh").output() {
+    //         Ok(output) => println!("{:?}", output),
+    //         Err(error) => println!("{:?}", error),
+    //     }
+    // }
 
     // match std::process::Command::new("/usr/bin/ffplay")
     //     .arg(format!("/ioracle/sounds/{}", file_name))
