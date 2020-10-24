@@ -171,11 +171,18 @@ pub fn pin_on(pin: u8) {
                     let mut pin7 = pin7.into_output();
                     pin7.set_high();
                     thread::sleep(Duration::from_secs(1));
+                    // pin7.set_low();
+
+                    let mut pin8 = pin8.into_output();
+                    pin8.set_high();
+
+                    thread::sleep(Duration::from_secs(2));
                     pin7.set_low();
+                    pin8.set_low();
                 }
 
-                let mut pin8 = pin8.into_output();
-                pin8.set_high();
+                // let mut pin8 = pin8.into_output();
+                // pin8.set_high();
             }
         }
     }
