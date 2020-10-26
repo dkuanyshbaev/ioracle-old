@@ -789,7 +789,7 @@ pub fn reading(settings: &Binding) -> IOracleResult<(Hexagram, Hexagram)> {
     };
 
     reset_pins(&settings);
-    thread::sleep(Duration::from_secs(10));
+    thread::sleep(Duration::from_secs(100));
 
     Ok((hexagram, related))
 }
