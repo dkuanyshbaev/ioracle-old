@@ -156,11 +156,21 @@ pub fn render_shimmer(controller: &mut Controller) {
 
 pub fn pin_on(pin: u8) {
     println!("--------> pin {}: on", pin);
-    if pin != 8 {
+    if pin != 8 && pin != 7 {
         if let Ok(gpio) = Gpio::new() {
             if let Ok(pin) = gpio.get(pin) {
                 let mut pin = pin.into_output();
                 pin.set_high();
+            }
+        }
+    } else if pin == 7 {
+        if let Ok(gpio) = Gpio::new() {
+            if let Ok(pin7) = gpio.get(7) {
+                let mut pin7 = pin7.into_output();
+                pin7.set_high();
+
+                thread::sleep(Duration::from_secs(7));
+                pin7.set_low();
             }
         }
     } else {
@@ -170,14 +180,15 @@ pub fn pin_on(pin: u8) {
                 if let Ok(pin7) = gpio.get(7) {
                     let mut pin7 = pin7.into_output();
                     pin7.set_high();
-                    thread::sleep(Duration::from_secs(1));
+                    thread::sleep(Duration::from_secs(5));
                     // pin7.set_low();
 
                     let mut pin8 = pin8.into_output();
                     pin8.set_high();
 
-                    thread::sleep(Duration::from_secs(2));
+                    thread::sleep(Duration::from_secs(8));
                     pin7.set_low();
+                    thread::sleep(Duration::from_secs(6));
                     pin8.set_low();
                 }
 
