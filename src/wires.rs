@@ -2,9 +2,12 @@ use crate::errors::{IOracleError, IOracleResult};
 use crate::iching::{Hexagram, Line, Trigram};
 use crate::models::binding::Binding;
 use rand::distributions::{Distribution, Uniform};
+// use rodio::Source;
 use rppal::gpio::Gpio;
 use rs_ws281x::{ChannelBuilder, Controller, ControllerBuilder, StripType};
 use serialport::prelude::*;
+// use std::fs::File;
+// use std::io::BufReader;
 use std::thread;
 use std::time::{Duration, SystemTime};
 
@@ -256,6 +259,12 @@ pub fn shimmering_on() {
 
 pub fn play_sound(file_name: String) {
     println!("--------> play: {}", file_name);
+
+    // let file = format!("/ioracle/sounds/{}", file_name);
+    // let device = rodio::default_output_device().unwrap();
+    // let file = File::open(file).unwrap();
+    // let source = rodio::Decoder::new(BufReader::new(file)).unwrap();
+    // rodio::play_raw(&device, source.convert_samples());
 
     // let command = format!(
     //     "omxplayer -o local --no-keys /ioracle/sounds/{} &",
