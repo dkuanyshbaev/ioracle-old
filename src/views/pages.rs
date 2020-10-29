@@ -51,9 +51,9 @@ pub struct AnswerContext<R, T, H> {
 
 #[get("/")]
 pub fn index(connection: Db) -> Template {
-    if let Ok(settings) = Binding::get(&connection) {
-        reset(settings);
-    };
+    // if let Ok(settings) = Binding::get(&connection) {
+    //     reset(settings);
+    // };
     Template::render("index", NoContext {})
 }
 
