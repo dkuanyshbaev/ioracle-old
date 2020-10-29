@@ -4,7 +4,7 @@ use crate::models::binding::{Binding, UpdatedBinding};
 use crate::models::hexagram::{Hexagram, SheetsHexagram, UpdatedHexagram};
 use crate::models::record::Record;
 use crate::models::trigram::{Trigram, UpdatedTrigram};
-use crate::oracle::ask;
+use crate::oracle::{ask, show};
 use crate::wires::reset;
 use crate::Db;
 use rocket::request::Form;
@@ -244,14 +244,14 @@ pub fn question(
     }
 
     //----------------------------------------------------------------
-    // Ok(Redirect::to(format!(
-    //     "/answer/{}",
-    //     ask(
-    //         config,
-    //         &connection,
-    //         question.email.to_owned(),
-    //         question.question.to_owned()
-    //     )?
-    // )))
-    Ok(Redirect::to(format!("/result/{}", result)))
+    Ok(Redirect::to(format!(
+        "/answer/{}",
+        show(
+            config,
+            &connection,
+            question.email.to_owned(),
+            question.question.to_owned(),
+            result.to_owned(),
+        )?
+    )))
 }

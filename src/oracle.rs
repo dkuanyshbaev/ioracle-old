@@ -15,6 +15,59 @@ use uuid::Uuid;
 // use lettre::transport::smtp::authentication::Credentials;
 // use lettre::{Message, SmtpTransport, Transport};
 
+pub fn show(
+    config: State<Config>,
+    connection: &SqliteConnection,
+    email: String,
+    question: String,
+    result: String,
+) -> IOracleResult<String> {
+    let settings = Binding::get(&connection)?;
+    // let (hexagram, related) = reading(&settings)?;
+    let (hex_binary, rel_binary) = get_result(&result);
+
+    // let hex_binary = to_binary(&hexagram);
+    // let rel_binary = to_binary(&related);
+
+    // let (first_colour, second_colour) = get_colours(&hexagram, &settings);
+    // show_hexagram(
+    //     &hex_binary,
+    //     &rel_binary,
+    //     &first_colour,
+    //     &second_colour,
+    //     &settings.resting_colour,
+    // );
+
+    let full_h = hexagram::Hexagram::get_by_binary(connection, hex_binary.clone())?;
+    let full_r = hexagram::Hexagram::get_by_binary(connection, rel_binary.clone())?;
+    // println!("hex: {:#?}", full_h);
+    // println!("rel: {:#?}", full_r);
+
+    // let answer = generate(question.clone(), hexagram)?;
+    let answer = "".to_string();
+    let answer_uuid = save(
+        connection,
+        &email,
+        &question,
+        &answer,
+        &hex_binary,
+        &rel_binary,
+    )?;
+    send(
+        config,
+        &email,
+        &question,
+        &answer,
+        &full_h,
+        &full_r,
+        &hex_binary,
+        &rel_binary,
+        &connection,
+    )?;
+
+    Ok(answer_uuid)
+}
+
 pub fn ask(
     config: State<Config>,
     connection: &SqliteConnection,
@@ -391,4 +444,14 @@ pub fn get_changing_lines(h: &String, r: &String) -> String {
     }
 
     result
+}
+
+pub fn get_result(r: &String) -> (String, String) {
+    let mut split = r.split("|");
+    let vec: Vec<&str> = split.collect();
+
+    let hexagram = vec[0].to_string();
+    let related = vec[1].to_string();
+
+    (hexagram, related)
 }
