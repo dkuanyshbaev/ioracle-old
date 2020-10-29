@@ -53,7 +53,9 @@ fn rocket(config: Config) -> rocket::Rocket {
                 operator::sound,
                 operator::pip,
                 operator::simulation,
-                operator::reset
+                operator::reset,
+                operator::result,
+                operator::send
             ],
         )
         .register(catchers![pages::not_found, pages::internal_error])

@@ -57,22 +57,22 @@ pub fn index(connection: Db) -> Template {
     Template::render("index", NoContext {})
 }
 
-#[post("/question", data = "<question>")]
-pub fn question(
-    config: State<Config>,
-    connection: Db,
-    question: Form<Question>,
-) -> IOracleResult<Redirect> {
-    Ok(Redirect::to(format!(
-        "/answer/{}",
-        ask(
-            config,
-            &connection,
-            question.email.to_owned(),
-            question.question.to_owned()
-        )?
-    )))
-}
+// #[post("/question", data = "<question>")]
+// pub fn question(
+//     config: State<Config>,
+//     connection: Db,
+//     question: Form<Question>,
+// ) -> IOracleResult<Redirect> {
+//     Ok(Redirect::to(format!(
+//         "/answer/{}",
+//         ask(
+//             config,
+//             &connection,
+//             question.email.to_owned(),
+//             question.question.to_owned()
+//         )?
+//     )))
+// }
 
 #[get("/answer/<uuid>")]
 pub fn answer(connection: Db, uuid: String) -> IOracleResult<Template> {
@@ -189,4 +189,69 @@ pub fn not_found() -> Redirect {
 #[catch(500)]
 pub fn internal_error() -> Redirect {
     Redirect::to("/")
+}
+
+#[post("/question", data = "<question>")]
+pub fn question(
+    config: State<Config>,
+    connection: Db,
+    question: Form<Question>,
+) -> IOracleResult<Redirect> {
+    //----------------------------------------------------------------
+    println!("send to gate");
+
+    use std::io::prelude::*;
+    use std::io::{BufRead, BufReader};
+    use std::os::unix::net::{UnixListener, UnixStream};
+    if let Ok(mut stream) = UnixStream::connect("/tmp/ioracle.in") {
+        if let Err(e) = stream.write_all(b"read") {
+            println!("{:?}", e);
+        };
+    };
+
+    println!("show result");
+
+    use std::fs;
+    use std::path::Path;
+    let socket = Path::new("/tmp/ioracle.out");
+    // Delete old socket if necessary
+    if socket.exists() {
+        if let Err(error) = std::fs::remove_file("/tmp/ioracle.out") {
+            println!("{}", error);
+            std::process::exit(1);
+        };
+    }
+
+    let mut result = "".to_string();
+    let listener = UnixListener::bind("/tmp/ioracle.out").unwrap();
+    for stream in listener.incoming() {
+        match stream {
+            Ok(stream) => {
+                let stream = BufReader::new(stream);
+                if let Some(r) = stream.lines().nth(0) {
+                    if let Ok(r) = r {
+                        result = r;
+                    }
+                }
+                println!("result: {:?}", result);
+                break;
+            }
+            Err(err) => {
+                println!("Error: {}", err);
+                break;
+            }
+        }
+    }
+
+    //----------------------------------------------------------------
+    // Ok(Redirect::to(format!(
+    //     "/answer/{}",
+    //     ask(
+    //         config,
+    //         &connection,
+    //         question.email.to_owned(),
+    //         question.question.to_owned()
+    //     )?
+    // )))
+    Ok(Redirect::to(format!("/result/{}", result)))
 }

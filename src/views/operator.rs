@@ -5,6 +5,7 @@ use crate::wires::{
     reset_all, run_simulation, shell_fire, shimmering_on,
 };
 use crate::Db;
+use rocket::response::Redirect;
 use rocket_contrib::json::Json;
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -84,6 +85,153 @@ pub fn reset(connection: Db) -> IOracleResult<Json<String>> {
     let settings = Binding::get(&connection)?;
     let mut controller = build_controller()?;
     reset_all(&settings, &mut controller);
+
+    Ok(Json("ok".to_string()))
+}
+
+#[get("/send")]
+pub fn send() -> IOracleResult<Json<String>> {
+    // pub fn send() -> Redirect {
+    println!("send to gate");
+
+    use std::io::prelude::*;
+    use std::io::{BufRead, BufReader};
+    use std::os::unix::net::{UnixListener, UnixStream};
+    // let mut stream = UnixStream::connect("/tmp/ioracle.gate")?;
+    if let Ok(mut stream) = UnixStream::connect("/tmp/ioracle.gate") {
+        match stream.write_all(b"read") {
+            Ok(_) => {
+                // let listener = UnixListener::bind("/tmp/ioracle.out").unwrap();
+                // for stream in listener.incoming() {
+                //     match stream {
+                //         Ok(stream) => {
+                //             let stream = BufReader::new(stream);
+                //             for line in stream.lines() {
+                //                 println!("{}", line.unwrap());
+                //             }
+                //         }
+                //         Err(err) => {
+                //             println!("Error: {}", err);
+                //             break;
+                //         }
+                //     }
+                // }
+                // if let Ok(mut out) = UnixStream::connect("/tmp/ioracle.out") {
+                //     let mut response = String::new();
+                //     match out.read_to_string(&mut response) {
+                //         Ok(b) => {
+                //             println!("{:?}", b);
+                //             println!("{}", response);
+                //         }
+                //         Err(e) => println!("{:?}", e),
+                //     };
+                // }
+                // let mut response = String::new();
+                // match stream.read_to_string(&mut response) {
+                //     Ok(b) => {
+                //         println!("{:?}", b);
+                //         println!("{}", response);
+                //     }
+                //     Err(e) => println!("{:?}", e),
+                // };
+            }
+            Err(e) => println!("{:?}", e),
+        };
+    };
+
+    // Redirect::to("/operator/result")
+    // Ok(Json("ok".to_string()))
+
+    println!("show result");
+
+    // use std::io::prelude::*;
+    // use std::io::{BufRead, BufReader};
+    // use std::os::unix::net::{UnixListener, UnixStream};
+
+    use std::fs;
+    use std::path::Path;
+    let socket = Path::new("/tmp/ioracle.out");
+    // Delete old socket if necessary
+    if socket.exists() {
+        // fs::unlink(&socket).unwrap();
+        if let Err(error) = std::fs::remove_file("/tmp/ioracle.out") {
+            println!("{}", error);
+            std::process::exit(1);
+        };
+    }
+    // let listener = UnixListener::bind("/tmp/ioracle.out").unwrap_or_else(|error| {
+    //     println!("{}", error);
+    //     std::process::exit(1);
+    // });
+
+    let listener = UnixListener::bind("/tmp/ioracle.out").unwrap();
+    for stream in listener.incoming() {
+        match stream {
+            Ok(stream) => {
+                let stream = BufReader::new(stream);
+
+                println!("{:?}", stream.lines().nth(0));
+
+                // for line in stream.lines() {
+                //     println!("{}", line.unwrap());
+                //     break;
+                // }
+                break;
+            }
+            Err(err) => {
+                println!("Error: {}", err);
+                break;
+            }
+        }
+    }
+
+    Ok(Json("ok".to_string()))
+}
+
+#[get("/result")]
+pub fn result() -> IOracleResult<Json<String>> {
+    println!("show result");
+
+    use std::io::prelude::*;
+    use std::io::{BufRead, BufReader};
+    use std::os::unix::net::{UnixListener, UnixStream};
+
+    use std::fs;
+    use std::path::Path;
+    let socket = Path::new("/tmp/ioracle.out");
+    // Delete old socket if necessary
+    if socket.exists() {
+        // fs::unlink(&socket).unwrap();
+        if let Err(error) = std::fs::remove_file("/tmp/ioracle.out") {
+            println!("{}", error);
+            std::process::exit(1);
+        };
+    }
+    // let listener = UnixListener::bind("/tmp/ioracle.out").unwrap_or_else(|error| {
+    //     println!("{}", error);
+    //     std::process::exit(1);
+    // });
+
+    let listener = UnixListener::bind("/tmp/ioracle.out").unwrap();
+    for stream in listener.incoming() {
+        match stream {
+            Ok(stream) => {
+                let stream = BufReader::new(stream);
+
+                println!("{:?}", stream.lines().nth(0));
+
+                // for line in stream.lines() {
+                //     println!("{}", line.unwrap());
+                //     break;
+                // }
+                break;
+            }
+            Err(err) => {
+                println!("Error: {}", err);
+                break;
+            }
+        }
+    }
 
     Ok(Json("ok".to_string()))
 }
