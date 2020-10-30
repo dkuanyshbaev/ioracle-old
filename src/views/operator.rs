@@ -30,9 +30,15 @@ pub struct Pip {
 
 #[post("/pin", format = "json", data = "<test>")]
 pub fn pin(test: Json<Test>) -> Json<String> {
-    match test.action {
-        1 => pin_on(test.pin),
-        _ => pin_off(test.pin),
+    if test.pin == 7 {
+        pin7_start();
+    } else if test.pin == 8 {
+        pin8_start();
+    } else {
+        match test.action {
+            1 => pin_on(test.pin),
+            _ => pin_off(test.pin),
+        }
     }
 
     Json("ok".to_string())

@@ -908,6 +908,18 @@ pub fn shell_fire() {
         .expect("failed to execute process");
 }
 
+pub fn pin7_start() {
+    if let Err(e) = std::process::Command::new("/ioracle/scripts/pin7.sh").output() {
+        println!("{:?}", e);
+    }
+}
+
+pub fn pin8_start() {
+    if let Err(e) = std::process::Command::new("/ioracle/scripts/pin8.sh").output() {
+        println!("{:?}", e);
+    }
+}
+
 pub fn show_hexagram(
     h: &String,
     r: &String,
