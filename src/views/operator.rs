@@ -1,8 +1,8 @@
 use crate::errors::IOracleResult;
 use crate::models::binding::Binding;
 use crate::wires::{
-    build_controller, colour_off, colour_on, fire_on, open_pip, pin_off, pin_on, play_sound,
-    reset_all, run_simulation, shell_fire, shimmering_on,
+    build_controller, colour_off, colour_on, fire_on, open_pip, pin7_start, pin8_start, pin_off,
+    pin_on, play_sound, reset_all, run_simulation, shell_fire, shimmering_on,
 };
 use crate::Db;
 use rocket::response::Redirect;
