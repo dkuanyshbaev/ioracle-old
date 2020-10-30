@@ -148,19 +148,19 @@
             <br>
             <br>
 
-            <h4>King Wen's Decision</h4>
+            <h4>King Wen's Decision Primary</h4>
             <br>
             {{hexagram.judgment}}
             <br>
             <br>
 
-            <h4>The Image</h4>
+            <h4>The Image Primary</h4>
             <br>
             {{hexagram.image}}
             <br>
             <br>
 
-            <h4>Duke of Zhou</h4>
+            <h4>Duke of Zhou Primary</h4>
             <br>
             {{hexagram.lines}}
             <br>
