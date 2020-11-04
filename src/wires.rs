@@ -272,6 +272,110 @@ pub fn run_emulation(
 ) -> IOracleResult<()> {
     println!("--------> emulation on");
 
+    if let Ok(mut controller) = build_controller() {
+        match first_trigram.as_str() {
+            // Heaven
+            "111" => {
+                render_yang(6, &mut controller, &settings.heaven_colour);
+                render_yang(1, &mut controller, &settings.heaven_colour);
+                render_yang(2, &mut controller, &settings.heaven_colour);
+            }
+            // Cloud
+            "110" => {
+                render_yang(6, &mut controller, &settings.cloud_colour);
+                render_yang(1, &mut controller, &settings.cloud_colour);
+                render_yin(2, &mut controller, &settings.cloud_colour);
+            }
+            // Sun
+            "101" => {
+                render_yang(6, &mut controller, &settings.sun_colour);
+                render_yin(1, &mut controller, &settings.sun_colour);
+                render_yang(2, &mut controller, &settings.sun_colour);
+            }
+            // Wind
+            "011" => {
+                render_yin(6, &mut controller, &settings.wind_colour);
+                render_yang(1, &mut controller, &settings.wind_colour);
+                render_yang(2, &mut controller, &settings.wind_colour);
+            }
+            // Thunder
+            "100" => {
+                render_yang(6, &mut controller, &settings.thunder_colour);
+                render_yin(1, &mut controller, &settings.thunder_colour);
+                render_yin(2, &mut controller, &settings.thunder_colour);
+            }
+            // Water
+            "010" => {
+                render_yin(6, &mut controller, &settings.water_colour);
+                render_yang(1, &mut controller, &settings.water_colour);
+                render_yin(2, &mut controller, &settings.water_colour);
+            }
+            // Mountain
+            "001" => {
+                render_yin(6, &mut controller, &settings.mountain_colour);
+                render_yin(1, &mut controller, &settings.mountain_colour);
+                render_yang(2, &mut controller, &settings.mountain_colour);
+            }
+            // Earth
+            _ => {
+                render_yin(6, &mut controller, &settings.earth_colour);
+                render_yin(1, &mut controller, &settings.earth_colour);
+                render_yin(2, &mut controller, &settings.earth_colour);
+            }
+        }
+
+        match second_trigram.as_str() {
+            // Heaven
+            "111" => {
+                render_yang(3, &mut controller, &settings.heaven_colour);
+                render_yang(4, &mut controller, &settings.heaven_colour);
+                render_yang(5, &mut controller, &settings.heaven_colour);
+            }
+            // Cloud
+            "110" => {
+                render_yang(3, &mut controller, &settings.cloud_colour);
+                render_yang(4, &mut controller, &settings.cloud_colour);
+                render_yin(5, &mut controller, &settings.cloud_colour);
+            }
+            // Sun
+            "101" => {
+                render_yang(3, &mut controller, &settings.sun_colour);
+                render_yin(4, &mut controller, &settings.sun_colour);
+                render_yang(5, &mut controller, &settings.sun_colour);
+            }
+            // Wind
+            "011" => {
+                render_yin(3, &mut controller, &settings.wind_colour);
+                render_yang(4, &mut controller, &settings.wind_colour);
+                render_yang(5, &mut controller, &settings.wind_colour);
+            }
+            // Thunder
+            "100" => {
+                render_yang(3, &mut controller, &settings.thunder_colour);
+                render_yin(4, &mut controller, &settings.thunder_colour);
+                render_yin(5, &mut controller, &settings.thunder_colour);
+            }
+            // Water
+            "010" => {
+                render_yin(3, &mut controller, &settings.water_colour);
+                render_yang(4, &mut controller, &settings.water_colour);
+                render_yin(5, &mut controller, &settings.water_colour);
+            }
+            // Mountain
+            "001" => {
+                render_yin(3, &mut controller, &settings.mountain_colour);
+                render_yin(4, &mut controller, &settings.mountain_colour);
+                render_yang(5, &mut controller, &settings.mountain_colour);
+            }
+            // Earth
+            _ => {
+                render_yin(3, &mut controller, &settings.earth_colour);
+                render_yin(4, &mut controller, &settings.earth_colour);
+                render_yin(5, &mut controller, &settings.earth_colour);
+            }
+        }
+    };
+
     Ok(())
 }
 
