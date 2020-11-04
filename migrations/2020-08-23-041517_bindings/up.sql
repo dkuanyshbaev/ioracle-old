@@ -2,6 +2,7 @@ create table if not exists bindings (
     id integer not null primary key,
     default_colour text not null,
     resting_colour text not null,
+    li_colour text not null,
     heaven_pin integer not null,
     heaven_colour text not null,
     cloud_pin integer not null,
@@ -23,6 +24,7 @@ insert or ignore into bindings (
     id,
     default_colour,
     resting_colour,
+    li_colour,
     heaven_pin,
     heaven_colour,
     cloud_pin,
@@ -43,6 +45,7 @@ insert or ignore into bindings (
     1, -- id
     "#FFFFFF", -- default_colour
     "#FFFFFF", -- resting_colour
+    "#FFFFFF", -- li_colour
     0, -- heaven_pin
     "#FFFFFF", -- heaven_colour
     0, -- cloud_pin

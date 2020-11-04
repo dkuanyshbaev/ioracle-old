@@ -225,6 +225,37 @@ pub fn colour_off() {
     };
 }
 
+pub fn li_on(colour: String) {
+    println!("--------> set li colour: {}", colour);
+
+    if let Ok(mut controller) = build_controller() {
+        let (a, b, c) = parse_colour(&colour);
+        let li_leds = controller.leds_mut(1);
+        for num in 0..li_leds.len() {
+            li_leds[num as usize] = [c, b, a, 0];
+        }
+
+        if let Err(e) = controller.render() {
+            println!("Li error: {:?}", e);
+        }
+    };
+}
+
+pub fn li_off() {
+    println!("--------> li colour off");
+
+    if let Ok(mut controller) = build_controller() {
+        let li_leds = controller.leds_mut(1);
+        for num in 0..li_leds.len() {
+            li_leds[num as usize] = [0, 0, 0, 0];
+        }
+
+        if let Err(e) = controller.render() {
+            println!("Li error: {:?}", e);
+        }
+    };
+}
+
 pub fn fire_on() {
     println!("--------> fire on");
 
@@ -232,6 +263,16 @@ pub fn fire_on() {
         render_fire(&mut controller);
         reset_colours(&mut controller);
     };
+}
+
+pub fn run_emulation(
+    settings: &Binding,
+    first_trigram: &String,
+    second_trigram: &String,
+) -> IOracleResult<()> {
+    println!("--------> emulation on");
+
+    Ok(())
 }
 
 pub fn shimmering_on() {

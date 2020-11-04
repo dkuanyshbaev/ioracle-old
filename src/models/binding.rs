@@ -7,6 +7,7 @@ pub struct Binding {
     pub id: i32,
     pub default_colour: String,
     pub resting_colour: String,
+    pub li_colour: String,
     pub heaven_pin: i32,
     pub heaven_colour: String,
     pub cloud_pin: i32,
@@ -31,6 +32,7 @@ pub struct Binding {
 pub struct UpdatedBinding {
     pub default_colour: String,
     pub resting_colour: String,
+    pub li_colour: String,
     pub heaven_pin: i32,
     pub heaven_colour: String,
     pub cloud_pin: i32,

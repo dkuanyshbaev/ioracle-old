@@ -14,6 +14,7 @@ table! {
         id -> Integer,
         default_colour -> Text,
         resting_colour -> Text,
+        li_colour -> Text,
         heaven_pin -> Integer,
         heaven_colour -> Text,
         cloud_pin -> Integer,

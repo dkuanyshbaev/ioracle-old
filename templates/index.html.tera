@@ -41,10 +41,11 @@
         <h4 id="head2">FOR MAN AND MACHINE</h4>
         <hr id="main_hr">
         <p class="lead">The I ORACLE is a hybrid human/plant/machine driven divination system based on the I Ching.
-        <br>After you and the bonsai deliver your energy to the I ORACLE a natural language processor interprets the data to form a response that draws on the ancient texts of the I Ching.
-        <br><br>Each reading if performs is logged into a recursive machine learning system that is designed to teach itself and the Bonsai how to communicate.
-        <br><br>To perform your reading, formulate a question you might have that you have been unable to resolve through conventional means. Make it as specific and as clear as possible, asking 'if i were to solve the problem in this particular way' or 'if this were to be the outcome' rather than 'how should something happen.'</p>
-        <br>
+        <br>To perform your reading, formulate a question you might have that you have been unable to resolve through conventional means. Make it as specific and as clear as possible, asking ‘if i were to solve the problem in this particular way’ or ‘if this were to be the outcome’ rather than ’how should something happen’.
+        <br><br>Type it into the question box below, along with your email, and take a seat near the bonsai. Press commit when you are ready to focus on your question and the tree. As your energy passes through the bonsai, you and the tree will determine the results of your reading, which will be delivered as a hexagram (6 lines) answer. This hexagram is formed by a set of three lines, created line by line on the overhead LED’s, each representing an element. After each element that forms your hexagram is determined, it is expressed to the bonsai physically by the i Oracle system. During that time, the bonsai will determine if any of three lines of that element are ‘changing’.
+        <br><br>Once your reading is complete, you will receive a transcription of the ancient texts of the I Ching related to your hexagrams on your phone as well as over email. The binary (yin/yang) values of your reading as well as your question will be logged into a the i Oracle generative system, which interprets a response directly through the fundamental rules of I Ching (i-theory). This modernized and personalised answer be sent to you over email in due course.
+        <br><br>Thank you for participating in the creating of this project, designed to put nature at the helm of technology and help guide ethical behaviour in humans and machine.
+        <br></p>
 
         <img src="/static/solid-fwd.gif" id="loader" style="display: none;">
 

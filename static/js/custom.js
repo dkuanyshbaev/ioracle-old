@@ -1,5 +1,5 @@
 $(function () {
-    $('#c1, #c2, #c3, #c4, #c5, #c6, #c7, #c8, #c9, #c10').colorpicker({
+    $('#c1, #c2, #c3, #c4, #c5, #c6, #c7, #c8, #c9, #c10, #c11').colorpicker({
         useAlpha: false,
         format: "rgb"
     });
@@ -8,6 +8,7 @@ $(function () {
 function save(){
     var default_colour = $("#default_colour").val();
     var resting_colour = $("#resting_colour").val();
+    var li_colour = $("#li_colour").val();
     var heaven_pin = $("#heaven_pin").val();
     var heaven_colour = $("#heaven_colour").val();
     var cloud_pin = $("#cloud_pin").val();
@@ -29,6 +30,7 @@ function save(){
     var data = JSON.stringify({
         "default_colour": default_colour,
         "resting_colour": resting_colour,
+        "li_colour": li_colour,
         "heaven_pin": parseInt(heaven_pin),
         "heaven_colour": heaven_colour,
         "cloud_pin": parseInt(cloud_pin),
@@ -398,17 +400,27 @@ function resting_colour(element) {
         async: false
     });
 
-    if (element.checked) {
-        colour_on("", "shim");
-    }
+    var resting_colour = $("#resting_colour").val();
 
-    // var resting_colour = $("#resting_colour").val();
-    //
-    // if (element.checked) {
-    //     colour_on(resting_colour, "111");
-    // } else {
-    //     colour_off();
-    // }
+    if (element.checked) {
+        colour_on(resting_colour, "111");
+    } else {
+        colour_off();
+    }
+};
+
+function li_colour(element) {
+    $.ajaxSetup({
+        async: false
+    });
+
+    var li_colour = $("#li_colour").val();
+
+    if (element.checked) {
+        li_on(li_colour);
+    } else {
+        li_off();
+    }
 };
 
 function open_pip(){
@@ -426,4 +438,61 @@ function open_pip(){
     xhr.open("POST", "operator/pip", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(data);
+};
+
+function show_emulation(){
+    var first_trigram = $("#first_trigram").val();
+    var second_trigram = $("#second_trigram").val();
+
+    var data = JSON.stringify({
+        "first_trigram": first_trigram,
+        "second_trigram": second_trigram,
+    });
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/operator/emulation", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(data);
+};
+
+function li_on(colour){
+    $.ajaxSetup({
+        async: false
+    });
+
+    var data = JSON.stringify({
+        "colour" : colour,
+        "action" : 1,
+    });
+
+    $.ajax({
+        url: "operator/li",
+        type: "POST",
+        data: data,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(){
+        }
+    });
+};
+
+function li_off(){
+    $.ajaxSetup({
+        async: false
+    });
+
+    var data = JSON.stringify({
+        "colour" : "",
+        "action" : 0,
+    });
+
+    $.ajax({
+        url: "operator/li",
+        type: "POST",
+        data: data,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(){
+        }
+    });
 };

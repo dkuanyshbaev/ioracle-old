@@ -50,9 +50,11 @@ fn rocket(config: Config) -> rocket::Rocket {
             routes![
                 operator::pin,
                 operator::colour,
+                operator::li,
                 operator::sound,
                 operator::pip,
                 operator::simulation,
+                operator::emulation,
                 operator::reset,
                 operator::result,
                 operator::send

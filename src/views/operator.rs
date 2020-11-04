@@ -1,8 +1,9 @@
 use crate::errors::IOracleResult;
 use crate::models::binding::Binding;
 use crate::wires::{
-    build_controller, colour_off, colour_on, fire_on, open_pip, pin7_start, pin8_start, pin_off,
-    pin_on, play_sound, reset_all, run_simulation, shell_fire, shimmering_on,
+    build_controller, colour_off, colour_on, fire_on, li_off, li_on, open_pip, pin7_start,
+    pin8_start, pin_off, pin_on, play_sound, reset_all, run_emulation, run_simulation, shell_fire,
+    shimmering_on,
 };
 use crate::Db;
 use rocket::response::Redirect;
@@ -17,6 +18,12 @@ pub struct Test {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
+pub struct Li {
+    colour: String,
+    action: u8,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Sound {
     file_name: String,
 }
@@ -26,6 +33,12 @@ pub struct Pip {
     multiply: String,
     bias: String,
     threshold: String,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Trigrams {
+    first_trigram: String,
+    second_trigram: String,
 }
 
 #[post("/pin", format = "json", data = "<test>")]
@@ -61,6 +74,16 @@ pub fn colour(test: Json<Test>) -> Json<String> {
     Json("ok".to_string())
 }
 
+#[post("/li", format = "json", data = "<li>")]
+pub fn li(li: Json<Li>) -> Json<String> {
+    match li.action {
+        1 => li_on(li.colour.to_owned()),
+        _ => li_off(),
+    }
+
+    Json("ok".to_string())
+}
+
 #[post("/sound", format = "json", data = "<sound>")]
 pub fn sound(sound: Json<Sound>) -> Json<String> {
     play_sound(sound.file_name.to_owned());
@@ -82,6 +105,17 @@ pub fn pip(pip: Json<Pip>) -> Json<String> {
 #[get("/simulation")]
 pub fn simulation(connection: Db) -> IOracleResult<Json<String>> {
     run_simulation(Binding::get(&connection)?)?;
+
+    Ok(Json("ok".to_string()))
+}
+
+#[post("/emulation", format = "json", data = "<trigrams>")]
+pub fn emulation(connection: Db, trigrams: Json<Trigrams>) -> IOracleResult<Json<String>> {
+    run_emulation(
+        &Binding::get(&connection)?,
+        &trigrams.first_trigram,
+        &trigrams.second_trigram,
+    )?;
 
     Ok(Json("ok".to_string()))
 }

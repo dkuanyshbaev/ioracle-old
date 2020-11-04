@@ -295,6 +295,16 @@
                         <input type="checkbox" onclick="resting_colour(this)" style="margin-left: 10px;">
                     </div>
                 </div>
+                <div class="col">
+                    <label for="resting_colour">Li Resting</label>
+                    <div id="c11" class="input-group">
+                        <input type="text" class="form-control input-lg" id="li_colour" value="{{item.li_colour}}"/>
+                        <span class="input-group-append">
+                            <span class="input-group-text colorpicker-input-addon"><i></i></span>
+                        </span>
+                        <input type="checkbox" onclick="li_colour(this)" style="margin-left: 10px;">
+                    </div>
+                </div>
             </div>
             <br>
             <br>
@@ -318,7 +328,41 @@
                 </div>
             </div>
             <br>
+            <!--
             <button onclick="open_pip()" class="btn btn-outline-info">Open PiP</button>
+            -->
+            <hr>
+
+            <div class="form-row">
+                <div class="col">
+                    <label for="first_trigram">First Trigram</label>
+                    <select class="custom-select" id="first_trigram">
+                        <option value=111>Heaven (111)</option>
+                        <option value=110>Cloud (110)</option>
+                        <option value=101>Sun (101)</option>
+                        <option value=100>Thunder (100)</option>
+                        <option value=011>Wind (011)</option>
+                        <option value=010>Water (010)</option>
+                        <option value=001>Mountain (001)</option>
+                        <option value=000>Earth (000)</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label for="first_trigram">Second Trigram</label>
+                    <select class="custom-select" id="second_trigram">
+                        <option value=111>Heaven (111)</option>
+                        <option value=110>Cloud (110)</option>
+                        <option value=101>Sun (101)</option>
+                        <option value=100>Thunder (100)</option>
+                        <option value=011>Wind (011)</option>
+                        <option value=010>Water (010)</option>
+                        <option value=001>Mountain (001)</option>
+                        <option value=000>Earth (000)</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <button onclick="show_emulation()" class="btn btn-outline-info">Show</button>
             <br>
             <br>
         </div>
