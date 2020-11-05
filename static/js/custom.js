@@ -488,7 +488,8 @@ function li_off(){
     });
 
     var data = JSON.stringify({
-        "colour" : "",
+        "li_colour" : "",
+        "resting_colour" : "",
         "action" : 0,
     });
 
