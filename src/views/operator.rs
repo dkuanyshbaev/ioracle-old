@@ -26,7 +26,8 @@ pub struct Rest {
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Li {
-    colour: String,
+    li_colour: String,
+    resting_colour: String,
     action: u8,
 }
 
@@ -46,6 +47,7 @@ pub struct Pip {
 pub struct Trigrams {
     first_trigram: String,
     second_trigram: String,
+    li_colour: String,
 }
 
 #[post("/pin", format = "json", data = "<test>")]
@@ -94,7 +96,7 @@ pub fn resting(rest: Json<Rest>) -> Json<String> {
 #[post("/li", format = "json", data = "<li>")]
 pub fn li(li: Json<Li>) -> Json<String> {
     match li.action {
-        1 => li_on(li.colour.to_owned()),
+        1 => li_on(li.li_colour.to_owned(), li.resting_colour.to_owned()),
         _ => li_off(),
     }
 

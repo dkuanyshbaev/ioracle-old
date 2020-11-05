@@ -416,9 +416,10 @@ function li_colour(element) {
     });
 
     var li_colour = $("#li_colour").val();
+    var resting_colour = $("#resting_colour").val();
 
     if (element.checked) {
-        li_on(li_colour);
+        li_on(li_colour, resting_colour);
     } else {
         li_off();
     }
@@ -445,9 +446,12 @@ function show_emulation(){
     var first_trigram = $("#first_trigram").val();
     var second_trigram = $("#second_trigram").val();
 
+    var li_colour = $("#li_colour").val();
+
     var data = JSON.stringify({
         "first_trigram": first_trigram,
         "second_trigram": second_trigram,
+        "li_colour": li_colour,
     });
 
     var xhr = new XMLHttpRequest();
@@ -456,13 +460,14 @@ function show_emulation(){
     xhr.send(data);
 };
 
-function li_on(colour){
+function li_on(li_colour, resting_colour){
     $.ajaxSetup({
         async: false
     });
 
     var data = JSON.stringify({
-        "colour" : colour,
+        "li_colour" : li_colour,
+        "resting_colour" : resting_colour,
         "action" : 1,
     });
 

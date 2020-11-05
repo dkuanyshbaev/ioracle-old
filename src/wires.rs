@@ -225,11 +225,17 @@ pub fn colour_off() {
     };
 }
 
-pub fn li_on(colour: String) {
-    println!("--------> set li colour: {}", colour);
+pub fn li_on(li_colour: String, resting_colour: String) {
+    println!("--------> set li colour: {}", li_colour);
 
     if let Ok(mut controller) = build_controller() {
-        let (a, b, c) = parse_colour(&colour);
+        let yao_leds = controller.leds_mut(0);
+        let (a1, b1, c1) = parse_colour(&resting_colour);
+        for num in 0..yao_leds.len() {
+            yao_leds[num as usize] = [c1, a1, b1, 0];
+        }
+
+        let (a, b, c) = parse_colour(&li_colour);
         let li_leds = controller.leds_mut(1);
         for num in 0..li_leds.len() {
             li_leds[num as usize] = [c, b, a, 0];
@@ -245,6 +251,11 @@ pub fn li_off() {
     println!("--------> li colour off");
 
     if let Ok(mut controller) = build_controller() {
+        let yao_leds = controller.leds_mut(0);
+        for num in 0..yao_leds.len() {
+            yao_leds[num as usize] = [0, 0, 0, 0];
+        }
+
         let li_leds = controller.leds_mut(1);
         for num in 0..li_leds.len() {
             li_leds[num as usize] = [0, 0, 0, 0];
