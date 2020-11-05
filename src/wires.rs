@@ -280,6 +280,7 @@ pub fn run_emulation(
     settings: &Binding,
     first_trigram: &String,
     second_trigram: &String,
+    li_colour: &String,
 ) -> IOracleResult<()> {
     println!("--------> emulation on");
 
@@ -384,6 +385,14 @@ pub fn run_emulation(
                 render_yin(4, &mut controller, &settings.earth_colour);
                 render_yin(5, &mut controller, &settings.earth_colour);
             }
+        }
+        let li_leds = controller.leds_mut(1);
+        let (a2, b2, c2) = parse_colour(&li_colour);
+        for num in 0..li_leds.len() {
+            li_leds[num as usize] = [c2, b2, a2, 0];
+        }
+        if let Err(e) = controller.render() {
+            println!("li error: {:?}", e);
         }
     };
 

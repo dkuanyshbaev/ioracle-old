@@ -134,6 +134,7 @@ pub fn emulation(connection: Db, trigrams: Json<Trigrams>) -> IOracleResult<Json
         &Binding::get(&connection)?,
         &trigrams.first_trigram,
         &trigrams.second_trigram,
+        &trigrams.li_colour,
     )?;
 
     Ok(Json("ok".to_string()))
