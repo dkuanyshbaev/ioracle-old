@@ -1134,3 +1134,46 @@ pub fn get_colours(h: &Hexagram, s: &Binding) -> (String, String) {
 
     (first_colour, second_colour)
 }
+
+pub fn resting_on(yao_colour: String, li_colour: String) {
+    println!("--------> resting colour on");
+
+    if let Ok(mut controller) = build_controller() {
+        let yao_leds = controller.leds_mut(0);
+        let (a1, b1, c1) = parse_colour(&yao_colour);
+        for num in 0..yao_leds.len() {
+            yao_leds[num as usize] = [c1, a1, b1, 0];
+        }
+
+        let li_leds = controller.leds_mut(1);
+        let (a2, b2, c2) = parse_colour(&li_colour);
+        for num in 0..li_leds.len() {
+            li_leds[num as usize] = [c2, b2, a2, 0];
+        }
+
+        if let Err(e) = controller.render() {
+            println!("resting error: {:?}", e);
+        }
+    };
+}
+
+pub fn resting_off() {
+    println!("--------> resting colour off");
+
+    let colour = "rgb(0, 0, 0)".to_string();
+    if let Ok(mut controller) = build_controller() {
+        let yao_leds = controller.leds_mut(0);
+        for num in 0..yao_leds.len() {
+            yao_leds[num as usize] = [0, 0, 0, 0];
+        }
+
+        let li_leds = controller.leds_mut(1);
+        for num in 0..li_leds.len() {
+            li_leds[num as usize] = [0, 0, 0, 0];
+        }
+
+        if let Err(e) = controller.render() {
+            println!("resting error: {:?}", e);
+        }
+    };
+}

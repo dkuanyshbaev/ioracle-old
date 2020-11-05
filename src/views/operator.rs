@@ -2,8 +2,8 @@ use crate::errors::IOracleResult;
 use crate::models::binding::Binding;
 use crate::wires::{
     build_controller, colour_off, colour_on, fire_on, li_off, li_on, open_pip, pin7_start,
-    pin8_start, pin_off, pin_on, play_sound, reset_all, run_emulation, run_simulation, shell_fire,
-    shimmering_on,
+    pin8_start, pin_off, pin_on, play_sound, reset_all, resting_off, resting_on, run_emulation,
+    run_simulation, shell_fire, shimmering_on,
 };
 use crate::Db;
 use rocket::response::Redirect;
@@ -14,6 +14,13 @@ pub struct Test {
     pin: u8,
     colour: String,
     code: String,
+    action: u8,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Rest {
+    yao_colour: String,
+    li_colour: String,
     action: u8,
 }
 
@@ -70,6 +77,16 @@ pub fn colour(test: Json<Test>) -> Json<String> {
             _ => colour_off(),
         }
     };
+
+    Json("ok".to_string())
+}
+
+#[post("/resting", format = "json", data = "<rest>")]
+pub fn resting(rest: Json<Rest>) -> Json<String> {
+    match rest.action {
+        1 => resting_on(rest.yao_colour.to_owned(), rest.li_colour.to_owned()),
+        _ => resting_off(),
+    }
 
     Json("ok".to_string())
 }

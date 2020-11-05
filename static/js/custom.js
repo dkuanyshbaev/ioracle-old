@@ -401,11 +401,12 @@ function resting_colour(element) {
     });
 
     var resting_colour = $("#resting_colour").val();
+    var li_colour = $("#li_colour").val();
 
     if (element.checked) {
-        colour_on(resting_colour, "111");
+        resting_on(resting_colour, li_colour, "111");
     } else {
-        colour_off();
+        resting_off();
     }
 };
 
@@ -488,6 +489,50 @@ function li_off(){
 
     $.ajax({
         url: "operator/li",
+        type: "POST",
+        data: data,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(){
+        }
+    });
+};
+
+function resting_on(yao_colour, li_colour, code){
+    $.ajaxSetup({
+        async: false
+    });
+
+    var data = JSON.stringify({
+        "yao_colour" : yao_colour,
+        "li_colour" : li_colour,
+        "action" : 1,
+    });
+
+    $.ajax({
+        url: "operator/resting",
+        type: "POST",
+        data: data,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(){
+        }
+    });
+};
+
+function resting_off(){
+    $.ajaxSetup({
+        async: false
+    });
+
+    var data = JSON.stringify({
+        "yao_colour" : "",
+        "li_colour" : "",
+        "action" : 0,
+    });
+
+    $.ajax({
+        url: "operator/resting",
         type: "POST",
         data: data,
         contentType: "application/json; charset=utf-8",
